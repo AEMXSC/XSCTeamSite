@@ -1,8 +1,4 @@
 {
-  "mappings": [
-    "/content/test/:/"
-  ],
-  "includes": [
-    "/content/test/"
-  ]
+  "mappings": ["/content/AEMXSC/XSCTeamSite/:/"],
+  "includes": ["/content/AEMXSC/XSCTeamSite/"]
 }
