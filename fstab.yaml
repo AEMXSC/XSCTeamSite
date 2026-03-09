@@ -1,5 +1,5 @@
 mountpoints:
   /:
-    url: "https://author-p126422-e1237981.adobeaemcloud.com/bin/franklin.delivery/Remekie/nexus-aem-showcase/main"
+    url: "https://content.da.live/Remekie/nexus-aem-showcase"
     type: "markup"
     suffix: ".html"
