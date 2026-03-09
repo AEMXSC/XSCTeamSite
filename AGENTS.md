@@ -1,4 +1,4 @@
-# CLAUDE.md — nexus-aem-showcase
+# CLAUDE.md — nexus-aem-showcase-v2
 
 This project is an AEM Edge Delivery Services site using Universal Editor (xwalk) authoring.
 Built on `adobe-rnd/aem-boilerplate-xwalk`. Developed by Adobe XSC team.
@@ -43,8 +43,8 @@ For finding reference implementations: use `block-collection-and-party` skill.
 
 > Update these with actual URLs for each project.
 
-- **Preview:** `https://main--nexus-aem-showcase--[org].aem.page/`
-- **Live:** `https://main--nexus-aem-showcase--[org].aem.live/`
+- **Preview:** `https://main--nexus-aem-showcase-v2--[org].aem.page/`
+- **Live:** `https://main--nexus-aem-showcase-v2--[org].aem.live/`
 - **Local dev:** `http://localhost:3000` (run `aem up`)
 
 ---
