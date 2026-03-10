@@ -10,7 +10,36 @@ import {
   loadSection,
   loadSections,
   loadCSS,
+  loadScript,
+  sampleRUM,
+  getMetadata,
+  toCamelCase,
+  toClassName,
 } from './aem.js';
+
+/**
+ * Returns all metadata elements matching a given prefix.
+ * @param {string} scope The prefix to match
+ * @returns {object} Key/value pairs of matching metadata
+ */
+export function getAllMetadata(scope) {
+  return [...document.head.querySelectorAll(`meta[property^="${scope}:"],meta[name^="${scope}-"]`)]
+    .reduce((res, meta) => {
+      const id = toClassName(meta.name
+        ? meta.name.substring(scope.length + 1)
+        : meta.getAttribute('property').split(':').pop());
+      res[id] = meta.getAttribute('content');
+      return res;
+    }, {});
+}
+
+/**
+ * Audience definitions for experimentation.
+ */
+const AUDIENCES = {
+  mobile: () => window.innerWidth < 600,
+  desktop: () => window.innerWidth >= 600,
+};
 
 /**
  * Moves all the attributes from a given elmenet to another given element.
@@ -92,6 +121,18 @@ export function decorateMain(main) {
 async function loadEager(doc) {
   document.documentElement.lang = 'en';
   decorateTemplateAndTheme();
+
+  // Experimentation — must run before decorateMain to swap variant content
+  if (getMetadata('experiment')
+    || Object.keys(getAllMetadata('campaign')).length
+    || Object.keys(getAllMetadata('audience')).length) {
+    // eslint-disable-next-line import/no-unresolved
+    const { loadEager: runEager } = await import('@adobe/aem-experimentation/src/index.js');
+    await runEager(document, { audiences: AUDIENCES }, {
+      getAllMetadata, getMetadata, loadCSS, loadScript, sampleRUM, toCamelCase, toClassName,
+    });
+  }
+
   const main = doc.querySelector('main');
   if (main) {
     decorateMain(main);
@@ -127,6 +168,17 @@ async function loadLazy(doc) {
 
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
+
+  // Experimentation — load lazy (simulation UI, analytics integration)
+  if (getMetadata('experiment')
+    || Object.keys(getAllMetadata('campaign')).length
+    || Object.keys(getAllMetadata('audience')).length) {
+    // eslint-disable-next-line import/no-unresolved
+    const { loadLazy: runLazy } = await import('@adobe/aem-experimentation/src/index.js');
+    await runLazy(document, { audiences: AUDIENCES }, {
+      getAllMetadata, getMetadata, loadCSS, loadScript, sampleRUM, toCamelCase, toClassName,
+    });
+  }
 }
 
 /**
@@ -139,10 +191,21 @@ function loadDelayed() {
   // load anything that can be postponed to the latest here
 }
 
-async function loadPage() {
+export async function loadPage() {
   await loadEager(document);
   await loadLazy(document);
   loadDelayed();
 }
+
+// DA.live authoring tools — activate via query params
+(function da() {
+  const { searchParams } = new URL(window.location.href);
+  if (searchParams.has('dapreview')) {
+    import('../tools/da/da.js').then((mod) => mod.default(loadPage));
+  }
+  if (searchParams.has('quick-edit')) {
+    import('../tools/quick-edit/quick-edit.js').then((mod) => mod.default());
+  }
+}());
 
 loadPage();
