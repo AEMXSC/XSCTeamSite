@@ -1,8 +1,8 @@
 {
   "projectType": "xwalk",
-  "libraryUrl": null,
-  "hasBlockLibrary": false,
+  "libraryUrl": "https://main--xscteamsite--aemxsc.aem.page/tools/sidekick/library.json",
+  "hasBlockLibrary": true,
   "sourceUrl": "https://nexus-aem-showcase.lovable.app/",
-  "type": "xwalk",
-  "contentHostUrl": "author-p126422-e1471131.adobeaemcloud.com"
+  "type": "da",
+  "contentHostUrl": "https://content.da.live/aemxsc/xscteamsite/"
 }
