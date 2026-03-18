@@ -1,8 +1,6 @@
 {
-  "projectType": "xwalk",
-  "libraryUrl": "https://main--xscteamsite--aemxsc.aem.page/tools/sidekick/library.json",
-  "hasBlockLibrary": true,
-  "sourceUrl": "https://main--xscteamsite--aemxsc.aem.page/",
   "type": "da",
-  "contentHostUrl": "https://content.da.live/aemxsc/xscteamsite/"
+  "contentHostUrl": "https://content.da.live/aemxsc/xscteamsite/",
+  "libraryUrl": "https://main--xscteamsite--aemxsc.aem.page/tools/sidekick/library.json",
+  "boilerplate": "xscteamsite"
 }
