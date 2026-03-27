@@ -537,7 +537,7 @@ function updateGovernanceBar(score, checks) {
   });
   const scoreEl = governanceBar.querySelector('.gov-score');
   scoreEl.textContent = `Compliance: ${score}%`;
-  scoreEl.style.color = score >= 90 ? 'var(--green)' : score >= 80 ? 'var(--yellow)' : 'var(--accent)';
+  scoreEl.style.color = score >= 90 ? 'var(--positive)' : score >= 80 ? 'var(--warning)' : 'var(--negative)';
 }
 
 /* ── Preview ── */
