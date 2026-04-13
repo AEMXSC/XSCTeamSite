@@ -119,10 +119,11 @@ body:has(.summit-header) header {
   padding-left: 8px;
 }
 
-/* on narrow phones, allow right side to shrink so day name is never clipped */
+/* on narrow phones, cap right side at 50% so logo always has room */
 @media (width < 500px) {
   .sh-right {
     flex-shrink: 1;
+    max-width: 50%;
     min-width: 0;
     overflow: hidden;
     text-overflow: ellipsis;
