@@ -1,0 +1,156 @@
+/* summit-header — sticky status bar, mobile-first */
+
+.summit-header {
+  position: sticky;
+  top: var(--nav-height, 64px);
+  z-index: 90;
+  width: 100%;
+  padding: 0;
+}
+
+.sh-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 0 16px;
+  min-height: 48px;
+  background: #131e29;
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+/* open state — subtle green tint */
+.sh-bar[data-state="open"] {
+  background: #131f14;
+  border-bottom-color: rgb(76 175 80 / 25%);
+}
+
+.sh-bar[data-state="closed"],
+.sh-bar[data-state="after"] {
+  background: #111;
+}
+
+/* ---- left side ---- */
+.sh-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+  overflow: hidden;
+  flex: 1;
+}
+
+.sh-logo-link {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  text-decoration: none;
+}
+
+.sh-logo-svg {
+  height: 13px;
+  width: auto;
+  display: block;
+}
+
+/* vertical separator between logo and status */
+.sh-sep {
+  display: block;
+  width: 1px;
+  height: 20px;
+  background: rgb(255 255 255 / 15%);
+  flex-shrink: 0;
+}
+
+.sh-dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+@keyframes sh-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%       { opacity: 0.55; transform: scale(1.35); }
+}
+
+.sh-dot-pulse {
+  animation: sh-pulse 2s ease-in-out infinite;
+}
+
+.sh-day {
+  font-weight: 700;
+  font-size: 13px;
+  color: #f0f0f0;
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-family: var(--heading-font-family);
+  letter-spacing: 0.01em;
+}
+
+.sh-divider {
+  color: rgb(255 255 255 / 25%);
+  flex-shrink: 0;
+  font-size: 13px;
+}
+
+.sh-slot {
+  font-size: 12px;
+  color: rgb(255 255 255 / 60%);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+
+/* ---- right side ---- */
+.sh-right {
+  font-size: 12px;
+  white-space: nowrap;
+  flex-shrink: 0;
+  padding-left: 8px;
+}
+
+.sh-muted {
+  color: rgb(255 255 255 / 40%);
+}
+
+.sh-countdown {
+  font-weight: 600;
+  color: #4CAF50;
+}
+
+.sh-bar[data-state="before-open"] .sh-countdown,
+.sh-bar[data-state="before"] .sh-right {
+  color: rgb(255 255 255 / 40%);
+}
+
+/* hide slot text on very small screens, show only day */
+@media (width < 380px) {
+  .sh-slot,
+  .sh-divider {
+    display: none;
+  }
+}
+
+@media (width >= 600px) {
+  .sh-bar {
+    padding: 0 24px;
+  }
+
+  .sh-logo-svg {
+    height: 15px;
+  }
+
+  .sh-day {
+    font-size: 14px;
+  }
+
+  .sh-slot,
+  .sh-right {
+    font-size: 13px;
+  }
+}

@@ -1,0 +1,211 @@
+/* summit-coverage — FAB + bottom sheet modal, mobile-first */
+
+/* FAB */
+.scv-fab {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 200;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: none;
+  background: var(--color-red, #EB1000);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgb(235 16 0 / 50%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.scv-fab:hover,
+.scv-fab:focus-visible {
+  transform: scale(1.1);
+  box-shadow: 0 6px 24px rgb(235 16 0 / 65%);
+  outline: none;
+}
+
+.scv-fab-icon {
+  line-height: 1;
+}
+
+/* Prevent background scroll when modal open */
+body.scv-modal-open {
+  overflow: hidden;
+}
+
+/* ---- Modal overlay ---- */
+
+.scv-modal {
+  position: fixed;
+  inset: 0;
+  z-index: 300;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.scv-modal[hidden] { display: none; }
+
+.scv-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgb(0 0 0 / 60%);
+  -webkit-backdrop-filter: blur(2px);
+  backdrop-filter: blur(2px);
+}
+
+/* ---- Bottom sheet ---- */
+
+.scv-sheet {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 500px;
+  background: #1a2633;
+  border-radius: 18px 18px 0 0;
+  padding: 12px 20px 32px;
+  box-sizing: border-box;
+  animation: scv-slide-up 0.25s ease;
+}
+
+@keyframes scv-slide-up {
+  from { transform: translateY(100%); }
+  to   { transform: translateY(0); }
+}
+
+.scv-sheet-handle {
+  width: 36px;
+  height: 4px;
+  background: rgb(255 255 255 / 20%);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+
+.scv-close {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  width: 32px;
+  height: 32px;
+  border: none;
+  background: rgb(255 255 255 / 10%);
+  border-radius: 50%;
+  color: rgb(255 255 255 / 60%);
+  font-size: 14px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.scv-close:hover { background: rgb(255 255 255 / 18%); }
+
+.scv-title {
+  font-family: var(--heading-font-family);
+  font-size: 20px;
+  font-weight: 800;
+  color: #f0f0f0;
+  margin: 0 0 12px;
+  padding-right: 36px;
+}
+
+/* context info */
+.scv-context {
+  background: hsl(220deg 22% 14%);
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 8px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+}
+
+.scv-context-line {
+  font-size: 13px;
+  color: rgb(255 255 255 / 70%);
+  line-height: 1.5;
+}
+
+.scv-context-line strong { color: #f0f0f0; }
+
+.scv-no-name { color: rgb(255 255 255 / 35%); font-style: italic; }
+
+/* message textarea */
+.scv-msg-wrap { margin-bottom: 14px; }
+
+.scv-msg-label {
+  display: block;
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgb(255 255 255 / 40%);
+  margin-bottom: 6px;
+}
+
+.scv-msg {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 12px 14px;
+  background: hsl(220deg 22% 14%);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 8px;
+  color: #f0f0f0;
+  font-size: 14px;
+  font-family: var(--body-font-family);
+  line-height: 1.5;
+  resize: vertical;
+  outline: none;
+}
+
+.scv-msg:focus {
+  border-color: var(--color-red, #EB1000);
+}
+
+/* action buttons */
+.scv-send {
+  display: block;
+  width: 100%;
+  padding: 15px;
+  border: none;
+  border-radius: 10px;
+  background: #4a154b; /* Slack purple */
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--body-font-family);
+  cursor: pointer;
+  min-height: 52px;
+  margin-bottom: 10px;
+  transition: opacity 0.15s;
+}
+
+.scv-send:hover { opacity: 0.9; }
+
+.scv-copy {
+  display: block;
+  width: 100%;
+  padding: 13px;
+  border: 1px solid rgb(255 255 255 / 15%);
+  border-radius: 10px;
+  background: transparent;
+  color: rgb(255 255 255 / 50%);
+  font-size: 14px;
+  font-family: var(--body-font-family);
+  cursor: pointer;
+  min-height: 48px;
+}
+
+.scv-copy:hover { background: rgb(255 255 255 / 5%); }
+
+@media (width >= 600px) {
+  .scv-sheet {
+    border-radius: 18px;
+    margin: auto;
+    margin-bottom: 24px;
+    padding: 20px 28px 32px;
+  }
+}

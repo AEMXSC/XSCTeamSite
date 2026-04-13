@@ -1,0 +1,189 @@
+/* summit-contacts — collapsible contact list, mobile-first */
+
+.summit-contacts {
+  --sc-surface:  hsl(220deg 22% 14%);
+  --sc-border:   rgb(255 255 255 / 8%);
+  --sc-radius:   10px;
+
+  font-family: var(--body-font-family);
+  border: 1px solid var(--sc-border);
+  border-radius: var(--sc-radius);
+  overflow: hidden;
+  margin: 0 16px;
+}
+
+/* ---- Toggle button ---- */
+
+.sc-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px;
+  background: var(--sc-surface);
+  border: none;
+  color: #f0f0f0;
+  font-size: 14px;
+  font-weight: 700;
+  font-family: var(--heading-font-family);
+  text-align: left;
+  cursor: pointer;
+  min-height: 52px;
+  box-sizing: border-box;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.sc-toggle:hover {
+  background: hsl(220deg 22% 16%);
+}
+
+/* chevron */
+.sc-toggle-icon {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.sc-toggle-icon::before,
+.sc-toggle-icon::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background: rgb(255 255 255 / 50%);
+  top: 50%;
+  transition: transform 0.2s;
+}
+
+.sc-toggle-icon::before { right: 50%; transform: translateY(-50%) rotate(45deg); transform-origin: right center; }
+.sc-toggle-icon::after  { left: 50%;  transform: translateY(-50%) rotate(-45deg); transform-origin: left center; }
+
+.sc-toggle[aria-expanded="true"] .sc-toggle-icon::before { transform: translateY(-50%) rotate(-45deg); transform-origin: right center; }
+.sc-toggle[aria-expanded="true"] .sc-toggle-icon::after  { transform: translateY(-50%) rotate(45deg);  transform-origin: left center; }
+
+/* ---- List container ---- */
+
+.sc-list-wrap {
+  overflow: hidden;
+  max-height: 2000px;
+  transition: max-height 0.3s ease;
+  border-top: 1px solid var(--sc-border);
+}
+
+.sc-list-wrap.sc-collapsed {
+  max-height: 0;
+  border-top: none;
+}
+
+.sc-loading,
+.sc-error {
+  padding: 20px 16px;
+  margin: 0;
+  font-size: 14px;
+  color: rgb(255 255 255 / 40%);
+  text-align: center;
+}
+
+/* ---- Contact items ---- */
+
+.sc-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.sc-item {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--sc-border);
+}
+
+.sc-item:last-child { border-bottom: none; }
+
+.sc-item-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.sc-item-name {
+  font-size: 15px;
+  font-weight: 700;
+  color: #f0f0f0;
+  line-height: 1.2;
+}
+
+.sc-item-role {
+  font-size: 12px;
+  color: rgb(255 255 255 / 45%);
+  margin-top: 2px;
+}
+
+.sc-item-coverage {
+  font-size: 12px;
+  color: rgb(255 255 255 / 35%);
+  margin-top: 2px;
+  font-style: italic;
+}
+
+.sc-item-handle {
+  font-size: 12px;
+  color: var(--color-red, #EB1000);
+  margin-top: 3px;
+  font-weight: 500;
+}
+
+.sc-item-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+/* action buttons */
+.sc-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 600;
+  font-family: var(--body-font-family);
+  text-decoration: none;
+  white-space: nowrap;
+  min-height: 36px;
+  min-width: 70px;
+  box-sizing: border-box;
+  transition: opacity 0.15s;
+}
+
+.sc-btn:hover { opacity: 0.85; text-decoration: none; }
+
+.sc-btn-slack {
+  background: #4a154b;
+  color: #fff;
+  border: 1px solid rgb(255 255 255 / 10%);
+}
+
+.sc-btn-call {
+  background: transparent;
+  color: rgb(255 255 255 / 50%);
+  border: 1px solid rgb(255 255 255 / 15%);
+  font-size: 12px;
+}
+
+@media (width >= 600px) {
+  .summit-contacts { margin: 0 24px; }
+
+  .sc-toggle { padding: 16px 24px; font-size: 14px; }
+
+  .sc-item { padding: 16px 24px; }
+
+  .sc-item-actions { flex-direction: row; align-items: center; }
+
+  .sc-btn { min-height: 40px; }
+}
