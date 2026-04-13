@@ -91,6 +91,7 @@
 .sc-list {
   display: flex;
   flex-direction: column;
+  padding-bottom: 80px;
 }
 
 .sc-item {
@@ -176,14 +177,9 @@
   font-size: 12px;
 }
 
-/* FAB clearance */
-.summit-contacts {
-  margin-bottom: 80px;
-}
-
 @media (width >= 600px) {
   .summit-contacts {
-    margin: 0 24px 40px;
+    margin: 0 24px;
   }
 
   .sc-toggle { padding: 16px 24px; font-size: 14px; }
