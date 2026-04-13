@@ -18,7 +18,7 @@ const SUMMIT_DATES = {
   Wednesday: { date: '2026-06-10', start: '10:00', end: '15:00' },
 };
 const LS_NAME = 'summit-name';
-const DEFAULT_SCHEDULE_URL = '/summit/schedule-data.json';
+const DEFAULT_SCHEDULE_URL = '/summit/schedule-data.json?sheet=schedule';
 
 function getSimtime() {
   const p = new URLSearchParams(window.location.search).get('simtime');

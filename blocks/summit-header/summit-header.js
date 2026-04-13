@@ -212,7 +212,7 @@ export default async function decorate(block) {
 
   let scheduleData = null;
   try {
-    const resp = await fetch('/summit/schedule-data.json');
+    const resp = await fetch('/summit/schedule-data.json?sheet=schedule');
     if (resp.ok) scheduleData = (await resp.json()).data || [];
   } catch { /* graceful degradation */ }
 
