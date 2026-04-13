@@ -8,14 +8,14 @@
  *   | summit-schedule |
  *   | /summit/schedule-data.json |   ← optional, defaults to this path
  *
- * Test: ?simtime=2026-06-09T14:30
+ * Test: ?simtime=2026-04-21T14:30
  */
 
 const TZ = 'America/Los_Angeles';
 const SUMMIT_DATES = {
-  Monday:    { date: '2026-06-08', start: '09:00', end: '19:30' },
-  Tuesday:   { date: '2026-06-09', start: '10:30', end: '18:00' },
-  Wednesday: { date: '2026-06-10', start: '10:00', end: '15:00' },
+  Monday:    { date: '2026-04-20', start: '09:00', end: '19:30' },
+  Tuesday:   { date: '2026-04-21', start: '10:30', end: '18:00' },
+  Wednesday: { date: '2026-04-22', start: '10:00', end: '15:00' },
 };
 const DAY_COLORS = { Monday: '#4CAF50', Tuesday: '#FF9800', Wednesday: '#2196F3' };
 const BOOTH_ORDER = [

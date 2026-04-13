@@ -3,18 +3,18 @@
  *
  * Optional doc config (single row):
  *   | summit-header |
- *   | 2026-06-08, 2026-06-09, 2026-06-10 |
+ *   | 2026-04-20, 2026-04-21, 2026-04-22 |
  *
- * Test: ?simtime=2026-06-09T14:30
+ * Test: ?simtime=2026-04-21T14:30
  * All times: America/Los_Angeles (PDT).
  */
 
 const TZ = 'America/Los_Angeles';
 const DAY_COLORS = { Monday: '#4CAF50', Tuesday: '#FF9800', Wednesday: '#2196F3' };
 const DEFAULT_SUMMIT = {
-  Monday:    { date: '2026-06-08', start: '09:00', end: '19:30' },
-  Tuesday:   { date: '2026-06-09', start: '10:30', end: '18:00' },
-  Wednesday: { date: '2026-06-10', start: '10:00', end: '15:00' },
+  Monday:    { date: '2026-04-20', start: '09:00', end: '19:30' },
+  Tuesday:   { date: '2026-04-21', start: '10:30', end: '18:00' },
+  Wednesday: { date: '2026-04-22', start: '10:00', end: '15:00' },
 };
 
 // Summit 2026 wordmark SVG — black fills inverted to white for dark mode
@@ -141,7 +141,7 @@ function renderBar(bar, schedule, scheduleData) {
       <div class="sh-left">
         <a href="/summit/schedule" class="sh-logo-link" aria-label="Summit Schedule">${SUMMIT_LOGO_SVG}</a>
       </div>
-      <div class="sh-right sh-muted">June 8–10 · Las Vegas · Booth opens Monday 9am PDT</div>`;
+      <div class="sh-right sh-muted">April 20–22 · Las Vegas · Booth opens Monday 9am PDT</div>`;
     return;
   }
 
