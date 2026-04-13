@@ -28,7 +28,7 @@ const BOOTH_ORDER = [
 ];
 const LS_NAME = 'summit-name';
 const SS_MODE = 'summit-mode';
-const DEFAULT_URL = '/summit/schedule-data.json?sheet=schedule';
+const DEFAULT_URL = '/summit/schedule-data.json';
 
 // ---- Time utils ----
 
