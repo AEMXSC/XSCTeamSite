@@ -2,3 +2,5 @@ mountpoints:
   /:
     url: https://content.da.live/AEMXSC/XSCTeamSite
     type: markup
+  /summit/schedule-data:
+    url: https://docs.google.com/spreadsheets/d/1sHwnxdakFDtCmFCPtCjzOMU__1saKNhvn6nM-pJb_lE/edit
