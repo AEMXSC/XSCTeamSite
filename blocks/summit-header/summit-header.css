@@ -11,7 +11,8 @@ body:has(.summit-header) footer {
   top: 0;
   z-index: 90;
   width: 100%;
-  padding: 0;
+  padding: 0 !important; /* override main .block which has higher specificity (0-1-1 vs 0-1-0) */
+  margin: 0 !important;
 }
 
 .sh-bar {
