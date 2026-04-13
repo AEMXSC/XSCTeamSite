@@ -115,7 +115,10 @@ body:has(.summit-header) header {
 .sh-right {
   font-size: 12px;
   white-space: nowrap;
-  flex-shrink: 0;
+  flex-shrink: 1;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
   padding-left: 8px;
 }
 
@@ -133,8 +136,8 @@ body:has(.summit-header) header {
   color: rgb(255 255 255 / 40%);
 }
 
-/* hide slot text on very small screens, show only day */
-@media (width < 380px) {
+/* hide slot text on phones — day name + countdown is enough */
+@media (width < 500px) {
   .sh-slot,
   .sh-divider {
     display: none;

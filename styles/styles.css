@@ -337,12 +337,14 @@ main > .section:first-of-type {
 }
 
 /* summit blocks — remove default 96px section padding */
+main .section:has(> div > .summit-header),
 main .section:has(> div > .summit-schedule),
 main .section:has(> div > .summit-contacts),
 main .section:has(> div > .summit-coverage) {
   padding: 0;
 }
 
+main .section:has(> div > .summit-header) > div,
 main .section:has(> div > .summit-schedule) > div,
 main .section:has(> div > .summit-contacts) > div,
 main .section:has(> div > .summit-coverage) > div {

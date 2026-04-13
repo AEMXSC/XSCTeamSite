@@ -357,7 +357,8 @@
 }
 
 .ss-th-booth {
-  min-width: 130px;
+  min-width: 100px;
+  max-width: 120px;
 }
 
 .ss-grid tbody tr:hover td {
@@ -407,6 +408,12 @@
   font-size: 12px;
 }
 
+/* FAB clearance — prevent red button from overlapping last row */
+.ss-panel-now,
+.ss-panel-my {
+  padding-bottom: 80px;
+}
+
 @media (width >= 600px) {
   .ss-toggle { margin: 20px 24px 0; width: calc(100% - 48px); }
   .ss-name-picker { padding: 20px 24px 0; }
@@ -417,4 +424,5 @@
   .ss-grid th, .ss-grid td { padding: 12px 14px; }
   .ss-slot-time { font-size: 15px; }
   .ss-slot-location { font-size: 15px; }
+  .ss-panel-now, .ss-panel-my { padding-bottom: 40px; }
 }
