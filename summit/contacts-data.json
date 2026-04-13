@@ -1,98 +1,161 @@
 {
-  "total": 13,
+  "total": 22,
   "offset": 0,
-  "limit": 13,
+  "limit": 22,
   "data": [
     {
+      "name": "Ajani Thomas",
+      "role": "AEM Expert Solution Consultant, Practice Lead",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "ajani"
+    },
+    {
+      "name": "Bill Lofft",
+      "role": "Director, AEM Expert Solution Consulting",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "blofft"
+    },
+    {
+      "name": "Chris Buley",
+      "role": "Public Sector SC Group Manager",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "buley"
+    },
+    {
       "name": "Courtney Remekie",
-      "role": "AEM XSC Lead / Summit Staff Manager",
-      "product_coverage": "AEM Sites, Assets, Forms, LLMO, Sites Optimizer",
+      "role": "Sr. Manager, AEM Expert Solution Consulting",
+      "product_coverage": "",
       "phone": "780-619-4454",
-      "slack_handle": "@courtney.remekie"
+      "slack_handle": "remekie"
+    },
+    {
+      "name": "Deck Reyes",
+      "role": "Principal Customer Success Advocate",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "deckreyes"
+    },
+    {
+      "name": "Eduardo Aurioles",
+      "role": "Practice Lead",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "jauriolesces"
+    },
+    {
+      "name": "Jennifer Salazar",
+      "role": "AEM Expert Solution Consultant",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "jsalazar"
+    },
+    {
+      "name": "Jian Huang",
+      "role": "AEM Expert Solution Consultant, Principal",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "jihuang"
+    },
+    {
+      "name": "Jim McGowan",
+      "role": "AEM Expert Solution Consultant, Practice Lead",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "jmcgowan"
+    },
+    {
+      "name": "John Green",
+      "role": "Sr. AEM Expert Solution Consultant, Principal",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "jwgreen"
+    },
+    {
+      "name": "Juliette Ducasse",
+      "role": "B2B Portfolio Solutions Consultant",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "ducasse"
+    },
+    {
+      "name": "Lisa Strickland",
+      "role": "Senior AEM Expert Solutions Consultant",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "lstrickland"
+    },
+    {
+      "name": "Liviu Chis",
+      "role": "AEM Expert Solution Consultant, Practice Lead",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "chis"
     },
     {
       "name": "Mark Szulc",
-      "role": "AEM XSC / Booth Lead",
-      "product_coverage": "Brand Visibility, AEM Sites, Sites Optimizer",
+      "role": "Mgr, Product Marketing",
+      "product_coverage": "",
       "phone": "",
-      "slack_handle": "@mark.szulc"
+      "slack_handle": "mszulc"
     },
     {
-      "name": "Timothy Lee",
-      "role": "SC / Rotating Support",
-      "product_coverage": "Commerce",
+      "name": "Matthew Hall",
+      "role": "Expert SC - Content AI & Optimization",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "matthewhall"
+    },
+    {
+      "name": "Michael Smith",
+      "role": "AEM Expert Solution Consultant",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "michasmi"
+    },
+    {
+      "name": "Nicholas Kettler",
+      "role": "Expert AEM Solution Consultant",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "nkettler"
+    },
+    {
+      "name": "Peter Nam",
+      "role": "AEM Expert Solution Consultant, Practice Lead",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "pnam"
+    },
+    {
+      "name": "Ryan Stranieri",
+      "role": "Relationship Management Specialist",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "rstranieri"
+    },
+    {
+      "name": "Suzy Hall",
+      "role": "AEM Expert Solutions Consultant",
+      "product_coverage": "",
+      "phone": "",
+      "slack_handle": "susanh"
+    },
+    {
+      "name": "Timothy W. Lee",
+      "role": "Sr Developer Expert Solutions Consultant",
+      "product_coverage": "",
       "phone": "323-303-7973",
-      "slack_handle": "@timothy.lee"
+      "slack_handle": "timothyl"
     },
     {
-      "name": "Bruce Swann",
-      "role": "SC Lead",
-      "product_coverage": "AJO, Target, Campaign, Exp Accelerator, AJO Loyalty",
-      "phone": "406-581-6920",
-      "slack_handle": "@bruce.swann"
-    },
-    {
-      "name": "Elle Doty",
-      "role": "SC Lead",
-      "product_coverage": "AJO B2B",
-      "phone": "415-595-2056",
-      "slack_handle": "@elle.doty"
-    },
-    {
-      "name": "Michael Fazio",
-      "role": "SC Lead",
-      "product_coverage": "Project Halo",
-      "phone": "518-859-3180",
-      "slack_handle": "@michael.fazio"
-    },
-    {
-      "name": "Ian Michels",
-      "role": "SC Lead",
-      "product_coverage": "B2B Portfolio",
-      "phone": "480-640-8908",
-      "slack_handle": "@ian.michels"
-    },
-    {
-      "name": "Tom Carroll",
-      "role": "SC Lead",
-      "product_coverage": "Marketo (AJO B2B when needed)",
-      "phone": "610-724-8427",
-      "slack_handle": "@tom.carroll"
-    },
-    {
-      "name": "Alejandro Pascual",
-      "role": "SC Lead",
-      "product_coverage": "Marketo",
-      "phone": "786-270-8405",
-      "slack_handle": "@alejandro.pascual"
-    },
-    {
-      "name": "Ryan Pizzuto",
-      "role": "SC Lead",
-      "product_coverage": "CX Analytics",
-      "phone": "206-379-4287",
-      "slack_handle": "@ryan.pizzuto"
-    },
-    {
-      "name": "Bridget Burne",
-      "role": "SC Lead",
-      "product_coverage": "Marketo, AJO B2B",
-      "phone": "570-877-7818",
-      "slack_handle": "@bridget.burne"
-    },
-    {
-      "name": "Tom David",
-      "role": "SC Lead",
-      "product_coverage": "Marketo, AJO B2B",
-      "phone": "218-349-0278",
-      "slack_handle": "@tom.david"
-    },
-    {
-      "name": "Akhil Aggarwal",
-      "role": "SC",
-      "product_coverage": "Brand Concierge",
+      "name": "Yuji Nakagawa",
+      "role": "Principal Expert AEM Solutions Consultant",
+      "product_coverage": "",
       "phone": "",
-      "slack_handle": "@akhil.aggarwal"
+      "slack_handle": "ynaka"
     }
   ],
   ":type": "sheet"
