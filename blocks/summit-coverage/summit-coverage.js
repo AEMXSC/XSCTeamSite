@@ -75,14 +75,14 @@ function buildCoverageMessage(name, assignment) {
   return `🔴 COVERAGE NEEDED: ${name} at ${assignment.booth} · ${assignment.screen} — ${time}. Can anyone cover?`;
 }
 
-function openSlack(channelId, message) {
+function openSlack(channel, message) {
   const encoded = encodeURIComponent(message);
-  // Try native deeplink first, fall back to web
-  const deeplink = channelId
-    ? `slack://channel?team=&id=${channelId}&message=${encoded}`
+  // app_redirect works with both channel names and IDs
+  const deeplink = channel
+    ? `slack://app_redirect?channel=${encodeURIComponent(channel)}&message=${encoded}`
     : null;
-  const weblink = channelId
-    ? `https://app.slack.com/client/${channelId}`
+  const weblink = channel
+    ? `https://slack.com/app_redirect?channel=${encodeURIComponent(channel)}`
     : 'https://slack.com';
 
   if (deeplink) {
