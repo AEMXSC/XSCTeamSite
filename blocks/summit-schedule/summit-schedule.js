@@ -304,15 +304,18 @@ export default async function decorate(block) {
   myPanel.innerHTML = `
     <div class="ss-name-picker">
       <label class="ss-name-label" for="ss-name-input">Your name</label>
-      <input type="search"
-        class="ss-name-input"
-        id="ss-name-input"
-        list="ss-name-list"
-        placeholder="Search your name…"
-        value="${selectedName}"
-        autocomplete="off"
-        aria-label="Select your name from the schedule">
-      <datalist id="ss-name-list">${names.map((n) => `<option value="${n}">`).join('')}</datalist>
+      <div class="ss-name-input-wrap">
+        <input type="text"
+          class="ss-name-input"
+          id="ss-name-input"
+          list="ss-name-list"
+          placeholder="Search your name…"
+          value="${selectedName}"
+          autocomplete="off"
+          aria-label="Select your name from the schedule">
+        <button class="ss-name-clear" aria-label="Clear name" ${selectedName ? '' : 'hidden'}>✕</button>
+        <datalist id="ss-name-list">${names.map((n) => `<option value="${n}">`).join('')}</datalist>
+      </div>
     </div>`;
 
   const mySlotsEl = document.createElement('div');
@@ -349,22 +352,31 @@ export default async function decorate(block) {
   // ---- Name picker ----
 
   const nameInput = myPanel.querySelector('.ss-name-input');
+  const clearBtn = myPanel.querySelector('.ss-name-clear');
 
   function applyName(val) {
     const name = val.trim();
     if (!name || names.includes(name)) {
       selectedName = name;
       try { localStorage.setItem(LS_NAME, name); } catch { /* noop */ }
+      clearBtn.hidden = !name;
       renderMySchedule(mySlotsEl, data, selectedName);
     }
   }
 
   nameInput.addEventListener('change', () => applyName(nameInput.value));
   nameInput.addEventListener('input', () => {
+    clearBtn.hidden = !nameInput.value.trim();
     clearTimeout(nameInput._t);
     nameInput._t = setTimeout(() => {
       if (names.includes(nameInput.value.trim())) applyName(nameInput.value);
     }, 300);
+  });
+
+  clearBtn.addEventListener('click', () => {
+    nameInput.value = '';
+    applyName('');
+    nameInput.focus();
   });
 
   // ---- Initial render ----

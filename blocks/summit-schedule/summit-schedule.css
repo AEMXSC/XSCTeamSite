@@ -74,11 +74,15 @@
   margin-bottom: 6px;
 }
 
+.ss-name-input-wrap {
+  position: relative;
+}
+
 .ss-name-input {
   display: block;
   width: 100%;
   box-sizing: border-box;
-  padding: 13px 16px;
+  padding: 13px 44px 13px 16px; /* right padding reserves space for clear btn */
   background: var(--ss-surface);
   border: 1px solid var(--ss-border);
   border-radius: var(--ss-radius);
@@ -96,6 +100,31 @@
 
 .ss-name-input::placeholder {
   color: rgb(255 255 255 / 30%);
+}
+
+.ss-name-clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+  color: rgb(255 255 255 / 40%);
+  font-size: 14px;
+  cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border-radius: 0 var(--ss-radius) var(--ss-radius) 0;
+  transition: color 0.15s;
+}
+
+.ss-name-clear:hover {
+  color: rgb(255 255 255 / 80%);
+  background: transparent;
 }
 
 /* ---- Day cards (Mode A) ---- */
