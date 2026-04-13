@@ -6,14 +6,14 @@
     {
       "name": "Courtney Remekie",
       "role": "AEM XSC Lead / Summit Staff Manager",
-      "product_coverage": "AEM Sites, Assets, Forms, LLM Optimizer, Sites Optimizer",
+      "product_coverage": "AEM Sites, Assets, Forms, LLMO, Sites Optimizer",
       "phone": "780-619-4454",
       "slack_handle": "@courtney.remekie"
     },
     {
       "name": "Mark Szulc",
       "role": "AEM XSC / Booth Lead",
-      "product_coverage": "Brand Visibility Area, AEM Sites, Sites Optimizer",
+      "product_coverage": "Brand Visibility, AEM Sites, Sites Optimizer",
       "phone": "",
       "slack_handle": "@mark.szulc"
     },
@@ -27,7 +27,7 @@
     {
       "name": "Bruce Swann",
       "role": "SC Lead",
-      "product_coverage": "AJO, Target, Campaign, Experimentation Accelerator, AJO Loyalty",
+      "product_coverage": "AJO, Target, Campaign, Exp Accelerator, AJO Loyalty",
       "phone": "406-581-6920",
       "slack_handle": "@bruce.swann"
     },
