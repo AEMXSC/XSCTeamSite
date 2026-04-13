@@ -1,8 +1,13 @@
 /* summit-header — sticky status bar, mobile-first */
 
+/* Hide site nav on summit pages — summit-header is the only navigation needed */
+body:has(.summit-header) header {
+  display: none;
+}
+
 .summit-header {
   position: sticky;
-  top: var(--nav-height, 64px);
+  top: 0;
   z-index: 90;
   width: 100%;
   padding: 0;
