@@ -1,0 +1,99 @@
+{
+  "total": 13,
+  "offset": 0,
+  "limit": 13,
+  "data": [
+    {
+      "name": "Courtney Remekie",
+      "role": "AEM XSC Lead / Summit Staff Manager",
+      "product_coverage": "AEM Sites, Assets, Forms, LLM Optimizer, Sites Optimizer",
+      "phone": "780-619-4454",
+      "slack_handle": "@courtney.remekie"
+    },
+    {
+      "name": "Mark Szulc",
+      "role": "AEM XSC / Booth Lead",
+      "product_coverage": "Brand Visibility Area, AEM Sites, Sites Optimizer",
+      "phone": "",
+      "slack_handle": "@mark.szulc"
+    },
+    {
+      "name": "Timothy Lee",
+      "role": "SC / Rotating Support",
+      "product_coverage": "Commerce",
+      "phone": "323-303-7973",
+      "slack_handle": "@timothy.lee"
+    },
+    {
+      "name": "Bruce Swann",
+      "role": "SC Lead",
+      "product_coverage": "AJO, Target, Campaign, Experimentation Accelerator, AJO Loyalty",
+      "phone": "406-581-6920",
+      "slack_handle": "@bruce.swann"
+    },
+    {
+      "name": "Elle Doty",
+      "role": "SC Lead",
+      "product_coverage": "AJO B2B",
+      "phone": "415-595-2056",
+      "slack_handle": "@elle.doty"
+    },
+    {
+      "name": "Michael Fazio",
+      "role": "SC Lead",
+      "product_coverage": "Project Halo",
+      "phone": "518-859-3180",
+      "slack_handle": "@michael.fazio"
+    },
+    {
+      "name": "Ian Michels",
+      "role": "SC Lead",
+      "product_coverage": "B2B Portfolio",
+      "phone": "480-640-8908",
+      "slack_handle": "@ian.michels"
+    },
+    {
+      "name": "Tom Carroll",
+      "role": "SC Lead",
+      "product_coverage": "Marketo (AJO B2B when needed)",
+      "phone": "610-724-8427",
+      "slack_handle": "@tom.carroll"
+    },
+    {
+      "name": "Alejandro Pascual",
+      "role": "SC Lead",
+      "product_coverage": "Marketo",
+      "phone": "786-270-8405",
+      "slack_handle": "@alejandro.pascual"
+    },
+    {
+      "name": "Ryan Pizzuto",
+      "role": "SC Lead",
+      "product_coverage": "CX Analytics",
+      "phone": "206-379-4287",
+      "slack_handle": "@ryan.pizzuto"
+    },
+    {
+      "name": "Bridget Burne",
+      "role": "SC Lead",
+      "product_coverage": "Marketo, AJO B2B",
+      "phone": "570-877-7818",
+      "slack_handle": "@bridget.burne"
+    },
+    {
+      "name": "Tom David",
+      "role": "SC Lead",
+      "product_coverage": "Marketo, AJO B2B",
+      "phone": "218-349-0278",
+      "slack_handle": "@tom.david"
+    },
+    {
+      "name": "Akhil Aggarwal",
+      "role": "SC",
+      "product_coverage": "Brand Concierge",
+      "phone": "",
+      "slack_handle": "@akhil.aggarwal"
+    }
+  ],
+  ":type": "sheet"
+}
