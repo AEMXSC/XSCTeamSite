@@ -104,8 +104,9 @@ export default async function decorate(block) {
     || DEFAULT_SCHEDULE_URL;
   const channelId = rows[1]?.textContent.trim() || '';
 
-  // Hide the in-page block element — FAB lives on document.body
+  // Hide the in-page block element and its section — FAB lives on document.body
   block.style.display = 'none';
+  block.closest('.section')?.style.setProperty('display', 'none');
 
   // Load schedule data (non-blocking; FAB still renders without it)
   let scheduleData = [];

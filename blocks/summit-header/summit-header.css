@@ -1,7 +1,8 @@
 /* summit-header — sticky status bar, mobile-first */
 
-/* Hide site nav on summit pages — summit-header is the only navigation needed */
-body:has(.summit-header) header {
+/* Hide site nav and footer on summit pages — self-contained tool */
+body:has(.summit-header) header,
+body:has(.summit-header) footer {
   display: none;
 }
 

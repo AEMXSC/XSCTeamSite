@@ -176,8 +176,15 @@
   font-size: 12px;
 }
 
+/* FAB clearance */
+.summit-contacts {
+  margin-bottom: 80px;
+}
+
 @media (width >= 600px) {
-  .summit-contacts { margin: 0 24px; }
+  .summit-contacts {
+    margin: 0 24px 40px;
+  }
 
   .sc-toggle { padding: 16px 24px; font-size: 14px; }
 
