@@ -39,6 +39,7 @@ export default function decorate(block) {
   // Track
   const track = document.createElement('ul');
   track.className = 'carousel-track';
+  track.setAttribute('role', 'presentation');
   track.setAttribute('aria-live', 'polite');
   slides.forEach((s) => track.append(s));
 

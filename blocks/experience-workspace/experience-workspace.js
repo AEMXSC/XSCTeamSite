@@ -27,6 +27,12 @@ function md(text) {
 }
 
 export default function decorate(block) {
+  // Load Adobe Clean font lazily — only when this block is used
+  const typekitLink = document.createElement('link');
+  typekitLink.rel = 'stylesheet';
+  typekitLink.href = 'https://use.typekit.net/mge7bvf.css';
+  document.head.append(typekitLink);
+
   // Read customer info from authored content
   const rows = [...block.children];
   const customerName = rows[0]?.children[0]?.textContent?.trim() || 'Customer';
