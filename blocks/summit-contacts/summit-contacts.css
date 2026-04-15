@@ -156,25 +156,28 @@
   font-family: var(--body-font-family);
   text-decoration: none;
   white-space: nowrap;
-  min-height: 36px;
-  min-width: 70px;
+  min-height: 44px;
+  min-width: 76px;
   box-sizing: border-box;
-  transition: opacity 0.15s;
+  cursor: pointer;
+  transition: filter 0.15s ease, opacity 0.15s ease;
 }
 
-.sc-btn:hover { opacity: 0.85; text-decoration: none; }
+.sc-btn:hover { filter: brightness(1.15); text-decoration: none; }
 
 .sc-btn-slack {
-  background: #4a154b;
+  background: #611f69;
   color: #fff;
-  border: 1px solid rgb(255 255 255 / 10%);
+  border: none;
 }
 
 .sc-btn-call {
-  background: transparent;
-  color: rgb(255 255 255 / 50%);
-  border: 1px solid rgb(255 255 255 / 15%);
+  background: hsl(220deg 22% 24%);
+  color: #fff;
+  border: 1px solid rgb(255 255 255 / 30%);
   font-size: 12px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
 }
 
 @media (width >= 600px) {
@@ -188,5 +191,5 @@
 
   .sc-item-actions { flex-direction: row; align-items: center; }
 
-  .sc-btn { min-height: 40px; }
+  .sc-btn { min-height: 44px; }
 }
