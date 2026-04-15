@@ -12,17 +12,13 @@
 
 const DEFAULT_CONTACTS_URL = '/summit/contacts-data.json';
 
-function buildSlackLink(channelId, slackHandle) {
-  if (!channelId) return null;
+// app_redirect works without a team ID and opens the Slack app on mobile
+// Priority: individual DM via handle → channel fallback
+function buildSlackHref(channelId, slackHandle) {
   const handle = (slackHandle || '').replace(/^@/, '');
-  // Deep link to channel — pre-fill @mention in message box
-  const text = handle ? encodeURIComponent(`@${handle} `) : '';
-  return `slack://channel?team=&id=${channelId}${text ? `&message=${text}` : ''}`;
-}
-
-function buildSlackWebLink(channelId) {
-  if (!channelId) return null;
-  return `https://app.slack.com/client/${channelId}`;
+  if (handle) return `https://slack.com/app_redirect?channel=@${handle}`;
+  if (channelId) return `https://slack.com/app_redirect?channel=${channelId}`;
+  return null;
 }
 
 export default async function decorate(block) {
@@ -87,9 +83,9 @@ export default async function decorate(block) {
       const slackHandle = c.slack_handle || '';
       const displayHandle = slackHandle.startsWith('@') ? slackHandle : `@${slackHandle}`;
 
-      const slackHref = buildSlackLink(channelId, slackHandle) || buildSlackWebLink(channelId) || '#';
+      const slackHref = buildSlackHref(channelId, slackHandle);
       const hasPhone = phone.length > 0;
-      const hasSlack = channelId || slackHandle;
+      const hasSlack = !!slackHref;
 
       return `<div class="sc-item">
         <div class="sc-item-info">
@@ -99,7 +95,7 @@ export default async function decorate(block) {
           ${slackHandle ? `<div class="sc-item-handle">${displayHandle}</div>` : ''}
         </div>
         <div class="sc-item-actions">
-          ${hasSlack ? `<a href="${slackHref}" class="sc-btn sc-btn-slack" aria-label="Slack ${name}">Slack</a>` : ''}
+          ${hasSlack ? `<a href="${slackHref}" class="sc-btn sc-btn-slack" target="_blank" rel="noopener" aria-label="Slack ${name}">Slack</a>` : ''}
           ${hasPhone ? `<a href="tel:${phone}" class="sc-btn sc-btn-call" aria-label="Call ${name}">${c.phone}</a>` : ''}
         </div>
       </div>`;
