@@ -282,7 +282,7 @@ export default async function decorate(block) {
   // Initial slot index for Mode B
   const pdt = getPDT(getSimtime() || new Date());
   const currentDay = getCurrentDay();
-  const displayDay = currentDay || Object.keys(SUMMIT_DATES)[0];
+  let displayDay = currentDay || Object.keys(SUMMIT_DATES)[0];
   const daySlots = getDaySlots(data, displayDay);
   let slotIdx = daySlots.length ? findSlotIdx(daySlots, pdt.totalMins) : 0;
 
@@ -326,6 +326,34 @@ export default async function decorate(block) {
   const nowPanel = document.createElement('div');
   nowPanel.className = 'ss-panel ss-panel-now';
 
+  // Day picker — persistent, sits above slot nav, not re-rendered by renderWhosOnNow
+  const dayPicker = document.createElement('div');
+  dayPicker.className = 'ss-day-picker';
+  dayPicker.setAttribute('role', 'group');
+  dayPicker.setAttribute('aria-label', 'Select day');
+  dayPicker.innerHTML = Object.keys(SUMMIT_DATES).map((day) => `<button class="ss-day-btn${day === displayDay ? ' ss-day-btn-active' : ''}" data-day="${day}" aria-pressed="${day === displayDay}">${day.slice(0, 3)}</button>`).join('');
+
+  // Slot content area — renderWhosOnNow targets this, not nowPanel
+  const nowContentEl = document.createElement('div');
+
+  nowPanel.append(dayPicker, nowContentEl);
+
+  dayPicker.querySelectorAll('.ss-day-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      displayDay = btn.dataset.day;
+      dayPicker.querySelectorAll('.ss-day-btn').forEach((b) => {
+        b.classList.toggle('ss-day-btn-active', b.dataset.day === displayDay);
+        b.setAttribute('aria-pressed', b.dataset.day === displayDay);
+      });
+      const newSlots = getDaySlots(data, displayDay);
+      const newCurrentDay = getCurrentDay();
+      slotIdx = newSlots.length
+        ? (displayDay === newCurrentDay ? findSlotIdx(newSlots, getPDT(getSimtime() || new Date()).totalMins) : 0)
+        : 0;
+      renderWhosOnNow(nowContentEl, data, displayDay, slotIdx);
+    });
+  });
+
   block.append(myPanel, nowPanel);
 
   // ---- Panel switching ----
@@ -342,7 +370,7 @@ export default async function decorate(block) {
     myPanel.classList.toggle('ss-panel-hidden', mode !== 'my');
     nowPanel.classList.toggle('ss-panel-hidden', mode !== 'now');
 
-    if (mode === 'now') renderWhosOnNow(nowPanel, data, displayDay, slotIdx);
+    if (mode === 'now') renderWhosOnNow(nowContentEl, data, displayDay, slotIdx);
   }
 
   toggle.querySelectorAll('.ss-toggle-btn').forEach((btn) => {
@@ -388,10 +416,9 @@ export default async function decorate(block) {
     if (mode === 'my') renderMySchedule(mySlotsEl, data, selectedName);
     if (mode === 'now') {
       const newPdt = getPDT(getSimtime() || new Date());
-      const newDay = getCurrentDay() || displayDay;
-      const newSlots = getDaySlots(data, newDay);
+      const newSlots = getDaySlots(data, displayDay);
       slotIdx = newSlots.length ? findSlotIdx(newSlots, newPdt.totalMins) : 0;
-      renderWhosOnNow(nowPanel, data, newDay, slotIdx);
+      renderWhosOnNow(nowContentEl, data, displayDay, slotIdx);
     }
   }, 60_000);
 }
