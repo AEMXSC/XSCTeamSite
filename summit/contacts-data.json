@@ -1,13 +1,13 @@
 {
-  "total": 22,
+  "total": 24,
   "offset": 0,
-  "limit": 22,
+  "limit": 24,
   "data": [
     {
       "name": "Ajani Thomas",
       "role": "AEM Expert Solution Consultant, Practice Lead",
       "product_coverage": "",
-      "phone": "",
+      "phone": "+14049603114",
       "slack_handle": "ajani"
     },
     {
@@ -16,6 +16,13 @@
       "product_coverage": "",
       "phone": "",
       "slack_handle": "blofft"
+    },
+    {
+      "name": "Cameron Hall",
+      "role": "AEM Expert Solutions Consultant",
+      "product_coverage": "",
+      "phone": "+17727225273",
+      "slack_handle": ""
     },
     {
       "name": "Chris Buley",
@@ -35,7 +42,7 @@
       "name": "Deck Reyes",
       "role": "Principal Customer Success Advocate",
       "product_coverage": "",
-      "phone": "",
+      "phone": "+12366381139",
       "slack_handle": "deckreyes"
     },
     {
@@ -46,10 +53,17 @@
       "slack_handle": "jauriolesces"
     },
     {
+      "name": "Jake Monsen",
+      "role": "Manager, AEM Expert Solution Consulting",
+      "product_coverage": "",
+      "phone": "801-885-5725",
+      "slack_handle": "monsen"
+    },
+    {
       "name": "Jennifer Salazar",
       "role": "AEM Expert Solution Consultant",
       "product_coverage": "",
-      "phone": "",
+      "phone": "+14153209145",
       "slack_handle": "jsalazar"
     },
     {
@@ -70,7 +84,7 @@
       "name": "John Green",
       "role": "Sr. AEM Expert Solution Consultant, Principal",
       "product_coverage": "",
-      "phone": "",
+      "phone": "+17275602390",
       "slack_handle": "jwgreen"
     },
     {
@@ -112,7 +126,7 @@
       "name": "Michael Smith",
       "role": "AEM Expert Solution Consultant",
       "product_coverage": "",
-      "phone": "",
+      "phone": "+19726328301",
       "slack_handle": "michasmi"
     },
     {
@@ -154,7 +168,7 @@
       "name": "Yuji Nakagawa",
       "role": "Principal Expert AEM Solutions Consultant",
       "product_coverage": "",
-      "phone": "",
+      "phone": "+14153106738",
       "slack_handle": "ynaka"
     }
   ],
