@@ -45,6 +45,8 @@
   transition: background 0.2s, color 0.2s;
   min-height: 44px;
   white-space: nowrap;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ss-toggle-btn.ss-toggle-active {
@@ -310,6 +312,8 @@
   justify-content: center;
   flex-shrink: 0;
   transition: background 0.15s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ss-nav-btn:not([disabled]):hover,
@@ -336,17 +340,20 @@
   flex: 1;
   padding: 8px 4px;
   border: none;
-  border-bottom: 2px solid transparent;
+  border-bottom: 3px solid transparent;  /* 3px — visible on retina mobile screens */
   margin-bottom: -1px;
   background: transparent;
   color: rgb(255 255 255 / 38%);
-  font-size: 13px;
+  font-size: 14px;                        /* 14px — matches toggle, readable on mobile */
   font-weight: 500;
   font-family: var(--body-font-family);
   cursor: pointer;
+  text-align: center;
   letter-spacing: 0.02em;
   transition: color 0.2s, border-bottom-color 0.2s;
   min-height: 44px;
+  touch-action: manipulation;             /* removes 300ms tap delay on iOS */
+  -webkit-tap-highlight-color: transparent;
 }
 
 .ss-day-btn:hover { color: rgb(255 255 255 / 70%); }
