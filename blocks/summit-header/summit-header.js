@@ -1,9 +1,13 @@
 /*
  * Summit Header — sticky status bar with Summit 2026 branding.
  *
- * Optional doc config (single row):
+ * Optional doc config row 1 (dates):
  *   | summit-header |
  *   | 2026-04-20, 2026-04-21, 2026-04-22 |
+ *
+ * Optional doc config row 2 (booth guide nav — two cells):
+ *   | [St1 label](/summit/station-1) [St2](/summit/station-2) ... | [Sites](/summit/aem-sites) [Assets](/summit/aem-assets) ... |
+ *   Left cell = Quest links, Right cell = Product links
  *
  * Test: ?simtime=2026-04-21T14:30
  * All times: America/Los_Angeles (PDT).
@@ -196,6 +200,43 @@ function renderBar(bar, schedule, scheduleData) {
     <div class="sh-right sh-countdown" aria-live="polite">${countdown}</div>`;
 }
 
+function renderNav(block, rows) {
+  const navRow = rows[1];
+  if (!navRow) return;
+
+  const leftCell = navRow.children[0];
+  const rightCell = navRow.children[1];
+  const leftLinks = leftCell ? [...leftCell.querySelectorAll('a')] : [];
+  const rightLinks = rightCell ? [...rightCell.querySelectorAll('a')] : [];
+
+  if (!leftLinks.length && !rightLinks.length) return;
+
+  const currentPath = window.location.pathname.replace(/\/$/, '');
+
+  const linkHtml = (links) => links.map((a) => {
+    const href = new URL(a.href, window.location.href).pathname.replace(/\/$/, '');
+    const active = currentPath === href;
+    return `<a href="${a.href}" class="sh-nav-link${active ? ' sh-nav-active' : ''}">${a.textContent.trim()}</a>`;
+  }).join('');
+
+  const nav = document.createElement('div');
+  nav.className = 'sh-nav';
+  nav.innerHTML = `
+    ${leftLinks.length ? `
+      <div class="sh-nav-group">
+        <span class="sh-nav-label">Quest</span>
+        ${linkHtml(leftLinks)}
+      </div>` : ''}
+    ${leftLinks.length && rightLinks.length ? `<span class="sh-nav-sep" aria-hidden="true"></span>` : ''}
+    ${rightLinks.length ? `
+      <div class="sh-nav-group">
+        <span class="sh-nav-label">Products</span>
+        ${linkHtml(rightLinks)}
+      </div>` : ''}
+  `;
+  block.append(nav);
+}
+
 export default async function decorate(block) {
   const rows = [...block.children];
   const schedule = structuredClone(DEFAULT_SUMMIT);
@@ -222,6 +263,9 @@ export default async function decorate(block) {
   bar.className = 'sh-bar';
   renderBar(bar, schedule, scheduleData);
   block.append(bar);
+
+  // Optional nav row (row 2) for booth guide pages
+  renderNav(block, rows);
 
   const timer = setInterval(() => renderBar(bar, schedule, scheduleData), 30_000);
   new MutationObserver((_, obs) => {
