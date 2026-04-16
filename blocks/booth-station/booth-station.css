@@ -1,0 +1,227 @@
+/* booth-station — page header + script table styles for booth guide pages */
+
+/* ── Page header ── */
+.booth-station-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 28px 24px 20px;
+}
+
+.booth-station {
+  padding: 0 !important;
+}
+
+.bs-breadcrumb {
+  margin-bottom: 14px;
+}
+
+.bs-breadcrumb a {
+  font-size: 13px;
+  color: rgb(255 255 255 / 35%);
+  text-decoration: none;
+  font-family: var(--body-font-family);
+  transition: color 0.15s;
+}
+
+.bs-breadcrumb a:hover {
+  color: rgb(255 255 255 / 65%);
+}
+
+.bs-eyebrow {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-red, #eb1000);
+  font-family: var(--heading-font-family);
+  margin: 0 0 8px;
+}
+
+.bs-title {
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 700;
+  font-family: var(--heading-font-family);
+  color: #fff;
+  margin: 0 0 8px;
+  line-height: 1.15;
+  letter-spacing: -0.01em;
+}
+
+.bs-meta {
+  font-size: 13px;
+  color: rgb(255 255 255 / 38%);
+  font-family: var(--body-font-family);
+  margin: 0 0 10px;
+  letter-spacing: 0.01em;
+}
+
+.bs-narrative {
+  font-size: 15px;
+  color: rgb(255 255 255 / 60%);
+  line-height: 1.65;
+  margin: 0 0 16px;
+  max-width: 680px;
+  font-family: var(--body-font-family);
+}
+
+.bs-owners {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 13px;
+  font-family: var(--body-font-family);
+}
+
+.bs-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 28%);
+  font-family: var(--heading-font-family);
+  flex-shrink: 0;
+}
+
+.bs-owners-list {
+  color: rgb(255 255 255 / 50%);
+}
+
+/* ── Script table — native EDS table on booth pages ── */
+body:has(.booth-station) main .section > div > table,
+body:has(.booth-station) main .section > .default-content-wrapper > table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: var(--body-font-family);
+  font-size: 14px;
+  background: var(--color-card, hsl(220deg 20% 18%));
+  border-radius: 10px;
+  border: 1px solid rgb(255 255 255 / 8%);
+  overflow: hidden;
+  margin: 0 0 32px;
+  table-layout: fixed;
+}
+
+body:has(.booth-station) main .section > div > table th,
+body:has(.booth-station) main .section > .default-content-wrapper > table th {
+  padding: 10px 14px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 35%);
+  font-family: var(--heading-font-family);
+  background: rgb(255 255 255 / 4%);
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+  white-space: nowrap;
+}
+
+/* column widths: # | Script | Resources | Status */
+body:has(.booth-station) main .section > div > table th:nth-child(1),
+body:has(.booth-station) main .section > .default-content-wrapper > table th:nth-child(1) {
+  width: 44px;
+  text-align: center;
+}
+
+body:has(.booth-station) main .section > div > table th:nth-child(3),
+body:has(.booth-station) main .section > .default-content-wrapper > table th:nth-child(3) {
+  width: 220px;
+}
+
+body:has(.booth-station) main .section > div > table th:nth-child(4),
+body:has(.booth-station) main .section > .default-content-wrapper > table th:nth-child(4) {
+  width: 170px;
+}
+
+body:has(.booth-station) main .section > div > table td,
+body:has(.booth-station) main .section > .default-content-wrapper > table td {
+  padding: 14px;
+  color: rgb(255 255 255 / 80%);
+  border-bottom: 1px solid rgb(255 255 255 / 5%);
+  vertical-align: top;
+  line-height: 1.55;
+}
+
+/* # cell */
+body:has(.booth-station) main .section > div > table td:first-child,
+body:has(.booth-station) main .section > .default-content-wrapper > table td:first-child {
+  text-align: center;
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-red, #eb1000);
+  font-family: var(--heading-font-family);
+  opacity: 0.8;
+}
+
+/* Resources cell */
+body:has(.booth-station) main .section > div > table td:nth-child(3) a,
+body:has(.booth-station) main .section > .default-content-wrapper > table td:nth-child(3) a {
+  display: block;
+  color: #4da3ff;
+  font-size: 13px;
+  text-decoration: none;
+  margin-bottom: 4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body:has(.booth-station) main .section > div > table td:nth-child(3) a:hover,
+body:has(.booth-station) main .section > .default-content-wrapper > table td:nth-child(3) a:hover {
+  text-decoration: underline;
+}
+
+/* Status cell */
+body:has(.booth-station) main .section > div > table td:nth-child(4),
+body:has(.booth-station) main .section > .default-content-wrapper > table td:nth-child(4) {
+  font-size: 12px;
+  color: rgb(255 255 255 / 45%);
+  line-height: 1.5;
+}
+
+/* Status keywords auto-color */
+body:has(.booth-station) main .section > div > table td:nth-child(4) p:first-child,
+body:has(.booth-station) main .section > .default-content-wrapper > table td:nth-child(4) p:first-child {
+  font-weight: 600;
+  font-family: var(--heading-font-family);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+body:has(.booth-station) main .section > div > table tr:last-child td,
+body:has(.booth-station) main .section > .default-content-wrapper > table tr:last-child td {
+  border-bottom: none;
+}
+
+body:has(.booth-station) main .section > div > table tbody tr:hover td,
+body:has(.booth-station) main .section > .default-content-wrapper > table tbody tr:hover td {
+  background: rgb(255 255 255 / 2%);
+}
+
+/* script cell bullet lists */
+body:has(.booth-station) main .section > div > table td:nth-child(2) ul,
+body:has(.booth-station) main .section > .default-content-wrapper > table td:nth-child(2) ul {
+  margin: 6px 0 0 16px;
+  padding: 0;
+}
+
+body:has(.booth-station) main .section > div > table td:nth-child(2) li,
+body:has(.booth-station) main .section > .default-content-wrapper > table td:nth-child(2) li {
+  font-size: 13px;
+  color: rgb(255 255 255 / 55%);
+  margin-bottom: 3px;
+  line-height: 1.5;
+}
+
+/* Section divider above each script table section */
+body:has(.booth-station) main .section {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Ready / WIP / TBD status color coding via data attribute set by JS */
+.bs-status-ready { color: var(--color-emerald, #34d399) !important; }
+.bs-status-wip   { color: var(--color-gold, #c9a84c) !important; }
+.bs-status-tbd   { color: rgb(255 255 255 / 30%) !important; }
