@@ -35,7 +35,7 @@ export default function decorate(block) {
   messages.innerHTML = `
     <div class="sa-intro">
       <div class="sa-intro-title">Schedule Assistant</div>
-      <div class="sa-intro-sub">Speak or type a change — I'll verify coverage,<br>check breaks, and update the sheet.</div>
+      <div class="sa-intro-sub">Speak or type a change — I'll verify coverage,<br>check breaks, get approval and update the schedule.</div>
       <div class="sa-chips">
         <span class="sa-chip">Who covers Sites S2 Tuesday?</span>
         <span class="sa-chip">Yuji has a conflict Tue 2pm</span>
