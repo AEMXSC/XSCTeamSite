@@ -408,3 +408,82 @@ body:has(.summit-admin) footer {
 .sa-send-btn:disabled svg {
   fill: var(--sa-text-2);
 }
+
+/* ── Bubble text ── */
+.sa-bubble-text {
+  margin: 0 0 10px;
+  line-height: 1.55;
+}
+
+.sa-bubble-text:last-child {
+  margin-bottom: 0;
+}
+
+/* ── Schedule table ── */
+.sa-table-wrap {
+  overflow-x: auto;
+  margin-top: 4px;
+  border-radius: 8px;
+  border: 1px solid var(--sa-border);
+}
+
+.sa-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  font-family: var(--body-font-family, roboto, sans-serif);
+  min-width: 220px;
+}
+
+.sa-table thead {
+  background: rgb(255 255 255 / 5%);
+}
+
+.sa-table th {
+  padding: 7px 10px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--sa-text-2);
+  white-space: nowrap;
+  border-bottom: 1px solid var(--sa-border);
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+}
+
+.sa-table td {
+  padding: 8px 10px;
+  color: var(--sa-text);
+  border-bottom: 1px solid rgb(255 255 255 / 4%);
+  vertical-align: top;
+  line-height: 1.4;
+}
+
+.sa-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.sa-table tbody tr:hover td {
+  background: rgb(255 255 255 / 3%);
+}
+
+.sa-row-changed td {
+  background: rgb(235 16 0 / 8%) !important;
+}
+
+.sa-cell-badge {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 1px 7px;
+  background: var(--sa-red);
+  border-radius: 100px;
+  font-size: 10px;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+  vertical-align: middle;
+  white-space: nowrap;
+}
