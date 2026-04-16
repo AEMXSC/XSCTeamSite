@@ -416,12 +416,10 @@ export default async function decorate(block) {
 
   function applyName(val) {
     const name = val.trim();
-    if (!name || names.includes(name)) {
-      selectedName = name;
-      try { localStorage.setItem(LS_NAME, name); } catch { /* noop */ }
-      clearBtn.hidden = !name;
-      renderMySchedule(mySlotsEl, data, selectedName);
-    }
+    selectedName = name;
+    try { if (name) localStorage.setItem(LS_NAME, name); else localStorage.removeItem(LS_NAME); } catch { /* noop */ }
+    clearBtn.hidden = !name;
+    renderMySchedule(mySlotsEl, data, selectedName);
   }
 
   function buildSuggestions(filtered) {
@@ -471,7 +469,7 @@ export default async function decorate(block) {
     else if (e.key === 'Enter') {
       const focused = suggestionsEl.querySelector('.ss-name-focused');
       if (focused) { e.preventDefault(); selectSuggestion(focused.dataset.name); }
-      else if (names.includes(nameInput.value.trim())) { applyName(nameInput.value); hideSuggestions(); }
+      else if (nameInput.value.trim()) { applyName(nameInput.value); hideSuggestions(); }
     } else if (e.key === 'Escape') { hideSuggestions(); }
   });
 
