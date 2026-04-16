@@ -1,4 +1,4 @@
-/* summit-header — sticky status bar, mobile-first */
+/* summit-header — sticky status bar + optional booth guide nav */
 
 /* Hide site nav and footer on summit pages — self-contained tool */
 body:has(.summit-header) header,
@@ -11,10 +11,11 @@ body:has(.summit-header) footer {
   top: 0;
   z-index: 90;
   width: 100%;
-  padding: 0 !important; /* override main .block which has higher specificity (0-1-1 vs 0-1-0) */
+  padding: 0 !important;
   margin: 0 !important;
 }
 
+/* ── Status bar ── */
 .sh-bar {
   display: flex;
   align-items: center;
@@ -28,7 +29,6 @@ body:has(.summit-header) footer {
   overflow: hidden;
 }
 
-/* open state — subtle green tint */
 .sh-bar[data-state="open"] {
   background: #131f14;
   border-bottom-color: rgb(76 175 80 / 25%);
@@ -39,7 +39,6 @@ body:has(.summit-header) footer {
   background: #111;
 }
 
-/* ---- left side ---- */
 .sh-left {
   display: flex;
   align-items: center;
@@ -62,7 +61,6 @@ body:has(.summit-header) footer {
   display: block;
 }
 
-/* vertical separator between logo and status */
 .sh-sep {
   display: block;
   width: 1px;
@@ -113,7 +111,6 @@ body:has(.summit-header) footer {
   min-width: 0;
 }
 
-/* ---- right side ---- */
 .sh-right {
   font-size: 12px;
   white-space: nowrap;
@@ -121,7 +118,6 @@ body:has(.summit-header) footer {
   padding-left: 8px;
 }
 
-/* on narrow phones, cap right side at 50% so logo always has room */
 @media (width < 500px) {
   .sh-right {
     flex-shrink: 1;
@@ -146,7 +142,6 @@ body:has(.summit-header) footer {
   color: rgb(255 255 255 / 40%);
 }
 
-/* hide slot text on phones — day name + countdown is enough */
 @media (width < 500px) {
   .sh-slot,
   .sh-divider {
@@ -170,5 +165,85 @@ body:has(.summit-header) footer {
   .sh-slot,
   .sh-right {
     font-size: 13px;
+  }
+}
+
+/* ── Booth guide nav strip (optional row 2) ── */
+.sh-nav {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0 12px;
+  background: #0d1620;
+  border-bottom: 1px solid rgb(255 255 255 / 6%);
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+}
+
+.sh-nav::-webkit-scrollbar {
+  display: none;
+}
+
+.sh-nav-group {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  flex-shrink: 0;
+}
+
+.sh-nav-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 22%);
+  font-family: var(--heading-font-family);
+  padding: 0 10px 0 6px;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.sh-nav-link {
+  display: block;
+  padding: 10px 13px;
+  font-size: 13px;
+  color: rgb(255 255 255 / 48%);
+  text-decoration: none;
+  font-family: var(--body-font-family);
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.15s, border-color 0.15s;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.sh-nav-link:hover {
+  color: rgb(255 255 255 / 75%);
+}
+
+.sh-nav-active {
+  color: #fff !important;
+  border-bottom-color: var(--color-red, #eb1000);
+  font-weight: 600;
+}
+
+.sh-nav-sep {
+  display: block;
+  width: 1px;
+  height: 18px;
+  background: rgb(255 255 255 / 10%);
+  flex-shrink: 0;
+  margin: 0 6px;
+}
+
+@media (width >= 600px) {
+  .sh-nav {
+    padding: 0 20px;
+  }
+
+  .sh-nav-link {
+    font-size: 13px;
+    padding: 10px 14px;
   }
 }
