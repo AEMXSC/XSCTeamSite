@@ -263,34 +263,46 @@ export default function decorate(block) {
 
   sendBtn.addEventListener('click', () => send(textarea.value.trim()));
 
-  // ── Voice
-  const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (SR) {
-    recognition = new SR();
-    recognition.continuous = false;
-    recognition.interimResults = true;
-    recognition.lang = 'en-US';
+  // ── Voice — always show mic, detect SR on first tap
+  micBtn.addEventListener('click', () => {
+    if (isListening) { stopListening(); return; }
 
-    recognition.onresult = (e) => {
-      const t = Array.from(e.results).map((r) => r[0].transcript).join('');
-      textarea.value = t;
-      sendBtn.disabled = !t.trim();
-      if (e.results[e.results.length - 1].isFinal) {
-        stopListening();
-        send(t.trim());
+    // Lazy-init speech recognition on first tap (avoids permission timing issues)
+    if (!recognition) {
+      const SR = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SR) {
+        textarea.placeholder = 'Voice not supported in this browser';
+        textarea.focus();
+        return;
       }
-    };
+      recognition = new SR();
+      recognition.continuous = false;
+      recognition.interimResults = true;
+      recognition.lang = 'en-US';
 
-    recognition.onend = stopListening;
-    recognition.onerror = stopListening;
+      recognition.onresult = (e) => {
+        const t = Array.from(e.results).map((r) => r[0].transcript).join('');
+        textarea.value = t;
+        textarea.style.height = 'auto';
+        textarea.style.height = `${Math.min(textarea.scrollHeight, 110)}px`;
+        sendBtn.disabled = !t.trim();
+        if (e.results[e.results.length - 1].isFinal) {
+          stopListening();
+          send(t.trim());
+        }
+      };
 
-    micBtn.addEventListener('click', () => {
-      if (isListening) stopListening();
-      else startListening();
-    });
-  } else {
-    micBtn.style.display = 'none';
-  }
+      recognition.onend = stopListening;
+      recognition.onerror = (e) => {
+        stopListening();
+        if (e.error === 'not-allowed') {
+          textarea.placeholder = 'Mic permission denied — type instead';
+        }
+      };
+    }
+
+    startListening();
+  });
 
   function startListening() {
     isListening = true;
