@@ -408,24 +408,27 @@
   width: 100%;
   border-collapse: collapse;
   font-size: 13px;
+  font-family: var(--body-font-family); /* tables don't inherit font-family */
   min-width: 320px;
 }
 
 .ss-grid th,
 .ss-grid td {
-  padding: 10px 10px;
+  padding: 10px;
   text-align: left;
   border: 1px solid var(--ss-border);
   vertical-align: middle;
+  font-family: var(--body-font-family);
 }
 
 .ss-grid thead th {
   background: rgb(0 0 0 / 30%);
   font-size: 11px;
   font-weight: 700;
+  font-family: var(--heading-font-family);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  color: rgb(255 255 255 / 50%);
+  letter-spacing: 0.08em;
+  color: rgb(255 255 255 / 45%);
   white-space: nowrap;
 }
 
@@ -448,11 +451,13 @@
 
 .ss-cell-filled {
   color: #f0f0f0;
+  font-weight: 500;
 }
 
 .ss-cell-name {
   display: block;
   font-size: 13px;
+  font-weight: 500;
 }
 
 .ss-cell-conflict {
