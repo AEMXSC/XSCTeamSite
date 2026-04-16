@@ -1,0 +1,120 @@
+/* booth-cards — overview clickable cards */
+
+.booth-cards-wrapper {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px 16px;
+}
+
+.booth-cards {
+  padding: 0 !important;
+}
+
+.bc-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+}
+
+.bc-card {
+  display: flex;
+  flex-direction: column;
+  padding: 18px 18px 14px;
+  background: var(--color-card, hsl(220deg 20% 18%));
+  border: 1px solid rgb(255 255 255 / 7%);
+  border-radius: 10px;
+  text-decoration: none;
+  transition: border-color 0.15s, transform 0.15s, box-shadow 0.15s;
+  cursor: pointer;
+  position: relative;
+}
+
+.bc-card:hover {
+  border-color: rgb(255 255 255 / 18%);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 30%);
+}
+
+.bc-card-top {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.bc-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.bc-dot.bc-ready { background: var(--color-emerald, #34d399); }
+.bc-dot.bc-wip   { background: var(--color-gold, #c9a84c); }
+.bc-dot.bc-tbd   { background: rgb(255 255 255 / 20%); }
+
+.bc-status-label {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  font-family: var(--heading-font-family);
+}
+
+.bc-status-label.bc-ready { color: var(--color-emerald, #34d399); }
+.bc-status-label.bc-wip   { color: var(--color-gold, #c9a84c); }
+.bc-status-label.bc-tbd   { color: rgb(255 255 255 / 28%); }
+
+.bc-title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  font-family: var(--heading-font-family);
+  margin: 0 0 5px;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.bc-meta {
+  font-size: 12px;
+  color: rgb(255 255 255 / 35%);
+  font-family: var(--body-font-family);
+  margin: 0 0 8px;
+  line-height: 1.4;
+}
+
+.bc-desc {
+  font-size: 13px;
+  color: rgb(255 255 255 / 50%);
+  font-family: var(--body-font-family);
+  line-height: 1.5;
+  margin: 0;
+  flex: 1;
+}
+
+.bc-arrow {
+  display: block;
+  font-size: 16px;
+  color: rgb(255 255 255 / 20%);
+  margin-top: 12px;
+  transition: color 0.15s, transform 0.15s;
+  font-family: var(--body-font-family);
+  align-self: flex-end;
+}
+
+.bc-card:hover .bc-arrow {
+  color: var(--color-red, #eb1000);
+  transform: translateX(3px);
+}
+
+/* 4 quest stations in one row on desktop */
+@media (width >= 900px) {
+  .bc-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  /* product section — 5 items: 3+2 layout handled by auto-fill */
+  .bc-grid.bc-products {
+    grid-template-columns: repeat(5, 1fr);
+  }
+}
