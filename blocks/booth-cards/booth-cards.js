@@ -28,10 +28,7 @@ export default function decorate(block) {
 
     return `
       <a href="${href}" class="bc-card">
-        <div class="bc-card-top">
-          <span class="bc-dot ${status.cls}" aria-hidden="true"></span>
-          <span class="bc-status-label ${status.cls}">${status.label}</span>
-        </div>
+        <span class="bc-badge ${status.cls}">${status.label}</span>
         <h3 class="bc-title">${title}</h3>
         ${meta ? `<p class="bc-meta">${meta}</p>` : ''}
         ${desc ? `<p class="bc-desc">${desc}</p>` : ''}

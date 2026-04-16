@@ -27,24 +27,38 @@
   color: rgb(255 255 255 / 65%);
 }
 
+/* Eyebrow — matches site's red dash + uppercase label pattern exactly */
 .bs-eyebrow {
-  font-size: 11px;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: var(--color-red, #eb1000);
+  color: #ef4444;
   font-family: var(--heading-font-family);
-  margin: 0 0 8px;
+  margin: 0 0 10px;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
 }
 
+.bs-eyebrow::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--color-red, #eb1000);
+  flex-shrink: 0;
+}
+
+/* Title — font-weight 900 + tight tracking matches site section heading style */
 .bs-title {
   font-size: clamp(22px, 3vw, 34px);
-  font-weight: 700;
+  font-weight: 900;
   font-family: var(--heading-font-family);
   color: #fff;
   margin: 0 0 8px;
   line-height: 1.15;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
 
 .bs-meta {
@@ -228,17 +242,29 @@ body:has(.booth-station) main .section {
   padding: 0 24px;
 }
 
-/* "Demo Scripts" heading — rein in default EDS h2 size */
+/* "Demo Scripts" h2 — uses site's eyebrow pattern: red dash + red uppercase label */
 body:has(.booth-station) main .section h2 {
-  font-size: 13px;
+  font-size: 0.75rem;
   font-weight: 700;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.15em;
   text-transform: uppercase;
-  color: rgb(255 255 255 / 28%);
+  color: #ef4444;
   font-family: var(--heading-font-family);
-  margin: 28px 0 16px;
-  padding-top: 24px;
+  margin: 32px 0 16px;
+  padding-top: 28px;
   border-top: 1px solid rgb(255 255 255 / 8%);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+body:has(.booth-station) main .section h2::before {
+  content: '';
+  display: block;
+  width: 1.5rem;
+  height: 2px;
+  background: var(--color-red, #eb1000);
+  flex-shrink: 0;
 }
 
 /* Also tone down h3 used for script titles if any */
@@ -259,34 +285,30 @@ body:has(.booth-station) main .section h3 {
    EDS injects .button on any standalone <a> in a <p>.
    In the booth guide context these are resource links, not CTAs —
    render as compact inline tags instead of red pill buttons.       */
+/* Resource link chips — pill shape (9999px) matches site's demo-card-request pattern */
 body:has(.booth-station) main .section a.button,
 body:has(.booth-station) main .section a.button:any-link {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 4px 10px;
-  font-size: 12px;
-  font-weight: 600;
-  font-family: var(--body-font-family);
-  color: rgb(255 255 255 / 65%);
-  background: rgb(255 255 255 / 6%);
-  border: 1px solid rgb(255 255 255 / 12%);
-  border-radius: 5px;
+  padding: 3px 10px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  font-family: var(--heading-font-family);
+  color: rgb(255 255 255 / 60%);
+  background: rgb(255 255 255 / 5%);
+  border: none;
+  border-radius: 9999px;
   text-decoration: none;
-  letter-spacing: 0;
-  text-transform: none;
-  margin: 3px 4px 3px 0;
-  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  margin: 3px 6px 3px 0;
+  transition: background 0.2s ease, color 0.2s ease;
   white-space: nowrap;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 body:has(.booth-station) main .section a.button:hover {
-  background: rgb(255 255 255 / 10%);
-  color: #fff;
-  border-color: rgb(255 255 255 / 22%);
+  background: rgb(235 16 0 / 10%);
+  color: #f87171;
 }
 
 /* Wrap containing <p> so multiple resource links flow inline */
