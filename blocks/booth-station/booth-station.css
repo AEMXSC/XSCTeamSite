@@ -254,3 +254,45 @@ body:has(.booth-station) main .section h3 {
 .bs-status-ready { color: var(--color-emerald, #34d399) !important; }
 .bs-status-wip   { color: var(--color-gold, #c9a84c) !important; }
 .bs-status-tbd   { color: rgb(255 255 255 / 30%) !important; }
+
+/* ── Override EDS default button treatment for resource links ──
+   EDS injects .button on any standalone <a> in a <p>.
+   In the booth guide context these are resource links, not CTAs —
+   render as compact inline tags instead of red pill buttons.       */
+body:has(.booth-station) main .section a.button,
+body:has(.booth-station) main .section a.button:any-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: var(--body-font-family);
+  color: rgb(255 255 255 / 65%);
+  background: rgb(255 255 255 / 6%);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 5px;
+  text-decoration: none;
+  letter-spacing: 0;
+  text-transform: none;
+  margin: 3px 4px 3px 0;
+  transition: background 0.15s, color 0.15s, border-color 0.15s;
+  white-space: nowrap;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+body:has(.booth-station) main .section a.button:hover {
+  background: rgb(255 255 255 / 10%);
+  color: #fff;
+  border-color: rgb(255 255 255 / 22%);
+}
+
+/* Wrap containing <p> so multiple resource links flow inline */
+body:has(.booth-station) main .section .default-content-wrapper p:has(a.button) {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 6px 0 10px;
+}
