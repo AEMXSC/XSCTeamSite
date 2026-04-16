@@ -33,9 +33,13 @@ const SUMMIT_LOGO_SVG = `<svg class="sh-logo-svg" width="177" height="22" viewBo
 <path d="M176.973 16.9245C176.56 17.0568 176.119 17.1091 175.816 17.1091V17.1107C174.879 17.1107 174.329 16.6357 174.329 15.3648V10.654H176.973V6.97539H174.329V3.50938L169.507 3.53552V6.97729H167.441V10.6559H169.507V16.1065C169.507 19.4925 171.352 20.9219 174.493 20.9219C175.733 20.9219 176.395 20.7893 177 20.577L176.973 16.9245Z" fill="#f0f0f0"/>
 </svg>`;
 
+const REFRESH_INTERVAL_MS = 30_000;
+
 function getSimtime() {
   const p = new URLSearchParams(window.location.search).get('simtime');
-  return p ? new Date(p) : null;
+  if (!p) return null;
+  const d = new Date(p);
+  return Number.isNaN(d.getTime()) ? null : d;
 }
 
 function getPDT(date) {
@@ -237,7 +241,7 @@ function renderNav(block, rows) {
   block.append(nav);
 }
 
-export default async function decorate(block) {
+export default function decorate(block) {
   const rows = [...block.children];
   const schedule = structuredClone(DEFAULT_SUMMIT);
 
@@ -251,24 +255,33 @@ export default async function decorate(block) {
     }
   }
 
-  let scheduleData = null;
-  try {
-    const resp = await fetch('/summit/schedule-data.json');
-    if (resp.ok) scheduleData = (await resp.json()).data || [];
-  } catch { /* graceful degradation */ }
-
   block.innerHTML = '';
 
   const bar = document.createElement('div');
   bar.className = 'sh-bar';
+  let scheduleData = null;
+
+  // Render immediately (sync) — EDS can mark block loaded without waiting for fetch
   renderBar(bar, schedule, scheduleData);
   block.append(bar);
 
   // Optional nav row (row 2) for booth guide pages
+  // rows[] is a pre-spread array — still valid after block.innerHTML = ''
   renderNav(block, rows);
 
-  const timer = setInterval(() => renderBar(bar, schedule, scheduleData), 30_000);
+  // Enhance bar with schedule slot data once available — non-blocking
+  fetch('/summit/schedule-data.json')
+    .then((r) => r.ok ? r.json() : null)
+    .then((json) => {
+      if (!json) return;
+      scheduleData = json.data || [];
+      renderBar(bar, schedule, scheduleData);
+    })
+    .catch(() => { /* graceful degradation — bar works without slot data */ });
+
+  // Refresh every 30s; observe closest ancestor to avoid site-wide subtree cost
+  const timer = setInterval(() => renderBar(bar, schedule, scheduleData), REFRESH_INTERVAL_MS);
   new MutationObserver((_, obs) => {
     if (!document.contains(block)) { clearInterval(timer); obs.disconnect(); }
-  }).observe(document.body, { childList: true, subtree: true });
+  }).observe(block.closest('main') || document.body, { childList: true, subtree: false });
 }

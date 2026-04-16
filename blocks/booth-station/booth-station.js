@@ -17,7 +17,9 @@ export default function decorate(block) {
     const key = cells[0]?.textContent.trim().toLowerCase().replace(/\s+/g, '-');
     if (!key || !cells[1]) return;
     // Use textContent for scalar fields to avoid nested <p> from DA wrapping
-    const SCALAR = ['type', 'workstations', 'demos', 'owners'];
+    // textContent for all plain-text fields — prevents nested <p> and avoids
+    // any XSS risk if a DA author pastes unexpected HTML into a cell
+    const SCALAR = ['type', 'workstations', 'demos', 'owners', 'station', 'title', 'narrative'];
     data[key] = SCALAR.includes(key)
       ? cells[1].textContent.trim()
       : cells[1].innerHTML.trim();

@@ -23,7 +23,7 @@ export default function decorate(block) {
           <div class="bstaff-initials" aria-hidden="true">${s.initials}</div>
           <div class="bstaff-info">
             <span class="bstaff-name">${s.name}</span>
-            ${s.email ? `<a href="mailto:${s.email}" class="bstaff-email">${s.email}</a>` : ''}
+            ${s.email ? `<a href="mailto:${encodeURIComponent(s.email)}" class="bstaff-email">${s.email}</a>` : ''}
           </div>
         </div>
       `).join('')}
