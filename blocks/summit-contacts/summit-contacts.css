@@ -9,7 +9,7 @@
   border: 1px solid var(--sc-border);
   border-radius: var(--sc-radius);
   overflow: hidden;
-  margin: 0 16px;
+  margin: 0 16px 32px;
 }
 
 /* ---- Toggle button ---- */
@@ -93,7 +93,7 @@
 .sc-list {
   display: flex;
   flex-direction: column;
-  padding-bottom: 80px;
+  padding-bottom: 120px;
 }
 
 .sc-item {
