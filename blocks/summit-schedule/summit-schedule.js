@@ -28,7 +28,22 @@ const BOOTH_ORDER = [
 ];
 const LS_NAME = 'summit-name';
 const SS_MODE = 'summit-mode';
-const DEFAULT_URL = '/summit/schedule-data.json';
+const SHEET_ID = '1sHwnxdakFDtCmFCPtCjzOMU__1saKNhvn6nM-pJb_lE';
+const DEFAULT_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=shared-schedule`;
+
+// Parse Google Sheets gviz/tq response → flat array matching EDS column names
+function parseGviz(text) {
+  const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
+  if (!json.table) return [];
+  const headers = json.table.cols.map((c) => c.label || c.id);
+  return (json.table.rows || []).map((row) => {
+    const obj = {};
+    (row.c || []).forEach((cell, i) => {
+      obj[headers[i]] = (cell != null && cell.v != null) ? cell.v : '';
+    });
+    return obj;
+  });
+}
 
 // ---- Time utils ----
 
@@ -255,7 +270,8 @@ export default async function decorate(block) {
   try {
     const resp = await fetch(configUrl);
     if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
-    data = (await resp.json()).data || [];
+    const text = await resp.text();
+    data = text.trimStart().startsWith('/*') ? parseGviz(text) : (JSON.parse(text).data || []);
   } catch {
     loader.className = 'ss-error';
     loader.textContent = 'Could not load schedule. Check your connection and refresh.';
