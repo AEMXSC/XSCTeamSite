@@ -50,14 +50,15 @@ export default function decorate(block) {
   bar.className = 'sa-input-bar';
   bar.innerHTML = `
     <button class="sa-icon-btn sa-mic-btn" title="Speak" aria-label="Voice input">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <rect x="9" y="2" width="6" height="11" rx="3"/>
-        <path d="M5 10a7 7 0 0 0 14 0"/>
-        <line x1="12" y1="17" x2="12" y2="21"/>
-        <line x1="9" y1="21" x2="15" y2="21"/>
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 1C10.34 1 9 2.34 9 4v8c0 1.66 1.34 3 3 3s3-1.34 3-3V4c0-1.66-1.34-3-3-3z"/>
+        <path d="M19 11c0 3.31-2.69 6-6 6s-6-2.69-6-6H5c0 3.86 2.92 7.04 6.75 7.45V21h2.5v-2.55C18.08 18.04 21 14.86 21 11h-2z"/>
       </svg>
     </button>
     <textarea class="sa-textarea" placeholder="Type a change..." rows="1" aria-label="Message input"></textarea>
+    <button class="sa-icon-btn sa-stop-btn" aria-label="Stop" style="display:none">
+      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>
+    </button>
     <button class="sa-icon-btn sa-send-btn" disabled aria-label="Send">
       <svg viewBox="0 0 24 24"><path d="M2 21l21-9L2 3v7l15 2-15 2v7z"/></svg>
     </button>
@@ -72,12 +73,16 @@ export default function decorate(block) {
   let isLoading = false;
   let recognition = null;
   let isListening = false;
+  let currentAbort = null;
 
   const passInput = auth.querySelector('.sa-pass-input');
   const unlockBtn = auth.querySelector('.sa-unlock-btn');
   const textarea = bar.querySelector('.sa-textarea');
   const sendBtn = bar.querySelector('.sa-send-btn');
+  const stopBtn = bar.querySelector('.sa-stop-btn');
   const micBtn = bar.querySelector('.sa-mic-btn');
+
+  stopBtn.addEventListener('click', () => { if (currentAbort) currentAbort.abort(); });
 
   // ── Auth
   async function unlock(p) {
@@ -234,10 +239,12 @@ export default function decorate(block) {
   async function send(msg) {
     if (!msg.trim() || isLoading) return;
     isLoading = true;
+    currentAbort = new AbortController();
     addMsg('user', msg);
     textarea.value = '';
     textarea.style.height = 'auto';
-    sendBtn.disabled = true;
+    sendBtn.style.display = 'none';
+    stopBtn.style.display = 'flex';
     addThinking();
 
     try {
@@ -245,6 +252,7 @@ export default function decorate(block) {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionToken}` },
         body: JSON.stringify({ message: msg }),
+        signal: currentAbort.signal,
       });
 
       document.getElementById('sa-thinking')?.remove();
@@ -260,11 +268,14 @@ export default function decorate(block) {
       }
 
       addMsg('ai', data.message || 'Done.', data.updates || [], data.warnings || [], data.table || null);
-    } catch {
+    } catch (err) {
       document.getElementById('sa-thinking')?.remove();
-      addMsg('ai', 'Network error — check connection.', [], []);
+      if (err.name !== 'AbortError') addMsg('ai', 'Network error — check connection.', [], []);
     } finally {
       isLoading = false;
+      currentAbort = null;
+      stopBtn.style.display = 'none';
+      sendBtn.style.display = 'flex';
     }
   }
 

@@ -368,11 +368,10 @@ body:has(.summit-admin) footer {
 }
 
 .sa-mic-btn svg {
-  width: 17px;
-  height: 17px;
-  stroke: var(--sa-text-2);
-  fill: none;
-  transition: stroke 0.15s;
+  width: 20px;
+  height: 20px;
+  fill: var(--sa-text-2);
+  transition: fill 0.15s;
 }
 
 .sa-mic-btn.sa-listening {
@@ -382,7 +381,18 @@ body:has(.summit-admin) footer {
 }
 
 .sa-mic-btn.sa-listening svg {
-  stroke: #fff;
+  fill: #fff;
+}
+
+.sa-stop-btn {
+  background: var(--sa-surface-2);
+  border: 1.5px solid var(--sa-border) !important;
+}
+
+.sa-stop-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: var(--sa-text);
 }
 
 @keyframes sa-mic-ring {
