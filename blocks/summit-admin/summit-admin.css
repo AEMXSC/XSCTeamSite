@@ -365,23 +365,21 @@ body:has(.summit-admin) footer {
 .sa-mic-btn {
   background: var(--sa-surface-2);
   border: 1.5px solid var(--sa-border) !important;
+  color: #999;
 }
 
 .sa-mic-btn svg {
   width: 20px;
   height: 20px;
-  fill: var(--sa-text-2);
-  transition: fill 0.15s;
+  fill: currentColor;
+  transition: color 0.15s;
 }
 
 .sa-mic-btn.sa-listening {
   background: var(--sa-red);
   border-color: var(--sa-red) !important;
+  color: white;
   animation: sa-mic-ring 1s infinite;
-}
-
-.sa-mic-btn.sa-listening svg {
-  fill: #fff;
 }
 
 .sa-stop-btn {
