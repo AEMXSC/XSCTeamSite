@@ -7,7 +7,7 @@
  */
 
 const WORKER = 'https://summit-admin.compass-xsc.workers.dev';
-const SESSION_KEY = 'summit_admin_pass';
+const SESSION_KEY = 'summit_admin_token';
 
 // Summit wordmark SVG — same as summit-header
 const LOGO_SVG = `<svg class="sa-auth-logo" height="18" viewBox="0 0 177 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe Summit" role="img">
@@ -68,7 +68,7 @@ export default function decorate(block) {
   block.appendChild(bar);
 
   // ── State
-  let passphrase = sessionStorage.getItem(SESSION_KEY) || '';
+  let sessionToken = sessionStorage.getItem(SESSION_KEY) || '';
   let isLoading = false;
   let recognition = null;
   let isListening = false;
@@ -80,13 +80,34 @@ export default function decorate(block) {
   const micBtn = bar.querySelector('.sa-mic-btn');
 
   // ── Auth
-  function unlock(p) {
-    passphrase = p;
-    sessionStorage.setItem(SESSION_KEY, p);
-    auth.classList.add('sa-hidden');
+  async function unlock(p) {
+    if (!p) return;
+    unlockBtn.disabled = true;
+    unlockBtn.textContent = 'Unlocking…';
+    try {
+      const resp = await fetch(`${WORKER}/auth`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ passphrase: p }),
+      });
+      if (resp.ok) {
+        const data = await resp.json();
+        sessionToken = data.token || '';
+        sessionStorage.setItem(SESSION_KEY, sessionToken);
+        auth.classList.add('sa-hidden');
+      } else {
+        passInput.classList.add('sa-error');
+        setTimeout(() => passInput.classList.remove('sa-error'), 600);
+        unlockBtn.textContent = resp.status === 429 ? 'Too many attempts' : 'Unlock';
+      }
+    } catch {
+      unlockBtn.textContent = 'Unlock';
+    } finally {
+      unlockBtn.disabled = false;
+    }
   }
 
-  if (passphrase) auth.classList.add('sa-hidden');
+  if (sessionToken) auth.classList.add('sa-hidden');
 
   unlockBtn.addEventListener('click', () => unlock(passInput.value.trim()));
   passInput.addEventListener('keydown', (e) => {
@@ -222,8 +243,8 @@ export default function decorate(block) {
     try {
       const resp = await fetch(`${WORKER}/chat`, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: msg, passphrase }),
+        headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${sessionToken}` },
+        body: JSON.stringify({ message: msg }),
       });
 
       document.getElementById('sa-thinking')?.remove();
@@ -231,7 +252,7 @@ export default function decorate(block) {
 
       if (resp.status === 401) {
         sessionStorage.removeItem(SESSION_KEY);
-        passphrase = '';
+        sessionToken = '';
         auth.classList.remove('sa-hidden');
         passInput.classList.add('sa-err');
         setTimeout(() => passInput.classList.remove('sa-err'), 500);
