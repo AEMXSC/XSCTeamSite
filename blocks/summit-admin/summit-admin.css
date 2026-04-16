@@ -1,0 +1,410 @@
+/* summit-admin — AI schedule assistant, matches summit-schedule design system */
+
+/* Hide site nav/footer — self-contained tool page */
+body:has(.summit-admin) header,
+body:has(.summit-admin) footer {
+  display: none;
+}
+
+.summit-admin {
+  --sa-surface:    hsl(220deg 22% 14%);
+  --sa-surface-2:  hsl(220deg 20% 18%);
+  --sa-border:     rgb(255 255 255 / 8%);
+  --sa-red:        #EB1000;
+  --sa-red-dim:    rgb(235 16 0 / 15%);
+  --sa-text:       #f0f0f0;
+  --sa-text-2:     rgb(255 255 255 / 45%);
+  --sa-amber:      #FFD600;
+  --sa-green:      #4CAF50;
+  --sa-radius:     10px;
+  --sa-safe-b:     env(safe-area-inset-bottom, 0px);
+
+  position: fixed;
+  inset: 0;
+  top: 48px; /* below summit-header */
+  display: flex;
+  flex-direction: column;
+  background: var(--background-color, #0F1923);
+  padding: 0 !important;
+  margin: 0 !important;
+  font-family: var(--body-font-family, roboto, sans-serif);
+  color: var(--sa-text);
+  overflow: hidden;
+}
+
+/* ── Auth overlay ── */
+.sa-auth {
+  position: absolute;
+  inset: 0;
+  background: var(--background-color, #0F1923);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 32px 24px;
+  z-index: 10;
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.sa-auth.sa-hidden {
+  opacity: 0;
+  transform: translateY(-16px);
+  pointer-events: none;
+}
+
+.sa-auth-logo {
+  height: 18px;
+  width: auto;
+  display: block;
+  opacity: 0.9;
+}
+
+.sa-auth-title {
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+  font-size: 22px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+
+.sa-auth-sub {
+  font-size: 13px;
+  color: var(--sa-text-2);
+  text-align: center;
+  margin-top: -8px;
+}
+
+.sa-pass-wrap {
+  width: 100%;
+  max-width: 300px;
+  position: relative;
+}
+
+.sa-pass-input {
+  width: 100%;
+  padding: 13px 18px;
+  background: var(--sa-surface);
+  border: 1.5px solid var(--sa-border);
+  border-radius: var(--sa-radius);
+  color: var(--sa-text);
+  font-size: 17px;
+  font-family: inherit;
+  text-align: center;
+  letter-spacing: 4px;
+  outline: none;
+  transition: border-color 0.2s;
+  box-sizing: border-box;
+}
+
+.sa-pass-input:focus {
+  border-color: var(--sa-red);
+}
+
+.sa-pass-input.sa-err {
+  border-color: var(--sa-red);
+  animation: sa-shake 0.3s;
+}
+
+@keyframes sa-shake {
+  0%, 100% { transform: translateX(0); }
+  25%       { transform: translateX(-7px); }
+  75%       { transform: translateX(7px); }
+}
+
+.sa-unlock-btn {
+  width: 100%;
+  max-width: 300px;
+  padding: 14px;
+  background: var(--sa-red);
+  border: none;
+  border-radius: var(--sa-radius);
+  color: #fff;
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+  font-size: 15px;
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sa-unlock-btn:active {
+  background: #c40d00;
+}
+
+/* ── Chat area ── */
+.sa-messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 16px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* intro placeholder */
+.sa-intro {
+  text-align: center;
+  padding: 24px 16px 16px;
+  color: var(--sa-text-2);
+}
+
+.sa-intro-title {
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+  font-size: 19px;
+  font-weight: 700;
+  color: var(--sa-text);
+  margin-bottom: 8px;
+  letter-spacing: 0.02em;
+}
+
+.sa-intro-sub {
+  font-size: 13px;
+  line-height: 1.6;
+  margin-bottom: 16px;
+}
+
+.sa-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+}
+
+.sa-chip {
+  padding: 8px 14px;
+  background: var(--sa-surface);
+  border: 1px solid var(--sa-border);
+  border-radius: 100px;
+  font-size: 12px;
+  color: var(--sa-text-2);
+  cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sa-chip:active {
+  background: var(--sa-red-dim);
+  border-color: var(--sa-red);
+  color: var(--sa-red);
+}
+
+/* message rows */
+.sa-msg {
+  display: flex;
+  gap: 10px;
+  align-items: flex-end;
+  max-width: 86%;
+}
+
+.sa-msg.sa-user {
+  align-self: flex-end;
+  flex-direction: row-reverse;
+}
+
+.sa-msg.sa-ai {
+  align-self: flex-start;
+}
+
+.sa-avatar {
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 10px;
+  font-weight: 700;
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+  letter-spacing: 0.03em;
+  margin-bottom: 2px;
+}
+
+.sa-msg.sa-ai .sa-avatar {
+  background: var(--sa-red);
+  color: #fff;
+}
+
+.sa-msg.sa-user .sa-avatar {
+  background: var(--sa-surface-2);
+  color: var(--sa-text-2);
+}
+
+.sa-bubble {
+  padding: 10px 14px;
+  border-radius: var(--sa-radius);
+  font-size: 14px;
+  line-height: 1.55;
+  word-break: break-word;
+}
+
+.sa-msg.sa-ai .sa-bubble {
+  background: var(--sa-surface);
+  border-bottom-left-radius: 3px;
+}
+
+.sa-msg.sa-user .sa-bubble {
+  background: var(--sa-red);
+  color: #fff;
+  border-bottom-right-radius: 3px;
+}
+
+.sa-update-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  margin-top: 8px;
+  padding: 4px 10px;
+  background: rgb(76 175 80 / 18%);
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--sa-green);
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+}
+
+.sa-warning {
+  margin-top: 8px;
+  padding: 7px 11px;
+  background: rgb(255 214 0 / 10%);
+  border-left: 3px solid var(--sa-amber);
+  border-radius: 0 6px 6px 0;
+  font-size: 12px;
+  color: var(--sa-amber);
+  line-height: 1.45;
+}
+
+/* thinking animation */
+.sa-thinking {
+  display: flex;
+  gap: 5px;
+  align-items: center;
+  padding: 13px 16px;
+  background: var(--sa-surface);
+  border-radius: var(--sa-radius);
+  border-bottom-left-radius: 3px;
+}
+
+.sa-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--sa-text-2);
+  animation: sa-bounce 1.2s infinite;
+}
+.sa-dot:nth-child(2) { animation-delay: 0.18s; }
+.sa-dot:nth-child(3) { animation-delay: 0.36s; }
+
+@keyframes sa-bounce {
+  0%, 80%, 100% { transform: translateY(0); opacity: 0.4; }
+  40%           { transform: translateY(-5px); opacity: 1; }
+}
+
+/* ── Input bar ── */
+.sa-input-bar {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+  padding: 10px 12px calc(10px + var(--sa-safe-b));
+  background: var(--sa-surface);
+  border-top: 1px solid var(--sa-border);
+  flex-shrink: 0;
+}
+
+.sa-textarea {
+  flex: 1;
+  min-height: 40px;
+  max-height: 110px;
+  padding: 10px 14px;
+  background: var(--sa-surface-2);
+  border: 1.5px solid var(--sa-border);
+  border-radius: 20px;
+  color: var(--sa-text);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  resize: none;
+  overflow-y: auto;
+  line-height: 1.45;
+  transition: border-color 0.2s;
+  -webkit-overflow-scrolling: touch;
+}
+
+.sa-textarea:focus {
+  border-color: rgb(255 255 255 / 20%);
+}
+
+.sa-textarea::placeholder {
+  color: var(--sa-text-2);
+}
+
+.sa-icon-btn {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: transform 0.12s, background 0.15s;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.sa-icon-btn:active {
+  transform: scale(0.9);
+}
+
+.sa-mic-btn {
+  background: var(--sa-surface-2);
+  border: 1.5px solid var(--sa-border) !important;
+}
+
+.sa-mic-btn svg {
+  width: 17px;
+  height: 17px;
+  fill: var(--sa-text-2);
+  transition: fill 0.15s;
+}
+
+.sa-mic-btn.sa-listening {
+  background: var(--sa-red);
+  border-color: var(--sa-red) !important;
+  animation: sa-mic-ring 1s infinite;
+}
+
+.sa-mic-btn.sa-listening svg {
+  fill: #fff;
+}
+
+@keyframes sa-mic-ring {
+  0%, 100% { box-shadow: 0 0 0 0 rgb(235 16 0 / 35%); }
+  50%       { box-shadow: 0 0 0 7px rgb(235 16 0 / 0%); }
+}
+
+.sa-send-btn {
+  background: var(--sa-red);
+}
+
+.sa-send-btn svg {
+  width: 17px;
+  height: 17px;
+  fill: #fff;
+}
+
+.sa-send-btn:disabled {
+  background: var(--sa-surface-2);
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.sa-send-btn:disabled svg {
+  fill: var(--sa-text-2);
+}
