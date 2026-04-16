@@ -15,7 +15,12 @@ export default function decorate(block) {
   [...block.children].forEach((row) => {
     const cells = [...row.children];
     const key = cells[0]?.textContent.trim().toLowerCase().replace(/\s+/g, '-');
-    if (key && cells[1]) data[key] = cells[1].innerHTML.trim();
+    if (!key || !cells[1]) return;
+    // Use textContent for scalar fields to avoid nested <p> from DA wrapping
+    const SCALAR = ['type', 'workstations', 'demos', 'owners'];
+    data[key] = SCALAR.includes(key)
+      ? cells[1].textContent.trim()
+      : cells[1].innerHTML.trim();
   });
 
   const isQuest = (data.type || '').toLowerCase() === 'quest';
@@ -27,7 +32,7 @@ export default function decorate(block) {
   ].filter(Boolean);
 
   block.innerHTML = `
-    <div class="bs-breadcrumb"><a href="/summit">← Brand Visibility</a></div>
+    <div class="bs-breadcrumb"><a href="/summit">← Summit Overview</a></div>
     <p class="bs-eyebrow">${eyebrow}</p>
     <h1 class="bs-title">${data.station || data.title || ''}</h1>
     ${metaParts.length ? `<p class="bs-meta">${metaParts.join(' · ')}</p>` : ''}

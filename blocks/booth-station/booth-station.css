@@ -49,10 +49,14 @@
 
 .bs-meta {
   font-size: 13px;
-  color: rgb(255 255 255 / 38%);
+  color: rgb(255 255 255 / 55%);
   font-family: var(--body-font-family);
-  margin: 0 0 10px;
-  letter-spacing: 0.01em;
+  margin: 0 0 14px;
+  letter-spacing: 0.02em;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-wrap: wrap;
 }
 
 .bs-narrative {
@@ -70,6 +74,9 @@
   gap: 8px;
   font-size: 13px;
   font-family: var(--body-font-family);
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+  margin-bottom: 4px;
 }
 
 .bs-label {
@@ -219,6 +226,28 @@ body:has(.booth-station) main .section {
   max-width: 1000px;
   margin: 0 auto;
   padding: 0 24px;
+}
+
+/* "Demo Scripts" heading — rein in default EDS h2 size */
+body:has(.booth-station) main .section h2 {
+  font-size: 13px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 28%);
+  font-family: var(--heading-font-family);
+  margin: 28px 0 16px;
+  padding-top: 24px;
+  border-top: 1px solid rgb(255 255 255 / 8%);
+}
+
+/* Also tone down h3 used for script titles if any */
+body:has(.booth-station) main .section h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: #fff;
+  margin: 0 0 6px;
+  font-family: var(--heading-font-family);
 }
 
 /* Ready / WIP / TBD status color coding via data attribute set by JS */
