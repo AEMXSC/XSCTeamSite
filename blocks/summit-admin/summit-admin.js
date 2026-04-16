@@ -94,7 +94,49 @@ export default function decorate(block) {
     if (intro) intro.remove();
   }
 
-  function addMsg(role, text, updates = [], warnings = []) {
+  function renderTable(tableData) {
+    const wrap = document.createElement('div');
+    wrap.className = 'sa-table-wrap';
+    const table = document.createElement('table');
+    table.className = 'sa-table';
+
+    // Header
+    if (tableData.headers?.length) {
+      const thead = document.createElement('thead');
+      const tr = document.createElement('tr');
+      tableData.headers.forEach((h) => {
+        const th = document.createElement('th');
+        th.textContent = h;
+        tr.appendChild(th);
+      });
+      thead.appendChild(tr);
+      table.appendChild(thead);
+    }
+
+    // Rows
+    const tbody = document.createElement('tbody');
+    (tableData.rows || []).forEach((rowData) => {
+      const tr = document.createElement('tr');
+      rowData.forEach((cell) => {
+        const td = document.createElement('td');
+        const isNew = typeof cell === 'string' && cell.includes('← new');
+        const isChanged = typeof cell === 'string' && cell.includes('← changed');
+        if (isNew || isChanged) {
+          tr.classList.add('sa-row-changed');
+          td.innerHTML = cell.replace(/← (new|changed)/, '<span class="sa-cell-badge">← $1</span>');
+        } else {
+          td.textContent = cell;
+        }
+        tr.appendChild(td);
+      });
+      tbody.appendChild(tr);
+    });
+    table.appendChild(tbody);
+    wrap.appendChild(table);
+    return wrap;
+  }
+
+  function addMsg(role, text, updates = [], warnings = [], table = null) {
     clearIntro();
     const row = document.createElement('div');
     row.className = `sa-msg sa-${role}`;
@@ -105,7 +147,18 @@ export default function decorate(block) {
 
     const bubble = document.createElement('div');
     bubble.className = 'sa-bubble';
-    bubble.textContent = text;
+
+    if (text) {
+      const p = document.createElement('p');
+      p.className = 'sa-bubble-text';
+      p.textContent = text;
+      bubble.appendChild(p);
+    }
+
+    // Render table if present (AI only)
+    if (role === 'ai' && table?.rows?.length) {
+      bubble.appendChild(renderTable(table));
+    }
 
     if (role === 'ai' && updates.length) {
       const tag = document.createElement('div');
@@ -180,7 +233,7 @@ export default function decorate(block) {
         return;
       }
 
-      addMsg('ai', data.message || 'Done.', data.updates || [], data.warnings || []);
+      addMsg('ai', data.message || 'Done.', data.updates || [], data.warnings || [], data.table || null);
     } catch {
       document.getElementById('sa-thinking')?.remove();
       addMsg('ai', 'Network error — check connection.', [], []);
