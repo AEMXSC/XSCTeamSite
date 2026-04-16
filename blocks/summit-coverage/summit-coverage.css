@@ -14,18 +14,24 @@
   color: #fff;
   font-size: 22px;
   cursor: pointer;
-  box-shadow: 0 4px 16px rgb(235 16 0 / 50%);
+  /* single subtle elevation shadow — no glow halo */
+  box-shadow: 0 2px 8px rgb(0 0 0 / 40%);
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.15s, box-shadow 0.15s;
+  transition: background 0.15s, box-shadow 0.15s;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
-.scv-fab:hover,
+.scv-fab:hover {
+  background: #c50d00;
+  box-shadow: 0 4px 12px rgb(0 0 0 / 50%);
+}
+
 .scv-fab:focus-visible {
-  transform: scale(1.1);
-  box-shadow: 0 6px 24px rgb(235 16 0 / 65%);
-  outline: none;
+  outline: 2px solid #fff;
+  outline-offset: 2px;
 }
 
 .scv-fab-icon {
