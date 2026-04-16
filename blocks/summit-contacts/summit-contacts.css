@@ -163,15 +163,17 @@
   transition: filter 0.15s ease, opacity 0.15s ease;
 }
 
-.sc-btn:hover { filter: brightness(1.15); text-decoration: none; }
+/* a.sc-btn beats a:any-link (0,1,1 > 0,1,0) — prevents global red link color */
+a.sc-btn { color: #fff; text-decoration: none; }
+a.sc-btn:hover { color: #fff; filter: brightness(1.15); text-decoration: none; }
 
-.sc-btn-slack {
+a.sc-btn-slack {
   background: #611f69;
   color: #fff;
   border: none;
 }
 
-.sc-btn-call {
+a.sc-btn-call {
   background: hsl(220deg 22% 24%);
   color: #fff;
   border: 1px solid rgb(255 255 255 / 30%);
