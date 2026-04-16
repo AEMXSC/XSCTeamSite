@@ -11,7 +11,7 @@
  */
 
 const PUB_ID = '2PACX-1vT6auv_d3_FUXyhFhOnpUQB6ODvtrQbUH_lJEcDpass9I8iTBaX-JesmYAQQuX9Ar8lzDaAtWzPoAev';
-const DEFAULT_CONTACTS_URL = `https://docs.google.com/spreadsheets/d/e/${PUB_ID}/pub?output=csv&sheet=shared-contacts`;
+const DEFAULT_CONTACTS_URL = `https://docs.google.com/spreadsheets/d/e/${PUB_ID}/pub?output=csv&gid=1316555915`;
 
 // Parse Google Sheets published CSV → flat array of objects
 function parseCsv(text) {
