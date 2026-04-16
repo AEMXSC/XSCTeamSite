@@ -10,19 +10,32 @@
  * Fallback web:  https://app.slack.com/client/TEAM/CHANNEL_ID
  */
 
-const SHEET_ID = '1sHwnxdakFDtCmFCPtCjzOMU__1saKNhvn6nM-pJb_lE';
-const DEFAULT_CONTACTS_URL = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=shared-contacts`;
+const PUB_ID = '2PACX-1vT6auv_d3_FUXyhFhOnpUQB6ODvtrQbUH_lJEcDpass9I8iTBaX-JesmYAQQuX9Ar8lzDaAtWzPoAev';
+const DEFAULT_CONTACTS_URL = `https://docs.google.com/spreadsheets/d/e/${PUB_ID}/pub?output=csv&sheet=shared-contacts`;
 
-// Parse Google Sheets gviz/tq response → flat array matching EDS column names
-function parseGviz(text) {
-  const json = JSON.parse(text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1));
-  if (!json.table) return [];
-  const headers = json.table.cols.map((c) => c.label || c.id);
-  return (json.table.rows || []).map((row) => {
+// Parse Google Sheets published CSV → flat array of objects
+function parseCsv(text) {
+  const rows = [];
+  let col = '';
+  let inQuotes = false;
+  let row = [];
+  for (let i = 0; i < text.length; i++) {
+    const ch = text[i];
+    if (inQuotes) {
+      if (ch === '"' && text[i + 1] === '"') { col += '"'; i++; }
+      else if (ch === '"') { inQuotes = false; }
+      else { col += ch; }
+    } else if (ch === '"') { inQuotes = true;
+    } else if (ch === ',') { row.push(col); col = '';
+    } else if (ch === '\n') { row.push(col); col = ''; rows.push(row); row = [];
+    } else if (ch !== '\r') { col += ch; }
+  }
+  if (col || row.length) { row.push(col); rows.push(row); }
+  if (!rows.length) return [];
+  const headers = rows[0];
+  return rows.slice(1).filter((r) => r.some((c) => c)).map((r) => {
     const obj = {};
-    (row.c || []).forEach((cell, i) => {
-      obj[headers[i]] = (cell != null && cell.v != null) ? cell.v : '';
-    });
+    headers.forEach((h, i) => { obj[h] = r[i] ?? ''; });
     return obj;
   });
 }
@@ -80,7 +93,7 @@ export default async function decorate(block) {
       const resp = await fetch(configUrl);
       if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
       const text = await resp.text();
-      contacts = text.trimStart().startsWith('/*') ? parseGviz(text) : (JSON.parse(text).data || []);
+      contacts = text.trimStart().startsWith('{') ? (JSON.parse(text).data || []) : parseCsv(text);
     } catch {
       listWrap.innerHTML = '<p class="sc-error">Could not load contacts.</p>';
       return;
