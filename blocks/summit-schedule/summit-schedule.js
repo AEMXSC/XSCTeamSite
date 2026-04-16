@@ -308,13 +308,14 @@ export default async function decorate(block) {
         <input type="text"
           class="ss-name-input"
           id="ss-name-input"
-          list="ss-name-list"
           placeholder="Search your name…"
           value="${selectedName}"
           autocomplete="off"
+          aria-autocomplete="list"
+          aria-controls="ss-name-suggestions"
           aria-label="Select your name from the schedule">
         <button class="ss-name-clear" aria-label="Clear name" ${selectedName ? '' : 'hidden'}>✕</button>
-        <datalist id="ss-name-list">${names.map((n) => `<option value="${n}">`).join('')}</datalist>
+        <ul class="ss-name-suggestions" id="ss-name-suggestions" role="listbox" hidden></ul>
       </div>
     </div>`;
 
@@ -381,6 +382,8 @@ export default async function decorate(block) {
 
   const nameInput = myPanel.querySelector('.ss-name-input');
   const clearBtn = myPanel.querySelector('.ss-name-clear');
+  const suggestionsEl = myPanel.querySelector('.ss-name-suggestions');
+  let focusedIdx = -1;
 
   function applyName(val) {
     const name = val.trim();
@@ -392,18 +395,68 @@ export default async function decorate(block) {
     }
   }
 
-  nameInput.addEventListener('change', () => applyName(nameInput.value));
+  function buildSuggestions(filtered) {
+    if (!filtered.length) { suggestionsEl.hidden = true; return; }
+    suggestionsEl.innerHTML = filtered
+      .map((n) => `<li class="ss-name-option" role="option" data-name="${n}">${n}</li>`)
+      .join('');
+    suggestionsEl.hidden = false;
+    focusedIdx = -1;
+  }
+
+  function hideSuggestions() {
+    suggestionsEl.hidden = true;
+    focusedIdx = -1;
+  }
+
+  function moveFocus(delta) {
+    const opts = [...suggestionsEl.querySelectorAll('.ss-name-option')];
+    opts.forEach((o) => o.classList.remove('ss-name-focused'));
+    focusedIdx = Math.max(-1, Math.min(focusedIdx + delta, opts.length - 1));
+    if (focusedIdx >= 0) {
+      opts[focusedIdx].classList.add('ss-name-focused');
+      opts[focusedIdx].scrollIntoView({ block: 'nearest' });
+    }
+  }
+
+  function selectSuggestion(name) {
+    nameInput.value = name;
+    applyName(name);
+    hideSuggestions();
+  }
+
+  nameInput.addEventListener('focus', () => {
+    const q = nameInput.value.trim().toLowerCase();
+    buildSuggestions(q ? names.filter((n) => n.toLowerCase().includes(q)) : names);
+  });
+
   nameInput.addEventListener('input', () => {
     clearBtn.hidden = !nameInput.value.trim();
-    clearTimeout(nameInput._t);
-    nameInput._t = setTimeout(() => {
-      if (names.includes(nameInput.value.trim())) applyName(nameInput.value);
-    }, 300);
+    const q = nameInput.value.trim().toLowerCase();
+    buildSuggestions(q ? names.filter((n) => n.toLowerCase().includes(q)) : names);
+  });
+
+  nameInput.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowDown') { e.preventDefault(); moveFocus(1); }
+    else if (e.key === 'ArrowUp') { e.preventDefault(); moveFocus(-1); }
+    else if (e.key === 'Enter') {
+      const focused = suggestionsEl.querySelector('.ss-name-focused');
+      if (focused) { e.preventDefault(); selectSuggestion(focused.dataset.name); }
+      else if (names.includes(nameInput.value.trim())) { applyName(nameInput.value); hideSuggestions(); }
+    } else if (e.key === 'Escape') { hideSuggestions(); }
+  });
+
+  nameInput.addEventListener('blur', () => setTimeout(hideSuggestions, 150));
+
+  suggestionsEl.addEventListener('mousedown', (e) => {
+    const opt = e.target.closest('.ss-name-option');
+    if (opt) selectSuggestion(opt.dataset.name);
   });
 
   clearBtn.addEventListener('click', () => {
     nameInput.value = '';
     applyName('');
+    hideSuggestions();
     nameInput.focus();
   });
 
