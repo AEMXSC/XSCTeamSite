@@ -110,6 +110,14 @@ body.scv-modal-open {
 
 .scv-close:hover { background: rgb(255 255 255 / 18%); }
 
+/* touch optimisation on all modal interactive elements */
+.scv-close,
+.scv-send,
+.scv-copy {
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+}
+
 .scv-title {
   font-family: var(--heading-font-family);
   font-size: 20px;

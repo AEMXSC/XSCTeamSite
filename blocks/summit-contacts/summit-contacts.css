@@ -32,6 +32,8 @@
   box-sizing: border-box;
   text-transform: uppercase;
   letter-spacing: 0.05em;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .sc-toggle:hover {
@@ -160,6 +162,8 @@
   min-width: 76px;
   box-sizing: border-box;
   cursor: pointer;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
   transition: filter 0.15s ease, opacity 0.15s ease;
 }
 

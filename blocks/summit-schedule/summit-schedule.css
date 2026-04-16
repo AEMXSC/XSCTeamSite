@@ -300,6 +300,10 @@
   50%       { opacity: 0.65; }
 }
 
+@media (prefers-reduced-motion: reduce) {
+  .ss-now-badge { animation: none; }
+}
+
 .ss-slot-location {
   font-size: 14px;
   font-weight: 500;
@@ -382,7 +386,7 @@
   border-bottom: 3px solid transparent;  /* 3px — visible on retina mobile screens */
   margin-bottom: -1px;
   background: transparent;
-  color: rgb(255 255 255 / 38%);
+  color: rgb(255 255 255 / 55%); /* 55% passes WCAG AA 4.5:1 on dark navy */
   font-size: 14px;                        /* 14px — matches toggle, readable on mobile */
   font-weight: 500;
   font-family: var(--body-font-family);
