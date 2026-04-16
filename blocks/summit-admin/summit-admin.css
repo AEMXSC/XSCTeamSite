@@ -370,8 +370,9 @@ body:has(.summit-admin) footer {
 .sa-mic-btn svg {
   width: 17px;
   height: 17px;
-  fill: var(--sa-text-2);
-  transition: fill 0.15s;
+  stroke: var(--sa-text-2);
+  fill: none;
+  transition: stroke 0.15s;
 }
 
 .sa-mic-btn.sa-listening {
@@ -381,7 +382,7 @@ body:has(.summit-admin) footer {
 }
 
 .sa-mic-btn.sa-listening svg {
-  fill: #fff;
+  stroke: #fff;
 }
 
 @keyframes sa-mic-ring {
