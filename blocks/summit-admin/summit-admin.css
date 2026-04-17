@@ -356,10 +356,28 @@ body:has(.summit-admin) footer {
   flex-shrink: 0;
   transition: transform 0.12s, background 0.15s;
   -webkit-tap-highlight-color: transparent;
+  margin: 0;
+  padding: 0;
 }
 
 .sa-icon-btn:active {
   transform: scale(0.9);
+}
+
+/* Override EDS global button:hover which would turn these red */
+.sa-mic-btn:hover,
+.sa-mic-btn:focus {
+  background: hsl(220deg 22% 22%);
+}
+
+.sa-send-btn:hover,
+.sa-send-btn:focus {
+  background: #c40d00;
+}
+
+.sa-stop-btn:hover,
+.sa-stop-btn:focus {
+  background: var(--sa-surface-2);
 }
 
 .sa-mic-btn {
