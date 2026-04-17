@@ -368,11 +368,10 @@ body:has(.summit-admin) footer {
   color: rgba(255, 255, 255, 0.65);
 }
 
-.sa-mic-btn svg {
+.sa-mic-btn img {
   width: 20px;
   height: 20px;
-  fill: currentColor;
-  transition: color 0.15s;
+  display: block;
 }
 
 .sa-mic-btn.sa-listening {

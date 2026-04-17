@@ -50,10 +50,7 @@ export default function decorate(block) {
   bar.className = 'sa-input-bar';
   bar.innerHTML = `
     <button class="sa-icon-btn sa-mic-btn" title="Speak" aria-label="Voice input">
-      <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path fill="currentColor" d="M12 1C10.34 1 9 2.34 9 4v8c0 1.66 1.34 3 3 3s3-1.34 3-3V4c0-1.66-1.34-3-3-3z"/>
-        <path fill="currentColor" d="M19 11c0 3.31-2.69 6-6 6s-6-2.69-6-6H5c0 3.86 2.92 7.04 6.75 7.45V21h2.5v-2.55C18.08 18.04 21 14.86 21 11h-2z"/>
-      </svg>
+      <img src="/blocks/summit-admin/mic.svg" alt="" width="20" height="20">
     </button>
     <textarea class="sa-textarea" placeholder="Type a change..." rows="1" aria-label="Message input"></textarea>
     <button class="sa-icon-btn sa-stop-btn" aria-label="Stop" style="display:none">
