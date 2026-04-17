@@ -16,6 +16,7 @@ const LOGO_SVG = `<svg class="sa-auth-logo" height="18" viewBox="0 0 177 22" fil
 </svg>`;
 
 export default function decorate(block) {
+  document.title = 'AEM XSC Summit Admin';
   block.innerHTML = '';
 
   // ── Auth overlay
@@ -98,11 +99,17 @@ export default function decorate(block) {
       if (resp.ok) {
         const data = await resp.json();
         sessionToken = data.token || '';
-        sessionStorage.setItem(SESSION_KEY, sessionToken);
-        auth.classList.add('sa-hidden');
+        if (sessionToken) {
+          sessionStorage.setItem(SESSION_KEY, sessionToken);
+          auth.classList.add('sa-hidden');
+        } else {
+          passInput.classList.add('sa-err');
+          setTimeout(() => passInput.classList.remove('sa-err'), 600);
+          unlockBtn.textContent = 'Unlock';
+        }
       } else {
-        passInput.classList.add('sa-error');
-        setTimeout(() => passInput.classList.remove('sa-error'), 600);
+        passInput.classList.add('sa-err');
+        setTimeout(() => passInput.classList.remove('sa-err'), 600);
         unlockBtn.textContent = resp.status === 429 ? 'Too many attempts' : 'Unlock';
       }
     } catch {
