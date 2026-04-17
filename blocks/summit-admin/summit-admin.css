@@ -381,8 +381,8 @@ body:has(.summit-admin) footer {
 }
 
 .sa-mic-btn {
-  background: var(--sa-surface-2);
-  border: 1.5px solid var(--sa-border) !important;
+  background: hsl(220deg 20% 18%) !important;
+  border: 1.5px solid rgb(255 255 255 / 8%) !important;
   color: rgba(255, 255, 255, 0.65);
 }
 
