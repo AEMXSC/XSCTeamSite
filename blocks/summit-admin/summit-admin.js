@@ -7,7 +7,7 @@
  */
 
 const WORKER = 'https://summit-admin.compass-xsc.workers.dev';
-const SESSION_KEY = 'summit_admin_token';
+const SESSION_KEY = 'summit_admin_v3';
 
 // Summit wordmark SVG — same as summit-header
 const LOGO_SVG = `<svg class="sa-auth-logo" height="18" viewBox="0 0 177 22" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Adobe Summit" role="img">
