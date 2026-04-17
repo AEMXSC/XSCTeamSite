@@ -16,7 +16,6 @@ const LOGO_SVG = `<svg class="sa-auth-logo" height="18" viewBox="0 0 177 22" fil
 </svg>`;
 
 export default function decorate(block) {
-  document.title = 'AEM XSC Summit Admin';
   block.innerHTML = '';
 
   // ── Auth overlay
