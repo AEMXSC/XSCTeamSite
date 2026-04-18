@@ -61,6 +61,7 @@ header nav > div,
 /* nav links */
 .nav-links {
   display: flex;
+  align-items: center;
   list-style: none;
   gap: 2rem;
   margin: 0;
