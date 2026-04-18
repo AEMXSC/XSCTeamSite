@@ -18,7 +18,6 @@ export default function decorate(block) {
           <span class="nav-hamburger-icon"></span>
         </button>
         <ul class="nav-links">
-          <li><a href="#what-we-do">What We Do</a></li>
           <li class="nav-has-dropdown">
             <button class="nav-summit-btn" aria-expanded="false" aria-haspopup="true">
               <span class="nav-summit-adobe">Adobe</span> Summit 2026
@@ -35,6 +34,7 @@ export default function decorate(block) {
               <li><a href="/summit/llm-optimizer" role="menuitem">LLM Optimizer</a></li>
             </ul>
           </li>
+          <li><a href="#what-we-do">What We Do</a></li>
           <li><a href="#the-three-revenue-motions">Motions</a></li>
           <li><a href="#vertical-coverage">Verticals</a></li>
           <li><a href="#the-team">Team</a></li>
