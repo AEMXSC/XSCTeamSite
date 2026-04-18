@@ -39,8 +39,13 @@ export default function decorate(block) {
 
   const grid = document.createElement('div');
   grid.className = 'bc-grid';
+  if (cards.length > 4) grid.classList.add('bc-products');
   grid.innerHTML = cards.join('');
 
   block.innerHTML = '';
   block.append(grid);
+
+  const section = block.closest('.section');
+  const heading = section?.querySelector(':scope > .default-content-wrapper h2, :scope > .default-content-wrapper h3');
+  if (heading) heading.classList.add('bc-section-label');
 }

@@ -108,14 +108,27 @@
   transform: translateX(3px);
 }
 
+/* ── Section label (heading above each booth-cards block) ── */
+.bc-section-label {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: rgb(255 255 255 / 40%);
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+  padding-bottom: 12px;
+  margin: 32px 0 20px;
+  font-family: var(--heading-font-family);
+}
+
 /* 4 quest stations in one row on desktop */
 @media (width >= 900px) {
   .bc-grid {
     grid-template-columns: repeat(4, 1fr);
   }
 
-  /* product section — 5 items */
+  /* product section — auto-fills so 5 or 6 cards both work */
   .bc-grid.bc-products {
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
   }
 }
