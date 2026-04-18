@@ -459,9 +459,9 @@ header nav > div,
 
   /* Scrolled mobile */
   .nav-wrapper.scrolled .nav-summit-btn {
-    border: none;
-    color: #333;
-    background: none;
+    border: none !important;
+    color: #333 !important;
+    background: none !important;
   }
 
   .nav-wrapper.scrolled .nav-dropdown a {

@@ -195,7 +195,7 @@ function renderBar(bar, schedule, scheduleData) {
 
   bar.innerHTML = `
     <div class="sh-left">
-      <a href="/summit/" class="sh-logo-link" aria-label="Summit Home">${SUMMIT_LOGO_SVG}</a>
+      <a href="/" class="sh-logo-link" aria-label="Site Home">${SUMMIT_LOGO_SVG}</a>
       <span class="sh-sep" aria-hidden="true"></span>
       ${dot}<span class="sh-day">${s.day}</span>
       <span class="sh-divider" aria-hidden="true">·</span>
@@ -222,7 +222,9 @@ function renderNav(block, rows) {
     const active = currentPath === href;
     const raw = a.textContent.trim();
     const label = shorten ? raw.replace(/^Station\s*\d+\s*[—–-]\s*/i, '') : raw;
-    return `<a href="${a.href}" class="sh-nav-link${active ? ' sh-nav-active' : ''}">${label}</a>`;
+    const rawHref = a.getAttribute('href') || '';
+    const safeHref = /^javascript:/i.test(rawHref) ? '#' : rawHref;
+    return `<a href="${safeHref}" class="sh-nav-link${active ? ' sh-nav-active' : ''}">${label}</a>`;
   }).join('');
 
   const nav = document.createElement('div');
