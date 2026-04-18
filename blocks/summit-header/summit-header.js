@@ -217,10 +217,12 @@ function renderNav(block, rows) {
 
   const currentPath = window.location.pathname.replace(/\/$/, '');
 
-  const linkHtml = (links) => links.map((a) => {
+  const linkHtml = (links, shorten) => links.map((a) => {
     const href = new URL(a.href, window.location.href).pathname.replace(/\/$/, '');
     const active = currentPath === href;
-    return `<a href="${a.href}" class="sh-nav-link${active ? ' sh-nav-active' : ''}">${a.textContent.trim()}</a>`;
+    const raw = a.textContent.trim();
+    const label = shorten ? raw.replace(/^Station\s*\d+\s*[—–-]\s*/i, '') : raw;
+    return `<a href="${a.href}" class="sh-nav-link${active ? ' sh-nav-active' : ''}">${label}</a>`;
   }).join('');
 
   const nav = document.createElement('div');
@@ -229,13 +231,13 @@ function renderNav(block, rows) {
     ${leftLinks.length ? `
       <div class="sh-nav-group">
         <span class="sh-nav-label">Quest</span>
-        ${linkHtml(leftLinks)}
+        ${linkHtml(leftLinks, true)}
       </div>` : ''}
     ${leftLinks.length && rightLinks.length ? `<span class="sh-nav-sep" aria-hidden="true"></span>` : ''}
     ${rightLinks.length ? `
       <div class="sh-nav-group">
         <span class="sh-nav-label">Products</span>
-        ${linkHtml(rightLinks)}
+        ${linkHtml(rightLinks, false)}
       </div>` : ''}
   `;
   block.append(nav);
