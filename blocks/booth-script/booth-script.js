@@ -1,6 +1,16 @@
-if ('serviceWorker' in navigator) {
-  navigator.serviceWorker.register('/sw.js').catch(() => {});
-}
+// Returns a promise that resolves once the service worker is controlling this page.
+// On second+ loads the SW is already active so this resolves immediately.
+// On first load, we wait for skipWaiting+clients.claim to kick in (~200ms).
+const swReady = (() => {
+  if (!('serviceWorker' in navigator)) return Promise.resolve();
+  const reg = navigator.serviceWorker.register('/sw.js').catch(() => null);
+  if (navigator.serviceWorker.controller) return Promise.resolve();
+  return new Promise((resolve) => {
+    navigator.serviceWorker.addEventListener('controllerchange', resolve, { once: true });
+    // Safety timeout — if SW never claims (e.g. incognito), still show videos after 2s
+    setTimeout(resolve, 2000);
+  });
+})();
 
 const STATUS_MAP = {
   'ready':       { cls: 'bs-ready',    label: 'Ready' },
@@ -45,7 +55,8 @@ function extractTitle(bodyHTML) {
   return '';
 }
 
-// DA sanitizes <video> elements — convert video links in body HTML to inline players
+// DA sanitizes <video> elements — convert video links in body HTML to inline players.
+// Uses data-src so the SW is active before the browser fetches the video.
 function embedVideoLinks(html) {
   const tmp = document.createElement('div');
   tmp.innerHTML = html;
@@ -54,11 +65,8 @@ function embedVideoLinks(html) {
     const video = document.createElement('video');
     video.controls = true;
     video.style.cssText = 'width:100%;border-radius:8px;margin-top:8px;display:block;';
-    const source = document.createElement('source');
-    source.src = a.href;
-    source.type = videoType(a.href);
-    video.appendChild(source);
-    // Replace the link's parent <p> if it's the only content, otherwise replace the link itself
+    video.dataset.videoSrc = a.href;
+    video.dataset.videoType = videoType(a.href);
     const parent = a.parentElement;
     if (parent && parent.tagName === 'P' && parent.childNodes.length === 1) {
       parent.replaceWith(video);
@@ -69,9 +77,21 @@ function embedVideoLinks(html) {
   return tmp.innerHTML;
 }
 
+// Activate deferred video sources on all video[data-video-src] in an element
+function activateVideos(root) {
+  root.querySelectorAll('video[data-video-src]').forEach((video) => {
+    const source = document.createElement('source');
+    source.src = video.dataset.videoSrc;
+    source.type = video.dataset.videoType || 'video/mp4';
+    video.appendChild(source);
+    delete video.dataset.videoSrc;
+    delete video.dataset.videoType;
+  });
+}
+
 const CHEVRON_SVG = `<svg class="bs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
-export default function decorate(block) {
+export default async function decorate(block) {
   const rows = [...block.children];
 
   block.innerHTML = '';
@@ -90,8 +110,9 @@ export default function decorate(block) {
     const videoLinks = links.filter((a) => VIDEO_EXTS.test(a.href));
     const regularLinks = links.filter((a) => !VIDEO_EXTS.test(a.href));
 
+    // Use data-video-src so the browser doesn't fetch until SW is controlling
     const videosHTML = videoLinks.map((a) =>
-      `<video controls style="width:100%;border-radius:8px;margin-bottom:10px;display:block;"><source src="${a.href}" type="${videoType(a.href)}"></video>`
+      `<video controls data-video-src="${a.href}" data-video-type="${videoType(a.href)}" style="width:100%;border-radius:8px;margin-bottom:10px;display:block;"></video>`
     ).join('');
 
     const linksHTML = regularLinks.length
@@ -108,7 +129,7 @@ export default function decorate(block) {
       ? segments.map((s, i) => `<p class="${i === 0 ? 'bs-body-lead' : 'bs-body-step'}">${s}</p>`).join('')
       : body;
 
-    // Convert any video links in body to inline players
+    // Convert any video links in body to inline players (also deferred via data-video-src)
     const formattedBody = embedVideoLinks(rawBody);
     const title = extractTitle(rawBody);
 
@@ -136,4 +157,9 @@ export default function decorate(block) {
 
     block.appendChild(card);
   });
+
+  // Wait for SW to be controlling this page, then activate all video sources.
+  // This ensures the SW intercepts the video fetches and rewrites Content-Type.
+  await swReady;
+  activateVideos(block);
 }
