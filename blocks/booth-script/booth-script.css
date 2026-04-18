@@ -87,10 +87,10 @@
   align-items: center;
   gap: 5px;
   padding: 5px 12px;
-  background: hsl(220deg 22% 20%);
-  border: 1px solid rgb(255 255 255 / 8%);
+  background: rgb(235 16 0 / 8%);
+  border: 1px solid rgb(235 16 0 / 30%);
   border-radius: 6px;
-  color: rgb(255 255 255 / 75%);
+  color: #eb1000;
   font-size: 0.8rem;
   font-weight: 500;
   text-decoration: none;
@@ -98,8 +98,8 @@
 }
 
 .bs-link:hover {
-  background: hsl(220deg 22% 26%);
-  border-color: rgb(255 255 255 / 18%);
+  background: #eb1000;
+  border-color: #eb1000;
   color: #fff;
   text-decoration: none;
 }
