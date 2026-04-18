@@ -147,7 +147,7 @@ function renderBar(bar, schedule, scheduleData) {
   if (s.state === 'before') {
     bar.innerHTML = `
       <div class="sh-left">
-        <a href="/summit/" class="sh-logo-link" aria-label="Summit Home">${SUMMIT_LOGO_SVG}</a>
+        <a href="/" class="sh-logo-link" aria-label="Site Home">${SUMMIT_LOGO_SVG}</a>
       </div>
       <div class="sh-right sh-muted">April 20–22 · Las Vegas · Booth opens Monday 9am PDT</div>`;
     return;
@@ -156,7 +156,7 @@ function renderBar(bar, schedule, scheduleData) {
   if (s.state === 'after') {
     bar.innerHTML = `
       <div class="sh-left">
-        <a href="/summit/" class="sh-logo-link" aria-label="Summit Home">${SUMMIT_LOGO_SVG}</a>
+        <a href="/" class="sh-logo-link" aria-label="Site Home">${SUMMIT_LOGO_SVG}</a>
       </div>
       <div class="sh-right sh-muted">Summit complete — great work everyone!</div>`;
     return;
@@ -167,7 +167,7 @@ function renderBar(bar, schedule, scheduleData) {
   if (s.state === 'before-open') {
     bar.innerHTML = `
       <div class="sh-left">
-        <a href="/summit/" class="sh-logo-link" aria-label="Summit Home">${SUMMIT_LOGO_SVG}</a>
+        <a href="/" class="sh-logo-link" aria-label="Site Home">${SUMMIT_LOGO_SVG}</a>
         <span class="sh-sep" aria-hidden="true"></span>
         ${dot}<span class="sh-day">${s.day}</span>
       </div>
@@ -178,7 +178,7 @@ function renderBar(bar, schedule, scheduleData) {
   if (s.state === 'closed') {
     bar.innerHTML = `
       <div class="sh-left">
-        <a href="/summit/" class="sh-logo-link" aria-label="Summit Home">${SUMMIT_LOGO_SVG}</a>
+        <a href="/" class="sh-logo-link" aria-label="Site Home">${SUMMIT_LOGO_SVG}</a>
         <span class="sh-sep" aria-hidden="true"></span>
         ${dot}<span class="sh-day">${s.day}</span>
         <span class="sh-divider" aria-hidden="true">·</span>

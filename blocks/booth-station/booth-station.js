@@ -34,7 +34,7 @@ export default function decorate(block) {
   ].filter(Boolean);
 
   block.innerHTML = `
-    <div class="bs-breadcrumb"><a href="/">← Brand Visibility</a></div>
+    <div class="bs-breadcrumb"><a href="/summit/">← Brand Visibility</a></div>
     <p class="bs-eyebrow">${eyebrow}</p>
     <h1 class="bs-title">${data.station || data.title || ''}</h1>
     ${metaParts.length ? `<p class="bs-meta">${metaParts.join(' · ')}</p>` : ''}

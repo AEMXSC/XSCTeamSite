@@ -6,6 +6,11 @@ body:has(.summit-header) footer {
   display: none;
 }
 
+/* Suppress the default 3rem h2 bottom margin inside summit content sections */
+body:has(.summit-header) main > .section > div > h2 {
+  margin-bottom: 0.75rem;
+}
+
 .summit-header {
   position: sticky;
   top: 0;
