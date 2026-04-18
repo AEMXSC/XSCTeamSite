@@ -1,3 +1,7 @@
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js').catch(() => {});
+}
+
 const STATUS_MAP = {
   'ready':       { cls: 'bs-ready',    label: 'Ready' },
   'complete':    { cls: 'bs-ready',    label: 'Complete' },
