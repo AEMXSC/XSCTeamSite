@@ -235,15 +235,18 @@ header nav > div,
   outline: none;
 }
 
-/* Scrolled — white nav overrides */
+/* Scrolled — white nav overrides (!important to beat desktop rules) */
 .nav-wrapper.scrolled .nav-summit-btn {
-  border-color: rgb(0 0 0 / 20%);
-  color: #1a1a1a;
+  border: 1.5px solid rgb(0 0 0 / 20%) !important;
+  color: #1a1a1a !important;
+  background: transparent !important;
 }
 
-.nav-wrapper.scrolled .nav-summit-btn:hover {
-  border-color: rgb(0 0 0 / 40%);
-  background: rgb(0 0 0 / 4%);
+.nav-wrapper.scrolled .nav-summit-btn:hover,
+.nav-wrapper.scrolled .nav-summit-btn:focus {
+  border-color: rgb(0 0 0 / 40%) !important;
+  background: rgb(0 0 0 / 4%) !important;
+  color: #1a1a1a !important;
 }
 
 .nav-wrapper.scrolled .nav-summit-adobe {
@@ -251,7 +254,8 @@ header nav > div,
 }
 
 .nav-wrapper.scrolled .nav-chevron {
-  color: #1a1a1a;
+  color: #1a1a1a !important;
+  opacity: 0.6;
 }
 
 .nav-wrapper.scrolled .nav-dropdown {
