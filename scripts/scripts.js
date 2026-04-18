@@ -226,6 +226,15 @@ async function loadLazy(doc) {
 
   loadFooter(doc.querySelector('footer'));
 
+  // Auto-enhance summit station/product pages
+  const { pathname } = window.location;
+  if (pathname.startsWith('/summit/') && !/(schedule|admin|contacts|coverage)\/?$/.test(pathname)) {
+    const base = window.hlx.codeBasePath;
+    loadCSS(`${base}/blocks/summit-playbook/summit-playbook.css`);
+    import(`${base}/blocks/summit-playbook/summit-playbook.js`)
+      .then((mod) => mod.default(doc.querySelector('main')));
+  }
+
   loadCSS(`${window.hlx.codeBasePath}/styles/lazy-styles.css`);
   loadFonts();
 

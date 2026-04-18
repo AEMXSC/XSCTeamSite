@@ -1,0 +1,186 @@
+/* summit-playbook — auto-enhancement styles for /summit/* content pages */
+
+/* ── Accordion ── */
+.sp-accordion {
+  border: 1px solid rgb(255 255 255 / 8%);
+  border-radius: 10px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+
+.sp-accordion-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 16px 20px;
+  background: hsl(220deg 22% 16%);
+  border: none;
+  color: #f0f0f0;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+  text-align: left;
+  cursor: pointer;
+  gap: 12px;
+  -webkit-tap-highlight-color: transparent;
+  transition: background 0.15s;
+}
+
+.sp-accordion-trigger:hover {
+  background: hsl(220deg 22% 20%);
+}
+
+.sp-accordion-title {
+  flex: 1;
+}
+
+/* Chevron */
+.sp-accordion-chevron {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  position: relative;
+}
+
+.sp-accordion-chevron::before,
+.sp-accordion-chevron::after {
+  content: '';
+  position: absolute;
+  width: 8px;
+  height: 2px;
+  background: rgb(255 255 255 / 45%);
+  top: 50%;
+  transition: transform 0.2s;
+}
+
+.sp-accordion-chevron::before {
+  right: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: right center;
+}
+
+.sp-accordion-chevron::after {
+  left: 50%;
+  transform: translateY(-50%) rotate(-45deg);
+  transform-origin: left center;
+}
+
+.sp-accordion-trigger[aria-expanded="true"] .sp-accordion-chevron::before {
+  transform: translateY(-50%) rotate(-45deg);
+  transform-origin: right center;
+}
+
+.sp-accordion-trigger[aria-expanded="true"] .sp-accordion-chevron::after {
+  transform: translateY(-50%) rotate(45deg);
+  transform-origin: left center;
+}
+
+.sp-accordion-body {
+  padding: 0 20px 20px;
+  background: hsl(220deg 22% 13%);
+}
+
+.sp-accordion-body[hidden] {
+  display: none;
+}
+
+/* ── Script table ── */
+.sp-script-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin-top: 16px;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid rgb(255 255 255 / 8%);
+}
+
+.sp-script-table thead {
+  background: rgb(255 255 255 / 5%);
+}
+
+.sp-script-table th {
+  padding: 8px 12px;
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 45%);
+  border-bottom: 1px solid rgb(255 255 255 / 8%);
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+}
+
+.sp-script-table td {
+  padding: 10px 12px;
+  color: #f0f0f0;
+  border-bottom: 1px solid rgb(255 255 255 / 4%);
+  vertical-align: top;
+  line-height: 1.5;
+}
+
+.sp-script-table tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.sp-script-table tbody tr:hover td {
+  background: rgb(255 255 255 / 3%);
+}
+
+/* ── Status badges ── */
+.sp-status-badge {
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: 9999px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  font-family: var(--heading-font-family, roboto-condensed, sans-serif);
+  white-space: nowrap;
+}
+
+.sp-status-ready {
+  background: rgb(52 211 153 / 15%);
+  color: #34d399;
+}
+
+.sp-status-wip {
+  background: rgb(201 168 76 / 15%);
+  color: #c9a84c;
+}
+
+.sp-status-todo {
+  background: rgb(235 16 0 / 12%);
+  color: rgb(235 100 80);
+}
+
+.sp-status-tbd {
+  background: rgb(255 255 255 / 5%);
+  color: rgb(255 255 255 / 40%);
+}
+
+/* ── Watch Demo button ── */
+.sp-video-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 9px 16px;
+  background: hsl(220deg 22% 20%);
+  border: 1px solid rgb(255 255 255 / 12%);
+  border-radius: 8px;
+  color: #f0f0f0;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 0.15s, border-color 0.15s;
+}
+
+.sp-video-btn:hover {
+  background: hsl(220deg 22% 26%);
+  border-color: rgb(255 255 255 / 22%);
+  color: #fff;
+  text-decoration: none;
+}
