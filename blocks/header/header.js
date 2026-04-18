@@ -4,7 +4,7 @@ export default function decorate(block) {
   headerEl.innerHTML = `
     <div class="nav-wrapper">
       <div class="nav-inner">
-        <a href="#" class="nav-brand">
+        <a href="/" class="nav-brand">
           <svg width="28" height="24" viewBox="0 0 30 26" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
             <path d="M11.5 0H0V26L11.5 0Z" fill="hsl(0 100% 46%)"/>
             <path d="M18.5 0H30V26L18.5 0Z" fill="hsl(0 100% 46%)"/>
@@ -18,13 +18,26 @@ export default function decorate(block) {
           <span class="nav-hamburger-icon"></span>
         </button>
         <ul class="nav-links">
-          <li><a href="#what-we-do">What We Do</a></li>
-          <li><a href="#the-three-revenue-motions">Motions</a></li>
-          <li><a href="#vertical-coverage">Verticals</a></li>
-          <li><a href="#the-team">Team</a></li>
-          <li><a href="#demo-environments">Demos</a></li>
+          <li><a href="/#what-we-do">What We Do</a></li>
+          <li><a href="/#the-team">Team</a></li>
+          <li><a href="/#demo-environments">Demos</a></li>
+          <li class="nav-has-dropdown">
+            <button class="nav-summit-btn nav-cta" aria-expanded="false" aria-haspopup="true">
+              Summit 2026
+              <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="nav-dropdown" role="menu">
+              <li><a href="/summit/" role="menuitem">Overview</a></li>
+              <li><a href="/summit/aem-sites" role="menuitem">AEM Sites</a></li>
+              <li><a href="/summit/aem-assets" role="menuitem">AEM Assets</a></li>
+              <li><a href="/summit/aem-forms" role="menuitem">AEM Forms</a></li>
+              <li><a href="/summit/sites-optimizer" role="menuitem">Sites Optimizer</a></li>
+              <li><a href="/summit/llm-optimizer" role="menuitem">LLM Optimizer</a></li>
+            </ul>
+          </li>
         </ul>
-        <a href="#how-we-engage" class="nav-cta">Engage Us</a>
       </div>
     </div>
   `;
@@ -32,24 +45,51 @@ export default function decorate(block) {
   const navWrapper = headerEl.querySelector('.nav-wrapper');
   const hamburger = headerEl.querySelector('.nav-hamburger');
   const navLinks = headerEl.querySelector('.nav-links');
+  const summitItem = headerEl.querySelector('.nav-has-dropdown');
+  const summitBtn = headerEl.querySelector('.nav-summit-btn');
 
-  hamburger.addEventListener('click', () => {
-    const isOpen = navWrapper.classList.toggle('nav-open');
-    hamburger.setAttribute('aria-expanded', isOpen);
+  // Dropdown toggle
+  summitBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = summitItem.classList.toggle('open');
+    summitBtn.setAttribute('aria-expanded', String(isOpen));
   });
 
+  // Escape closes dropdown and returns focus
+  headerEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && summitItem.classList.contains('open')) {
+      summitItem.classList.remove('open');
+      summitBtn.setAttribute('aria-expanded', 'false');
+      summitBtn.focus();
+    }
+  });
+
+  // Click outside closes dropdown
+  document.addEventListener('click', (e) => {
+    if (!summitItem.contains(e.target)) {
+      summitItem.classList.remove('open');
+      summitBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Mobile hamburger
+  hamburger.addEventListener('click', () => {
+    const isOpen = navWrapper.classList.toggle('nav-open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close mobile menu on any link click
   navLinks.addEventListener('click', (e) => {
     if (e.target.tagName === 'A') {
       navWrapper.classList.remove('nav-open');
       hamburger.setAttribute('aria-expanded', 'false');
+      summitItem.classList.remove('open');
+      summitBtn.setAttribute('aria-expanded', 'false');
     }
   });
 
+  // Scroll: scrolled class for white nav state
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navWrapper.classList.add('scrolled');
-    } else {
-      navWrapper.classList.remove('scrolled');
-    }
+    navWrapper.classList.toggle('scrolled', window.scrollY > 50);
   }, { passive: true });
 }
