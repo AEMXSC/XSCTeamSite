@@ -72,7 +72,7 @@
   line-height: 1.2;
 }
 
-.bstaff-email {
+.bstaff-chip .bstaff-email {
   font-size: 11px;
   color: rgb(255 255 255 / 38%);
   font-family: var(--body-font-family);
@@ -81,7 +81,7 @@
   line-height: 1.2;
 }
 
-.bstaff-email:hover {
+.bstaff-chip .bstaff-email:hover {
   color: var(--color-red, #eb1000);
   text-decoration: underline;
 }
