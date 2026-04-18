@@ -17,6 +17,23 @@ function statusBadge(text) {
   return `<span class="bs-badge ${cls}">${label}</span>`;
 }
 
+function extractTitle(bodyHTML) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = bodyHTML;
+  const heading = tmp.querySelector('h3, h2, h4');
+  if (heading) return heading.textContent.trim();
+  const firstP = tmp.querySelector('p');
+  if (firstP) {
+    const strong = firstP.querySelector('strong, b');
+    if (strong) return strong.textContent.trim();
+    const t = firstP.textContent.trim();
+    return t.length > 72 ? `${t.slice(0, 69)}\u2026` : t;
+  }
+  return '';
+}
+
+const CHEVRON_SVG = `<svg class="bs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
+
 export default function decorate(block) {
   const rows = [...block.children];
 
@@ -40,21 +57,34 @@ export default function decorate(block) {
       ? `<div class="bs-status">${statusBadge(status)}</div>`
       : '';
 
-    // If body already has block-level HTML, render as-is; otherwise split on · separators
     const hasBlockHTML = /<(p|ul|ol|li|h[1-6]|blockquote)\b/i.test(body);
     const segments = hasBlockHTML ? [] : body.split(/\s*·\s*/).map((s) => s.trim()).filter(Boolean);
     const formattedBody = segments.length > 1
       ? segments.map((s, i) => `<p class="${i === 0 ? 'bs-body-lead' : 'bs-body-step'}">${s}</p>`).join('')
       : body;
 
+    const title = extractTitle(formattedBody || body);
+
     card.innerHTML = `
       <div class="bs-num">${num}</div>
       <div class="bs-content">
-        <div class="bs-body">${formattedBody || body}</div>
-        ${linksHTML}
+        <button class="bs-toggle" aria-expanded="false" aria-label="Toggle script details">
+          <span class="bs-title">${title}</span>
+          ${CHEVRON_SVG}
+        </button>
+        <div class="bs-collapse">
+          <div class="bs-body">${formattedBody || body}</div>
+          ${linksHTML}
+        </div>
         ${statusHTML}
       </div>
     `;
+
+    const toggleBtn = card.querySelector('.bs-toggle');
+    toggleBtn?.addEventListener('click', () => {
+      const expanded = card.classList.toggle('expanded');
+      toggleBtn.setAttribute('aria-expanded', String(expanded));
+    });
 
     block.appendChild(card);
   });

@@ -130,3 +130,84 @@
   color: rgb(255 255 255 / 40%);
   font-style: italic;
 }
+
+/* ── Mobile accordion ── */
+
+/* Toggle button: hidden on desktop, shown on mobile */
+.bs-toggle {
+  display: none;
+}
+
+@media (width < 768px) {
+  .booth-script-wrapper {
+    padding: 0 12px 24px;
+  }
+
+  .bs-card {
+    padding: 14px 16px;
+  }
+
+  .bs-toggle {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    width: 100%;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    color: #fff;
+    text-align: left;
+    min-height: 44px;
+  }
+
+  .bs-title {
+    flex: 1;
+    min-width: 0;
+    font-size: 0.875rem;
+    font-weight: 600;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  .bs-chevron {
+    flex-shrink: 0;
+    color: rgb(255 255 255 / 40%);
+    transition: transform 0.2s ease, color 0.2s ease;
+  }
+
+  .bs-card.expanded .bs-chevron {
+    transform: rotate(180deg);
+    color: rgb(255 255 255 / 70%);
+  }
+
+  .bs-collapse {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.3s ease;
+  }
+
+  .bs-card.expanded .bs-collapse {
+    max-height: 4000px;
+    transition: max-height 0.5s ease;
+  }
+
+  .bs-card.expanded .bs-collapse > .bs-body {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgb(255 255 255 / 6%);
+  }
+
+  .bs-body video {
+    width: 100%;
+    height: auto;
+  }
+}
+
+@media (width < 768px) and (prefers-reduced-motion: reduce) {
+  .bs-collapse,
+  .bs-chevron {
+    transition: none;
+  }
+}
