@@ -14,14 +14,13 @@ export default function decorate(block) {
             AEM <span class="nav-logo-xsc">XSC</span>
           </span>
         </a>
-        <button class="nav-hamburger" aria-label="Menu" aria-expanded="false">
-          <span class="nav-hamburger-icon"></span>
-        </button>
         <ul class="nav-links">
           <li><a href="/#what-we-do">What We Do</a></li>
           <li><a href="/#the-team">Team</a></li>
           <li><a href="/#demo-environments">Demos</a></li>
-          <li class="nav-has-dropdown">
+        </ul>
+        <div class="nav-actions">
+          <div class="nav-summit-wrap">
             <button class="nav-summit-btn nav-cta" aria-expanded="false" aria-haspopup="true">
               Summit 2026
               <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -36,8 +35,11 @@ export default function decorate(block) {
               <li><a href="/summit/sites-optimizer" role="menuitem">Sites Optimizer</a></li>
               <li><a href="/summit/llm-optimizer" role="menuitem">LLM Optimizer</a></li>
             </ul>
-          </li>
-        </ul>
+          </div>
+          <button class="nav-hamburger" aria-label="Menu" aria-expanded="false">
+            <span class="nav-hamburger-icon"></span>
+          </button>
+        </div>
       </div>
     </div>
   `;
@@ -45,20 +47,20 @@ export default function decorate(block) {
   const navWrapper = headerEl.querySelector('.nav-wrapper');
   const hamburger = headerEl.querySelector('.nav-hamburger');
   const navLinks = headerEl.querySelector('.nav-links');
-  const summitItem = headerEl.querySelector('.nav-has-dropdown');
+  const summitWrap = headerEl.querySelector('.nav-summit-wrap');
   const summitBtn = headerEl.querySelector('.nav-summit-btn');
 
   // Dropdown toggle
   summitBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    const isOpen = summitItem.classList.toggle('open');
+    const isOpen = summitWrap.classList.toggle('open');
     summitBtn.setAttribute('aria-expanded', String(isOpen));
   });
 
-  // Escape closes dropdown and returns focus
+  // Escape closes dropdown
   headerEl.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && summitItem.classList.contains('open')) {
-      summitItem.classList.remove('open');
+    if (e.key === 'Escape' && summitWrap.classList.contains('open')) {
+      summitWrap.classList.remove('open');
       summitBtn.setAttribute('aria-expanded', 'false');
       summitBtn.focus();
     }
@@ -66,8 +68,8 @@ export default function decorate(block) {
 
   // Click outside closes dropdown
   document.addEventListener('click', (e) => {
-    if (!summitItem.contains(e.target)) {
-      summitItem.classList.remove('open');
+    if (!summitWrap.contains(e.target)) {
+      summitWrap.classList.remove('open');
       summitBtn.setAttribute('aria-expanded', 'false');
     }
   });
@@ -78,13 +80,11 @@ export default function decorate(block) {
     hamburger.setAttribute('aria-expanded', String(isOpen));
   });
 
-  // Close mobile menu on any link click
+  // Close mobile menu on nav link click
   navLinks.addEventListener('click', (e) => {
     if (e.target.tagName === 'A') {
       navWrapper.classList.remove('nav-open');
       hamburger.setAttribute('aria-expanded', 'false');
-      summitItem.classList.remove('open');
-      summitBtn.setAttribute('aria-expanded', 'false');
     }
   });
 
