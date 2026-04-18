@@ -19,6 +19,22 @@ export default function decorate(block) {
         </button>
         <ul class="nav-links">
           <li><a href="#what-we-do">What We Do</a></li>
+          <li class="nav-has-dropdown">
+            <button class="nav-summit-btn" aria-expanded="false" aria-haspopup="true">
+              <span class="nav-summit-adobe">Adobe</span> Summit 2026
+              <svg class="nav-chevron" width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M2 3.5L5 6.5L8 3.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+              </svg>
+            </button>
+            <ul class="nav-dropdown" role="menu">
+              <li><a href="/summit/" role="menuitem">Overview</a></li>
+              <li><a href="/summit/aem-sites" role="menuitem">AEM Sites</a></li>
+              <li><a href="/summit/aem-assets" role="menuitem">AEM Assets</a></li>
+              <li><a href="/summit/aem-forms" role="menuitem">AEM Forms</a></li>
+              <li><a href="/summit/sites-optimizer" role="menuitem">Sites Optimizer</a></li>
+              <li><a href="/summit/llm-optimizer" role="menuitem">LLM Optimizer</a></li>
+            </ul>
+          </li>
           <li><a href="#the-three-revenue-motions">Motions</a></li>
           <li><a href="#vertical-coverage">Verticals</a></li>
           <li><a href="#the-team">Team</a></li>
@@ -32,24 +48,51 @@ export default function decorate(block) {
   const navWrapper = headerEl.querySelector('.nav-wrapper');
   const hamburger = headerEl.querySelector('.nav-hamburger');
   const navLinks = headerEl.querySelector('.nav-links');
+  const summitItem = headerEl.querySelector('.nav-has-dropdown');
+  const summitBtn = headerEl.querySelector('.nav-summit-btn');
 
-  hamburger.addEventListener('click', () => {
-    const isOpen = navWrapper.classList.toggle('nav-open');
-    hamburger.setAttribute('aria-expanded', isOpen);
+  // Dropdown toggle
+  summitBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    const isOpen = summitItem.classList.toggle('open');
+    summitBtn.setAttribute('aria-expanded', String(isOpen));
   });
 
+  // Escape closes dropdown, returns focus to trigger
+  headerEl.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && summitItem.classList.contains('open')) {
+      summitItem.classList.remove('open');
+      summitBtn.setAttribute('aria-expanded', 'false');
+      summitBtn.focus();
+    }
+  });
+
+  // Click outside closes dropdown
+  document.addEventListener('click', (e) => {
+    if (!summitItem.contains(e.target)) {
+      summitItem.classList.remove('open');
+      summitBtn.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  // Mobile hamburger
+  hamburger.addEventListener('click', () => {
+    const isOpen = navWrapper.classList.toggle('nav-open');
+    hamburger.setAttribute('aria-expanded', String(isOpen));
+  });
+
+  // Close mobile menu on any link click (including dropdown links)
   navLinks.addEventListener('click', (e) => {
     if (e.target.tagName === 'A') {
       navWrapper.classList.remove('nav-open');
       hamburger.setAttribute('aria-expanded', 'false');
+      summitItem.classList.remove('open');
+      summitBtn.setAttribute('aria-expanded', 'false');
     }
   });
 
+  // Scroll: white nav on scroll
   window.addEventListener('scroll', () => {
-    if (window.scrollY > 50) {
-      navWrapper.classList.add('scrolled');
-    } else {
-      navWrapper.classList.remove('scrolled');
-    }
+    navWrapper.classList.toggle('scrolled', window.scrollY > 50);
   }, { passive: true });
 }

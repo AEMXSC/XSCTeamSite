@@ -131,6 +131,142 @@ header nav > div,
   text-decoration: none;
 }
 
+/* ── Summit 2026 dropdown ── */
+.nav-has-dropdown {
+  position: relative;
+  list-style: none;
+}
+
+/* Ghost pill — Adobe Summit brand style (outlined, not filled red) */
+.nav-summit-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0.45rem 1rem;
+  border-radius: 9999px;
+  border: 1.5px solid rgb(255 255 255 / 30%);
+  background: transparent;
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: pointer;
+  min-height: 44px;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.nav-summit-btn:hover {
+  border-color: rgb(255 255 255 / 60%);
+  background: rgb(255 255 255 / 6%);
+}
+
+/* "Adobe" text in red — matches Adobe Summit logo treatment */
+.nav-summit-adobe {
+  color: #eb1000;
+  font-weight: 700;
+}
+
+/* Chevron — rotates 180deg on open */
+.nav-chevron {
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
+  opacity: 0.7;
+}
+
+.nav-has-dropdown.open .nav-chevron {
+  transform: rotate(180deg);
+  opacity: 1;
+}
+
+/* Dropdown panel */
+.nav-dropdown {
+  position: absolute;
+  top: calc(100% + 10px);
+  left: 0;
+  min-width: 180px;
+  background: hsl(220deg 22% 13%);
+  border: 1px solid rgb(255 255 255 / 10%);
+  border-radius: 10px;
+  padding: 6px;
+  list-style: none;
+  margin: 0;
+  box-shadow: 0 8px 24px rgb(0 0 0 / 40%);
+  z-index: 60;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-6px);
+  transition: opacity 0.2s ease, transform 0.2s ease, visibility 0s linear 0.2s;
+  pointer-events: none;
+}
+
+.nav-has-dropdown.open .nav-dropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  pointer-events: auto;
+}
+
+.nav-dropdown a {
+  display: block;
+  padding: 9px 14px;
+  color: rgb(255 255 255 / 70%);
+  font-size: 0.875rem;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background 0.15s ease, color 0.15s ease;
+  white-space: nowrap;
+}
+
+.nav-dropdown a:hover,
+.nav-dropdown a:focus-visible {
+  background: rgb(255 255 255 / 6%);
+  color: #fff;
+  outline: none;
+}
+
+/* Scrolled — white nav overrides */
+.nav-wrapper.scrolled .nav-summit-btn {
+  border-color: rgb(0 0 0 / 20%);
+  color: #1a1a1a;
+}
+
+.nav-wrapper.scrolled .nav-summit-btn:hover {
+  border-color: rgb(0 0 0 / 40%);
+  background: rgb(0 0 0 / 4%);
+}
+
+.nav-wrapper.scrolled .nav-summit-adobe {
+  color: #eb1000;
+}
+
+.nav-wrapper.scrolled .nav-chevron {
+  color: #1a1a1a;
+}
+
+.nav-wrapper.scrolled .nav-dropdown {
+  background: #fff;
+  border-color: rgb(0 0 0 / 10%);
+  box-shadow: 0 8px 24px rgb(0 0 0 / 12%);
+}
+
+.nav-wrapper.scrolled .nav-dropdown a {
+  color: #333;
+}
+
+.nav-wrapper.scrolled .nav-dropdown a:hover {
+  background: rgb(0 0 0 / 4%);
+  color: #eb1000;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .nav-dropdown { transition: opacity 0.1s, visibility 0s; }
+  .nav-chevron  { transition: none; }
+}
+
 /* hamburger button — hidden on desktop */
 .nav-hamburger {
   display: none;
@@ -242,5 +378,76 @@ header nav > div,
 
   .nav-open.scrolled {
     background: #fff !important;
+  }
+
+  /* Summit — reset pill to plain mobile nav item */
+  .nav-summit-btn {
+    background: none;
+    border: none;
+    border-radius: 0;
+    padding: 0.85rem 0;
+    font-size: 1rem;
+    font-weight: 500;
+    letter-spacing: normal;
+    color: rgb(255 255 255 / 75%);
+    width: 100%;
+    justify-content: space-between;
+    min-height: unset;
+  }
+
+  .nav-summit-btn:hover {
+    background: none;
+    border: none;
+    color: #fff;
+  }
+
+  .nav-has-dropdown {
+    border-bottom: 1px solid rgb(255 255 255 / 6%);
+    width: 100%;
+  }
+
+  /* Dropdown — accordion (static, not absolute) */
+  .nav-dropdown {
+    position: static;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    box-shadow: none;
+    padding: 0 0 0 1rem;
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    pointer-events: auto;
+    display: none;
+    transition: none;
+    min-width: unset;
+  }
+
+  .nav-has-dropdown.open .nav-dropdown {
+    display: block;
+    transform: none;
+  }
+
+  .nav-dropdown a {
+    padding: 0.7rem 0;
+    border-radius: 0;
+    border-bottom: 1px solid rgb(255 255 255 / 4%);
+    font-size: 0.9rem;
+    color: rgb(255 255 255 / 60%);
+  }
+
+  .nav-dropdown li:last-child a {
+    border-bottom: none;
+  }
+
+  /* Scrolled mobile */
+  .nav-wrapper.scrolled .nav-summit-btn {
+    border: none;
+    color: #333;
+    background: none;
+  }
+
+  .nav-wrapper.scrolled .nav-dropdown a {
+    color: #555;
   }
 }
