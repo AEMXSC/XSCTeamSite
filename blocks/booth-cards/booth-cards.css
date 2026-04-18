@@ -33,7 +33,14 @@
 .bc-card:hover {
   border-color: rgb(235 16 0 / 20%);
   transform: translateY(-4px);
+  text-decoration: none;
+  color: inherit;
 }
+
+.bc-card:hover .bc-title { color: #fff; text-decoration: none; }
+.bc-card:hover .bc-meta  { color: rgb(255 255 255 / 35%); text-decoration: none; }
+.bc-card:hover .bc-desc  { color: rgb(255 255 255 / 50%); text-decoration: none; }
+.bc-card:hover .bc-badge { text-decoration: none; }
 
 /* Status badge — matches demo-card-status: 9999px pill, 0.62rem, uppercase */
 .bc-badge {
