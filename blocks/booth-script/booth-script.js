@@ -64,6 +64,7 @@ function embedVideoLinks(html) {
     if (!VIDEO_EXTS.test(a.href)) return;
     const video = document.createElement('video');
     video.controls = true;
+    video.crossOrigin = 'anonymous';
     video.style.cssText = 'width:100%;border-radius:8px;margin-top:8px;display:block;';
     video.dataset.videoSrc = a.href;
     video.dataset.videoType = videoType(a.href);
@@ -112,7 +113,7 @@ export default async function decorate(block) {
 
     // Use data-video-src so the browser doesn't fetch until SW is controlling
     const videosHTML = videoLinks.map((a) =>
-      `<video controls data-video-src="${a.href}" data-video-type="${videoType(a.href)}" style="width:100%;border-radius:8px;margin-bottom:10px;display:block;"></video>`
+      `<video controls crossorigin="anonymous" data-video-src="${a.href}" data-video-type="${videoType(a.href)}" style="width:100%;border-radius:8px;margin-bottom:10px;display:block;"></video>`
     ).join('');
 
     const linksHTML = regularLinks.length
