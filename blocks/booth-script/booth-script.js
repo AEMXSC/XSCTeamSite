@@ -11,6 +11,13 @@ const STATUS_MAP = {
 
 const VIDEO_EXTS = /\.(mp4|mov|webm|m4v)(\?.*)?$/i;
 
+// .mov served as video/quicktime won't play on Windows Chrome — force video/mp4 so
+// Chrome uses its H.264 decoder (works for any H.264-encoded .mov file)
+function videoType(href) {
+  const ext = href.split('?')[0].split('.').pop().toLowerCase();
+  return ext === 'webm' ? 'video/webm' : 'video/mp4';
+}
+
 function statusBadge(text) {
   const key = text.toLowerCase().replace(/[\s-]+/g, ' ').trim();
   const match = Object.entries(STATUS_MAP).find(([k]) => key.includes(k));
@@ -45,6 +52,7 @@ function embedVideoLinks(html) {
     video.style.cssText = 'width:100%;border-radius:8px;margin-top:8px;display:block;';
     const source = document.createElement('source');
     source.src = a.href;
+    source.type = videoType(a.href);
     video.appendChild(source);
     // Replace the link's parent <p> if it's the only content, otherwise replace the link itself
     const parent = a.parentElement;
@@ -79,7 +87,7 @@ export default function decorate(block) {
     const regularLinks = links.filter((a) => !VIDEO_EXTS.test(a.href));
 
     const videosHTML = videoLinks.map((a) =>
-      `<video controls style="width:100%;border-radius:8px;margin-bottom:10px;display:block;"><source src="${a.href}"></video>`
+      `<video controls style="width:100%;border-radius:8px;margin-bottom:10px;display:block;"><source src="${a.href}" type="${videoType(a.href)}"></video>`
     ).join('');
 
     const linksHTML = regularLinks.length
