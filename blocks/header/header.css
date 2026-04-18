@@ -388,25 +388,26 @@ header nav > div,
     background: #fff !important;
   }
 
-  /* Summit — reset pill to plain mobile nav item */
+  /* Summit — reset pill to plain mobile nav item (!important overrides desktop) */
   .nav-summit-btn {
-    background: none;
-    border: none;
-    border-radius: 0;
-    padding: 0.85rem 0;
-    font-size: 1rem;
-    font-weight: 500;
-    letter-spacing: normal;
-    color: rgb(255 255 255 / 75%);
+    background: none !important;
+    border: none !important;
+    border-radius: 0 !important;
+    padding: 0.85rem 0 !important;
+    font-size: 1rem !important;
+    font-weight: 500 !important;
+    letter-spacing: normal !important;
+    color: rgb(255 255 255 / 75%) !important;
     width: 100%;
     justify-content: space-between;
-    min-height: unset;
+    min-height: unset !important;
   }
 
-  .nav-summit-btn:hover {
-    background: none;
-    border: none;
-    color: #fff;
+  .nav-summit-btn:hover,
+  .nav-summit-btn:focus {
+    background: none !important;
+    border: none !important;
+    color: #fff !important;
   }
 
   .nav-has-dropdown {
