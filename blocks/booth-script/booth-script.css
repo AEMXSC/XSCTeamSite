@@ -55,6 +55,19 @@
   line-height: 1.65;
 }
 
+.bs-body p {
+  margin: 0 0 8px;
+}
+
+.bs-body p:last-child {
+  margin-bottom: 0;
+}
+
+.bs-body-step {
+  padding-left: 12px;
+  border-left: 2px solid rgb(255 255 255 / 10%);
+}
+
 .bs-body strong {
   color: #fff;
   font-weight: 700;

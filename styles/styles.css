@@ -352,6 +352,20 @@ main .section:has(> div > .summit-coverage) > div {
   padding: 0;
 }
 
+/* summit content blocks — collapse 96px section gap to breathing room */
+main .section:has(> div > .booth-cards),
+main .section:has(> div > .booth-station),
+main .section:has(> div > .booth-script),
+main .section:has(> div > .booth-staff) {
+  padding: 8px 0 40px;
+}
+
+/* section heading rows (h2 only, no block) — tight bottom spacing before block section */
+main .section:has(> div > h2:only-child),
+main .section:has(> div > h3:only-child) {
+  padding: 48px 0 8px;
+}
+
 /* section metadata */
 main .section.light,
 main .section.highlight {

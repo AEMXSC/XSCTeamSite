@@ -40,10 +40,18 @@ export default function decorate(block) {
       ? `<div class="bs-status">${statusBadge(status)}</div>`
       : '';
 
+    // Split on middle-dot separators used in DA content, render as paragraphs
+    const formattedBody = body
+      .split(/\s*·\s*/)
+      .map((s) => s.trim())
+      .filter(Boolean)
+      .map((s, i) => `<p class="${i === 0 ? 'bs-body-lead' : 'bs-body-step'}">${s}</p>`)
+      .join('');
+
     card.innerHTML = `
       <div class="bs-num">${num}</div>
       <div class="bs-content">
-        <div class="bs-body">${body}</div>
+        <div class="bs-body">${formattedBody || body}</div>
         ${linksHTML}
         ${statusHTML}
       </div>
