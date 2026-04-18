@@ -26,7 +26,8 @@ export default function decorate(block) {
               </svg>
             </button>
             <ul class="nav-dropdown" role="menu">
-              <li><a href="/summit/" role="menuitem">Overview</a></li>
+              <li><a href="/summit/schedule" role="menuitem">Schedule</a></li>
+              <li><a href="/summit/" role="menuitem">Brand Visibility</a></li>
               <li><a href="/summit/aem-sites" role="menuitem">AEM Sites</a></li>
               <li><a href="/summit/aem-assets" role="menuitem">AEM Assets</a></li>
               <li><a href="/summit/aem-forms" role="menuitem">AEM Forms</a></li>
