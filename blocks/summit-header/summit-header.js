@@ -216,6 +216,7 @@ function renderNav(block, rows) {
   if (!leftLinks.length && !rightLinks.length) return;
 
   const currentPath = window.location.pathname.replace(/\/$/, '');
+  const isOverview = currentPath === '/summit' || currentPath === '/summit/index';
 
   const linkHtml = (links, shorten) => links.map((a) => {
     const href = new URL(a.href, window.location.href).pathname.replace(/\/$/, '');
@@ -233,6 +234,7 @@ function renderNav(block, rows) {
     ${leftLinks.length ? `
       <div class="sh-nav-group">
         <span class="sh-nav-label">Quest</span>
+        ${isOverview ? '<a href="/summit/" class="sh-nav-link sh-nav-active">Overview</a>' : ''}
         ${linkHtml(leftLinks, true)}
       </div>` : ''}
     ${leftLinks.length && rightLinks.length ? `<span class="sh-nav-sep" aria-hidden="true"></span>` : ''}
