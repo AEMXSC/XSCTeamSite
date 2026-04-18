@@ -238,10 +238,6 @@ body:has(.summit-header) main > .section > div > h2 {
   font-weight: 600;
 }
 
-/* Overview page — no active link, lift all items to readable brightness */
-.sh-nav:not(:has(.sh-nav-active)) .sh-nav-link {
-  color: rgb(255 255 255 / 72%);
-}
 
 .sh-nav-sep {
   display: block;
