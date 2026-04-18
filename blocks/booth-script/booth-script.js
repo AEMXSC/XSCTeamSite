@@ -40,13 +40,12 @@ export default function decorate(block) {
       ? `<div class="bs-status">${statusBadge(status)}</div>`
       : '';
 
-    // Split on middle-dot separators used in DA content, render as paragraphs
-    const formattedBody = body
-      .split(/\s*·\s*/)
-      .map((s) => s.trim())
-      .filter(Boolean)
-      .map((s, i) => `<p class="${i === 0 ? 'bs-body-lead' : 'bs-body-step'}">${s}</p>`)
-      .join('');
+    // If body already has block-level HTML, render as-is; otherwise split on · separators
+    const hasBlockHTML = /<(p|ul|ol|li|h[1-6]|blockquote)\b/i.test(body);
+    const segments = hasBlockHTML ? [] : body.split(/\s*·\s*/).map((s) => s.trim()).filter(Boolean);
+    const formattedBody = segments.length > 1
+      ? segments.map((s, i) => `<p class="${i === 0 ? 'bs-body-lead' : 'bs-body-step'}">${s}</p>`).join('')
+      : body;
 
     card.innerHTML = `
       <div class="bs-num">${num}</div>
