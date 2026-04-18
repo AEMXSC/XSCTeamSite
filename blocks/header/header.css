@@ -403,8 +403,12 @@ header nav > div,
     letter-spacing: normal !important;
     color: rgb(255 255 255 / 75%) !important;
     width: 100%;
-    justify-content: space-between;
+    justify-content: flex-start;
     min-height: unset !important;
+  }
+
+  .nav-summit-btn .nav-chevron {
+    margin-left: auto;
   }
 
   .nav-summit-btn:hover,
