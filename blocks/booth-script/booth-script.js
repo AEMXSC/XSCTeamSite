@@ -9,6 +9,8 @@ const STATUS_MAP = {
   'tbd':         { cls: 'bs-tbd',      label: 'TBD' },
 };
 
+const VIDEO_EXTS = /\.(mp4|mov|webm|m4v)(\?.*)?$/i;
+
 function statusBadge(text) {
   const key = text.toLowerCase().replace(/[\s-]+/g, ' ').trim();
   const match = Object.entries(STATUS_MAP).find(([k]) => key.includes(k));
@@ -32,6 +34,29 @@ function extractTitle(bodyHTML) {
   return '';
 }
 
+// DA sanitizes <video> elements — convert video links in body HTML to inline players
+function embedVideoLinks(html) {
+  const tmp = document.createElement('div');
+  tmp.innerHTML = html;
+  tmp.querySelectorAll('a').forEach((a) => {
+    if (!VIDEO_EXTS.test(a.href)) return;
+    const video = document.createElement('video');
+    video.controls = true;
+    video.style.cssText = 'width:100%;border-radius:8px;margin-top:8px;display:block;';
+    const source = document.createElement('source');
+    source.src = a.href;
+    video.appendChild(source);
+    // Replace the link's parent <p> if it's the only content, otherwise replace the link itself
+    const parent = a.parentElement;
+    if (parent && parent.tagName === 'P' && parent.childNodes.length === 1) {
+      parent.replaceWith(video);
+    } else {
+      a.replaceWith(video);
+    }
+  });
+  return tmp.innerHTML;
+}
+
 const CHEVRON_SVG = `<svg class="bs-chevron" width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true"><path d="M3 5l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>`;
 
 export default function decorate(block) {
@@ -49,8 +74,16 @@ export default function decorate(block) {
     const card = document.createElement('div');
     card.className = 'bs-card';
 
-    const linksHTML = links.length
-      ? `<div class="bs-links">${links.map((a) => `<a href="${a.href}" class="bs-link" target="_blank" rel="noopener">${a.textContent.trim()}</a>`).join('')}</div>`
+    // Split links column into videos (embed inline) and regular links (buttons)
+    const videoLinks = links.filter((a) => VIDEO_EXTS.test(a.href));
+    const regularLinks = links.filter((a) => !VIDEO_EXTS.test(a.href));
+
+    const videosHTML = videoLinks.map((a) =>
+      `<video controls style="width:100%;border-radius:8px;margin-bottom:10px;display:block;"><source src="${a.href}"></video>`
+    ).join('');
+
+    const linksHTML = regularLinks.length
+      ? `<div class="bs-links">${regularLinks.map((a) => `<a href="${a.href}" class="bs-link" target="_blank" rel="noopener">${a.textContent.trim()}</a>`).join('')}</div>`
       : '';
 
     const statusHTML = status
@@ -59,11 +92,13 @@ export default function decorate(block) {
 
     const hasBlockHTML = /<(p|ul|ol|li|h[1-6]|blockquote)\b/i.test(body);
     const segments = hasBlockHTML ? [] : body.split(/\s*·\s*/).map((s) => s.trim()).filter(Boolean);
-    const formattedBody = segments.length > 1
+    const rawBody = segments.length > 1
       ? segments.map((s, i) => `<p class="${i === 0 ? 'bs-body-lead' : 'bs-body-step'}">${s}</p>`).join('')
       : body;
 
-    const title = extractTitle(formattedBody || body);
+    // Convert any video links in body to inline players
+    const formattedBody = embedVideoLinks(rawBody);
+    const title = extractTitle(rawBody);
 
     card.innerHTML = `
       <div class="bs-num">${num}</div>
@@ -73,7 +108,8 @@ export default function decorate(block) {
           ${CHEVRON_SVG}
         </button>
         <div class="bs-collapse">
-          <div class="bs-body">${formattedBody || body}</div>
+          ${videosHTML}
+          <div class="bs-body">${formattedBody}</div>
           ${linksHTML}
         </div>
         ${statusHTML}
