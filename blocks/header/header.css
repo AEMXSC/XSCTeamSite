@@ -145,9 +145,9 @@ header nav > div,
   gap: 6px;
   padding: 0.45rem 1rem;
   border-radius: 9999px;
-  border: 1.5px solid rgb(255 255 255 / 30%);
-  background: transparent;
-  color: #fff;
+  border: 1.5px solid rgb(255 255 255 / 30%) !important;
+  background: transparent !important;
+  color: #fff !important;
   font-size: 0.8rem;
   font-weight: 600;
   letter-spacing: 0.02em;
@@ -157,9 +157,11 @@ header nav > div,
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
-.nav-summit-btn:hover {
-  border-color: rgb(255 255 255 / 60%);
-  background: rgb(255 255 255 / 6%);
+.nav-summit-btn:hover,
+.nav-summit-btn:focus {
+  border-color: rgb(255 255 255 / 65%) !important;
+  background: rgb(255 255 255 / 8%) !important;
+  color: #fff !important;
 }
 
 /* "Adobe" text in red — matches Adobe Summit logo treatment */
@@ -207,6 +209,11 @@ header nav > div,
   transform: translateY(0);
   transition: opacity 0.2s ease, transform 0.2s ease;
   pointer-events: auto;
+}
+
+.nav-dropdown li {
+  margin: 0;
+  padding: 0;
 }
 
 .nav-dropdown a {
