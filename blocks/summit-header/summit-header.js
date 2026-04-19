@@ -234,7 +234,7 @@ function renderNav(block, rows) {
     ${leftLinks.length ? `
       <div class="sh-nav-group">
         <span class="sh-nav-label">Quest</span>
-        ${isOverview ? '<a href="/summit/" class="sh-nav-link sh-nav-active">Overview</a>' : ''}
+        <a href="/summit/" class="sh-nav-link${isOverview ? ' sh-nav-active' : ''}">Overview</a>
         ${linkHtml(leftLinks, true)}
       </div>` : ''}
     ${leftLinks.length && rightLinks.length ? `<span class="sh-nav-sep" aria-hidden="true"></span>` : ''}
