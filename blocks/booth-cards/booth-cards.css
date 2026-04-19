@@ -37,6 +37,11 @@
   color: inherit;
 }
 
+.bc-card:focus-visible {
+  outline: 2px solid var(--color-red, #eb1000);
+  outline-offset: 2px;
+}
+
 .bc-card:hover .bc-title { color: #fff; text-decoration: none; }
 .bc-card:hover .bc-meta  { color: rgb(255 255 255 / 35%); text-decoration: none; }
 .bc-card:hover .bc-desc  { color: rgb(255 255 255 / 50%); text-decoration: none; }

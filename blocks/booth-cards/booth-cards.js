@@ -22,7 +22,8 @@ export default function decorate(block) {
     const status = STATUS[statusKey] || STATUS.wip;
     const linkEl = cells[1]?.querySelector('a');
     const title = linkEl?.textContent.trim() || cells[1]?.textContent.trim() || '';
-    const href = linkEl?.getAttribute('href') || '#';
+    const rawHref = linkEl?.getAttribute('href') || '#';
+    const href = /^javascript:/i.test(rawHref) ? '#' : rawHref;
     const meta = cells[2]?.textContent.trim() || '';
     const desc = cells[3]?.textContent.trim() || '';
 
