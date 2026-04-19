@@ -292,7 +292,8 @@ export default function decorate(block) {
     if (!document.contains(block)) { clearInterval(timer); obs.disconnect(); }
   }).observe(block.closest('main') || document.body, { childList: true, subtree: false });
 
-  // Force full-viewport width on the EDS-generated wrapper — bypasses CDN-cached CSS
+  // Force full-viewport width on wrapper + section — bypasses CDN-cached CSS
+  // booth-station.css constrains all sections to 1000px; exempt summit-header here
   requestAnimationFrame(() => {
     const wrapper = block.parentElement;
     if (wrapper) {
@@ -300,6 +301,12 @@ export default function decorate(block) {
       wrapper.style.padding = '0';
       wrapper.style.margin = '0';
       wrapper.style.width = '100%';
+    }
+    const section = block.closest('.section');
+    if (section) {
+      section.style.maxWidth = '100%';
+      section.style.margin = '0';
+      section.style.padding = '0';
     }
   });
 }

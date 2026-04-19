@@ -242,6 +242,13 @@ body:has(.booth-station) main .section {
   padding: 0 24px;
 }
 
+/* Summit-header must always span full viewport — exempt from the 1000px constraint */
+body:has(.booth-station) main .section:has(> div > .summit-header) {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
 /* "Demo Scripts" h2 — uses site's eyebrow pattern: red dash + red uppercase label */
 body:has(.booth-station) main .section h2 {
   font-size: 0.75rem;
