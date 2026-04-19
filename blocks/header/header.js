@@ -92,13 +92,9 @@ export default function decorate(block) {
     }
   });
 
-  // Tighten dropdown gap + item spacing — CSS may be CDN-cached
+  // Reduce gap between pill button and dropdown panel
   const navDropdown = headerEl.querySelector('.nav-dropdown');
   if (navDropdown) navDropdown.style.top = 'calc(100% + 4px)';
-  headerEl.querySelectorAll('.nav-dropdown a').forEach((a) => {
-    a.style.padding = '2px 10px';
-    a.style.lineHeight = '1.1';
-  });
 
   // Scroll: white nav on scroll
   window.addEventListener('scroll', () => {
