@@ -94,7 +94,7 @@ export default function decorate(block) {
 
   // Reduce gap between pill button and dropdown panel
   const navDropdown = headerEl.querySelector('.nav-dropdown');
-  if (navDropdown) navDropdown.style.top = 'calc(100% + 4px)';
+  if (navDropdown) navDropdown.style.top = '100%';
 
   // Scroll: white nav on scroll
   window.addEventListener('scroll', () => {
