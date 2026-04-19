@@ -245,6 +245,7 @@ function renderNav(block, rows) {
       </div>` : ''}
   `;
   block.append(nav);
+  nav.querySelectorAll('.sh-nav-link').forEach((a) => { a.style.fontSize = '13px'; });
 }
 
 export default function decorate(block) {

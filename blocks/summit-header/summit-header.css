@@ -218,8 +218,8 @@ body:has(.summit-header) main > .section > div > h2 {
 
 .sh-nav-link {
   display: block;
-  padding: 10px 9px;
-  font-size: 12px;
+  padding: 10px 10px;
+  font-size: 13px;
   color: rgb(255 255 255 / 48%);
   text-decoration: none;
   font-family: var(--body-font-family);
