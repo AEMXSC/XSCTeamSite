@@ -94,8 +94,8 @@ export default function decorate(block) {
 
   // Tighten dropdown item spacing — CSS may be CDN-cached
   headerEl.querySelectorAll('.nav-dropdown a').forEach((a) => {
-    a.style.padding = '4px 10px';
-    a.style.lineHeight = '1.2';
+    a.style.padding = '2px 10px';
+    a.style.lineHeight = '1.1';
   });
 
   // Scroll: white nav on scroll
