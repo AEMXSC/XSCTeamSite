@@ -1,9 +1,9 @@
 /* booth-cards — overview clickable cards — design tokens match homepage */
 
 .booth-cards-wrapper {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 0 24px 16px;
+  padding: 0 24px 24px;
 }
 
 .booth-cards {
@@ -13,7 +13,7 @@
 .bc-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 16px;
+  gap: 20px;
 }
 
 /* Card — matches demo-card: 16px radius, transparent border, red tint on hover */
@@ -136,6 +136,6 @@
 
   /* product section — auto-fills so 5 or 6 cards both work */
   .bc-grid.bc-products {
-    grid-template-columns: repeat(auto-fill, minmax(155px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
   }
 }

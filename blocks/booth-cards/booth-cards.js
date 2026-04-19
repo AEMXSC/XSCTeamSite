@@ -39,6 +39,7 @@ export default function decorate(block) {
 
   const grid = document.createElement('div');
   grid.className = 'bc-grid';
+  grid.style.gap = '20px';
   if (cards.length > 4) grid.classList.add('bc-products');
   grid.innerHTML = cards.join('');
 
