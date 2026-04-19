@@ -92,7 +92,9 @@ export default function decorate(block) {
     }
   });
 
-  // Tighten dropdown item spacing — CSS may be CDN-cached
+  // Tighten dropdown gap + item spacing — CSS may be CDN-cached
+  const navDropdown = headerEl.querySelector('.nav-dropdown');
+  if (navDropdown) navDropdown.style.top = 'calc(100% + 4px)';
   headerEl.querySelectorAll('.nav-dropdown a').forEach((a) => {
     a.style.padding = '2px 10px';
     a.style.lineHeight = '1.1';
