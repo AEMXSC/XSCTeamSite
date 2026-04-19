@@ -92,6 +92,12 @@ export default function decorate(block) {
     }
   });
 
+  // Tighten dropdown item spacing — CSS may be CDN-cached
+  headerEl.querySelectorAll('.nav-dropdown a').forEach((a) => {
+    a.style.padding = '4px 10px';
+    a.style.lineHeight = '1.2';
+  });
+
   // Scroll: white nav on scroll
   window.addEventListener('scroll', () => {
     navWrapper.classList.toggle('scrolled', window.scrollY > 50);
