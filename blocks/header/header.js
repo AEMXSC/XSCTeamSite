@@ -92,9 +92,16 @@ export default function decorate(block) {
     }
   });
 
-  // Reduce gap between pill button and dropdown panel
-  const navDropdown = headerEl.querySelector('.nav-dropdown');
-  if (navDropdown) navDropdown.style.top = '100%';
+  // Pin dropdown flush to the pill button using measured positions
+  requestAnimationFrame(() => {
+    const btn = headerEl.querySelector('.nav-summit-btn');
+    const li = headerEl.querySelector('.nav-has-dropdown');
+    const dropdown = headerEl.querySelector('.nav-dropdown');
+    if (btn && li && dropdown) {
+      const gap = btn.getBoundingClientRect().bottom - li.getBoundingClientRect().top;
+      dropdown.style.top = `${gap}px`;
+    }
+  });
 
   // Scroll: white nav on scroll
   window.addEventListener('scroll', () => {
