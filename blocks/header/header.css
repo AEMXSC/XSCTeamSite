@@ -218,7 +218,8 @@ header nav > div,
 
 .nav-dropdown a {
   display: block;
-  padding: 6px 12px;
+  padding: 4px 10px;
+  line-height: 1.2;
   color: rgb(255 255 255 / 70%);
   font-size: 0.875rem;
   font-weight: 500;
