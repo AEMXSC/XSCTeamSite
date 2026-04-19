@@ -244,6 +244,8 @@ function renderNav(block, rows) {
         ${linkHtml(rightLinks, false)}
       </div>` : ''}
   `;
+  // Tighten link padding so all items fit centered without safe-center fallback
+  nav.querySelectorAll('.sh-nav-link').forEach((a) => { a.style.padding = '10px 6px'; });
   block.append(nav);
 }
 
