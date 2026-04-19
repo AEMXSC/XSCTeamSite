@@ -290,4 +290,15 @@ export default function decorate(block) {
   new MutationObserver((_, obs) => {
     if (!document.contains(block)) { clearInterval(timer); obs.disconnect(); }
   }).observe(block.closest('main') || document.body, { childList: true, subtree: false });
+
+  // Force full-viewport width on the EDS-generated wrapper — bypasses CDN-cached CSS
+  requestAnimationFrame(() => {
+    const wrapper = block.parentElement;
+    if (wrapper) {
+      wrapper.style.maxWidth = '100%';
+      wrapper.style.padding = '0';
+      wrapper.style.margin = '0';
+      wrapper.style.width = '100%';
+    }
+  });
 }
