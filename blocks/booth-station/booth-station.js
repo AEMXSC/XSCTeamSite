@@ -27,6 +27,9 @@ export default function decorate(block) {
     data.demos && `${data.demos} demo${data.demos !== '1' ? 's' : ''}`,
   ].filter(Boolean);
 
+  const wrapper = block.parentElement;
+  if (wrapper) wrapper.style.paddingTop = '48px';
+
   block.innerHTML = `
     <p class="bs-eyebrow">${eyebrow}</p>
     <h1 class="bs-title">${data.station || data.title || ''}</h1>
