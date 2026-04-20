@@ -2,7 +2,7 @@
 
 /* ── Page header ── */
 .booth-station-wrapper {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 28px 24px 20px;
 }
@@ -237,7 +237,7 @@ body:has(.booth-station) main .section > .default-content-wrapper > table td:nth
 
 /* Section divider above each script table section */
 body:has(.booth-station) main .section {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 0 24px;
 }
