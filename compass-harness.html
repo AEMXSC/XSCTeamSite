@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Compass — Harness Pattern</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Source+Sans+3:wght@300;400;600;700;900&family=Source+Code+Pro:wght@500;600&display=swap');
+
+:root {
+  --bg:   #0f0f0f;
+  --bdr:  #333;
+  --red:  #eb1000;
+  --teal: #00c4b4;
+  --blue: #147af3;
+  --gold: #f68511;
+  --grn:  #33ab84;
+  --w:    #ffffff;
+  --off:  #e8e8e8;
+  --t2:   #aaaaaa;
+  --t3:   #666;
+  --font: 'Source Sans 3', sans-serif;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--w);font-family:var(--font);-webkit-font-smoothing:antialiased}
+
+.slide{width:1340px;margin:0 auto;padding:24px 32px 20px;display:flex;flex-direction:column;gap:12px}
+
+.hdr{display:flex;align-items:center;justify-content:space-between;padding-bottom:14px;border-bottom:1px solid var(--bdr)}
+.hl{display:flex;align-items:center;gap:14px}
+.wm{font-size:20px;font-weight:700;color:var(--red)}
+.sep{width:1px;height:22px;background:var(--bdr)}
+.ttl{font-size:22px;font-weight:700}
+.ttl em{color:var(--red);font-style:normal}
+.badge{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.8px;padding:4px 12px;border-radius:3px;color:var(--red);border:1px solid rgba(235,16,0,.3);background:rgba(235,16,0,.1)}
+
+.tag{font-size:17px;font-weight:300;color:var(--t2);text-align:center}
+.tag strong{color:var(--off);font-weight:700}
+
+.main{display:grid;grid-template-columns:210px 1fr 210px;align-items:center;gap:0}
+
+.side{display:flex;flex-direction:column;gap:26px}
+.sl{padding-right:16px}
+.sr{padding-left:16px}
+.co{display:flex;flex-direction:column;gap:4px}
+.sl .co{align-items:flex-end;text-align:right}
+.sr .co{align-items:flex-start;text-align:left}
+.co-name{font-size:16px;font-weight:700;text-transform:uppercase;letter-spacing:.6px;line-height:1.2}
+.co-sub{font-size:14px;color:var(--t2);line-height:1.5}
+
+.cr{color:var(--red)} .ct{color:var(--teal)} .cb{color:var(--blue)} .cg{color:var(--gold)} .cw{color:#bbb}
+
+.dcol{display:flex;flex-direction:column;align-items:center;gap:14px}
+
+.pillars{display:flex;gap:12px;width:780px}
+.pillar{flex:1;border-radius:5px;border:1px solid;padding:14px 16px;display:flex;flex-direction:column;gap:4px}
+.p-r{border-color:rgba(235,16,0,.3);background:rgba(235,16,0,.07)}
+.p-g{border-color:rgba(246,133,17,.3);background:rgba(246,133,17,.07)}
+.p-b{border-color:rgba(20,122,243,.3);background:rgba(20,122,243,.07)}
+.p-orig{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.8px;color:var(--t3)}
+.p-name{font-size:15px;font-weight:700;line-height:1.2}
+.p-val{font-size:13px;color:var(--t2);line-height:1.5;margin-top:1px}
+
+.ftr{display:flex;align-items:center;justify-content:space-between;padding-top:11px;border-top:1px solid var(--bdr)}
+.pills{display:flex;gap:7px;flex-wrap:wrap}
+.pill{font-size:11px;font-weight:600;padding:4px 11px;border-radius:3px;border:1px solid}
+.pg{color:var(--grn);border-color:rgba(51,171,132,.35);background:rgba(51,171,132,.08)}
+.po{color:var(--gold);border-color:rgba(246,133,17,.35);background:rgba(246,133,17,.08)}
+.pr{color:var(--red);border-color:rgba(235,16,0,.35);background:rgba(235,16,0,.08)}
+.copy{font-size:10px;color:var(--t3)}
+
+@keyframes spin  {to{transform:rotate(360deg)}}
+@keyframes rspin {to{transform:rotate(-360deg)}}
+@keyframes pulse {0%,100%{opacity:.4}50%{opacity:.9}}
+.sa{transform-origin:390px 380px;animation:spin  30s linear infinite}
+.sb{transform-origin:390px 380px;animation:rspin 20s linear infinite}
+.gp{animation:pulse 3s ease-in-out infinite}
+</style>
+</head>
+<body>
+<div class="slide">
+
+<div class="hdr">
+  <div class="hl">
+    <span class="wm">Adobe</span>
+    <div class="sep"></div>
+    <span class="ttl"><em>Project Compass</em> — Harness Pattern in Action</span>
+  </div>
+  <span class="badge">Exec Overview · AEM XSC</span>
+</div>
+
+<p class="tag"><strong>Continuous Reason → Act → Validate.</strong>&nbsp; Sandboxed. Your Tools &amp; Skills.</p>
+
+<div class="main">
+
+  <!-- LEFT -->
+  <div class="side sl">
+    <div class="co" style="margin-top:80px">
+      <div class="co-name cr">User Request</div>
+      <div class="co-sub">Natural language<br>in Compass UI</div>
+    </div>
+    <div class="co">
+      <div class="co-name ct">Guardrails</div>
+      <div class="co-sub">IMS auth · domain lock<br>Brand constraints</div>
+    </div>
+    <div class="co">
+      <div class="co-name cg">Tool Scoring</div>
+      <div class="co-sub">Governance check<br>Brand compliance</div>
+    </div>
+  </div>
+
+  <!-- DIAGRAM -->
+  <div class="dcol">
+  <svg viewBox="0 0 780 760" xmlns="http://www.w3.org/2000/svg" width="780" height="760"
+       style="filter:drop-shadow(0 0 90px rgba(235,16,0,.16)) drop-shadow(0 0 40px rgba(0,0,0,.8))">
+    <defs>
+      <linearGradient id="gO" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#2e2e2e"/>
+        <stop offset="100%" stop-color="#1a1a1a"/>
+      </linearGradient>
+      <linearGradient id="gM" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0%" stop-color="#444"/>
+        <stop offset="100%" stop-color="#2c2c2c"/>
+      </linearGradient>
+      <radialGradient id="gP" cx="50%" cy="30%" r="65%">
+        <stop offset="0%" stop-color="#d41200"/>
+        <stop offset="100%" stop-color="#7c0900"/>
+      </radialGradient>
+      <radialGradient id="gC" cx="50%" cy="40%" r="60%">
+        <stop offset="0%" stop-color="#ffffff"/>
+        <stop offset="100%" stop-color="#e0e0e0"/>
+      </radialGradient>
+      <filter id="fS" x="-25%" y="-25%" width="150%" height="150%">
+        <feGaussianBlur stdDeviation="5" result="b"/>
+        <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+      </filter>
+      <filter id="ts" x="-20%" y="-20%" width="140%" height="140%">
+        <feDropShadow dx="0" dy="0" stdDeviation="4" flood-color="#000" flood-opacity=".9"/>
+      </filter>
+      <clipPath id="cpI"><circle cx="390" cy="380" r="255"/></clipPath>
+      <marker id="mw" markerWidth="9" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#888"/></marker>
+      <marker id="mt" markerWidth="9" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#00c4b4"/></marker>
+      <marker id="mb" markerWidth="9" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#147af3"/></marker>
+      <marker id="mg" markerWidth="9" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#f68511"/></marker>
+      <marker id="mp" markerWidth="9" markerHeight="8" refX="7" refY="4" orient="auto"><polygon points="0,0 9,4 0,8" fill="#7e57c2"/></marker>
+    </defs>
+
+    <!-- OUTER RING -->
+    <circle cx="390" cy="380" r="356" fill="url(#gO)" stroke="#111" stroke-width="2"/>
+    <circle cx="390" cy="380" r="323" fill="#181818"/>
+    <g class="sa">
+      <circle cx="390" cy="380" r="340" fill="none" stroke="#3a3a3a" stroke-width="1.5" stroke-dasharray="18 9" opacity=".6"/>
+    </g>
+    <text font-family="Source Sans 3,sans-serif" font-size="20" font-weight="700" fill="#cccccc" letter-spacing="4">
+      <textPath href="#tp-ot" startOffset="50%" text-anchor="middle">SAFETY &amp; SCALE</textPath>
+    </text>
+    <path id="tp-ot" d="M 82 326 A 356 356 0 0 1 698 326" fill="none"/>
+    <text font-family="Source Sans 3,sans-serif" font-size="20" font-weight="700" fill="#cccccc" letter-spacing="4">
+      <textPath href="#tp-ob" startOffset="50%" text-anchor="middle">SAFETY &amp; SCALE</textPath>
+    </text>
+    <path id="tp-ob" d="M 698 434 A 356 356 0 0 1 82 434" fill="none"/>
+
+    <!-- MID RING -->
+    <circle cx="390" cy="380" r="311" fill="url(#gM)" stroke="#2a2a2a" stroke-width="1.5"/>
+    <circle cx="390" cy="380" r="255" fill="#1e1e1e"/>
+    <g class="sb">
+      <circle cx="390" cy="380" r="283" fill="none" stroke="#3d3d3d" stroke-width="1" stroke-dasharray="12 7" opacity=".5"/>
+    </g>
+    <text font-family="Source Sans 3,sans-serif" font-size="19" font-weight="700" fill="#dddddd" letter-spacing="3.5">
+      <textPath href="#tp-mt" startOffset="50%" text-anchor="middle">CAPABILITIES</textPath>
+    </text>
+    <path id="tp-mt" d="M 142 318 A 311 311 0 0 1 638 318" fill="none"/>
+    <text font-family="Source Sans 3,sans-serif" font-size="19" font-weight="700" fill="#dddddd" letter-spacing="3.5">
+      <textPath href="#tp-mb" startOffset="50%" text-anchor="middle">CAPABILITIES</textPath>
+    </text>
+    <path id="tp-mb" d="M 638 442 A 311 311 0 0 1 142 442" fill="none"/>
+
+    <!-- INNER LIGHT ZONE -->
+    <circle cx="390" cy="380" r="253" fill="#d0d0d0"/>
+    <circle cx="390" cy="380" r="253" fill="none" stroke="#b0b0b0" stroke-width="2"/>
+
+    <!-- 4 PETALS -->
+    <ellipse cx="323" cy="313" rx="96" ry="138" transform="rotate(-45 323 313)" fill="url(#gP)" clip-path="url(#cpI)" filter="url(#fS)"/>
+    <ellipse cx="457" cy="313" rx="96" ry="138" transform="rotate(45 457 313)"  fill="url(#gP)" clip-path="url(#cpI)" filter="url(#fS)"/>
+    <ellipse cx="323" cy="447" rx="96" ry="138" transform="rotate(45 323 447)"  fill="url(#gP)" clip-path="url(#cpI)" filter="url(#fS)"/>
+    <ellipse cx="457" cy="447" rx="96" ry="138" transform="rotate(-45 457 447)" fill="url(#gP)" clip-path="url(#cpI)" filter="url(#fS)"/>
+    <circle cx="390" cy="380" r="150" fill="#eb1000" opacity=".05" class="gp"/>
+
+    <!-- NW: ORCHESTRATION LOOP -->
+    <text x="266" y="232" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="18" font-weight="700" fill="white" filter="url(#ts)">ORCHESTRATION</text>
+    <text x="266" y="254" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="18" font-weight="700" fill="white" filter="url(#ts)">LOOP</text>
+    <rect x="168" y="263" width="196" height="22" rx="4" fill="#000000" opacity=".72"/>
+    <text x="266" y="278" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="13" font-weight="600" fill="#ffffff">Continuous reasoning cycle</text>
+
+    <!-- NE: OUTPUT PARSING -->
+    <text x="514" y="232" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="18" font-weight="700" fill="white" filter="url(#ts)">OUTPUT</text>
+    <text x="514" y="254" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="18" font-weight="700" fill="white" filter="url(#ts)">PARSING</text>
+    <rect x="432" y="263" width="164" height="22" rx="4" fill="#000000" opacity=".72"/>
+    <text x="514" y="278" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="13" font-weight="600" fill="#ffffff">Live stream to browser</text>
+
+    <!-- SW: ERROR HANDLING -->
+    <text x="266" y="462" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="18" font-weight="700" fill="white" filter="url(#ts)">ERROR</text>
+    <text x="266" y="484" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="18" font-weight="700" fill="white" filter="url(#ts)">HANDLING</text>
+    <rect x="178" y="493" width="176" height="22" rx="4" fill="#000000" opacity=".72"/>
+    <text x="266" y="508" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="13" font-weight="600" fill="#ffffff">Auto-retry on failure</text>
+
+    <!-- SE: PROMPT CONSTRUCTION -->
+    <text x="514" y="462" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="18" font-weight="700" fill="white" filter="url(#ts)">PROMPT</text>
+    <text x="514" y="484" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="18" font-weight="700" fill="white" filter="url(#ts)">CONSTRUCTION</text>
+    <rect x="406" y="493" width="216" height="22" rx="4" fill="#000000" opacity=".72"/>
+    <text x="514" y="508" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="13" font-weight="600" fill="#ffffff">Brand voice + page context</text>
+
+    <!-- CENTER -->
+    <circle cx="390" cy="380" r="100" fill="url(#gC)" stroke="#c8c8c8" stroke-width="2"/>
+    <circle cx="390" cy="380" r="100" fill="none" stroke="#eb1000" stroke-width="2" opacity=".4" class="gp"/>
+    <text x="390" y="358" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="13" font-weight="700" fill="#eb1000" letter-spacing="1.5" opacity=".7">PROJECT</text>
+    <text x="390" y="393" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="30" font-weight="900" fill="#1a1a1a" letter-spacing="-0.5">Compass</text>
+    <line x1="330" y1="402" x2="450" y2="402" stroke="#ccc" stroke-width="1"/>
+    <text x="390" y="418" text-anchor="middle" font-family="Source Sans 3,sans-serif"
+          font-size="12" font-weight="500" fill="#777">Powered by Claude Sonnet</text>
+
+    <!-- NORTH label -->
+    <rect x="308" y="80" width="164" height="40" rx="4" fill="#1c1c1c" stroke="#333" stroke-width="1"/>
+    <text x="390" y="97" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="16" font-weight="700" fill="#dddddd">TOOLS</text>
+    <text x="390" y="114" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="13" fill="#888">Adobe MCPs</text>
+
+    <!-- EAST label -->
+    <rect x="648" y="362" width="120" height="40" rx="4" fill="#1c1c1c" stroke="#333" stroke-width="1"/>
+    <text x="708" y="379" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="16" font-weight="700" fill="#dddddd">MEMORY</text>
+    <text x="708" y="396" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="13" fill="#888">AEM + Session</text>
+
+    <!-- WEST label -->
+    <rect x="14" y="362" width="120" height="40" rx="4" fill="#1c1c1c" stroke="#333" stroke-width="1"/>
+    <text x="74" y="379" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="16" font-weight="700" fill="#dddddd">State</text>
+    <text x="74" y="396" text-anchor="middle" font-family="Source Sans 3,sans-serif" font-size="13" fill="#888">IMS session</text>
+
+    <!-- CONNECTORS -->
+    <path d="M 0 280 Q 32 295 60 315" fill="none" stroke="#888" stroke-width="2.5" stroke-dasharray="7 4" marker-end="url(#mw)"/>
+    <path d="M 0 490 Q 32 475 60 455" fill="none" stroke="#f68511" stroke-width="2.5" stroke-dasharray="7 4" marker-end="url(#mg)"/>
+    <path d="M 780 280 Q 748 295 720 315" fill="none" stroke="#00c4b4" stroke-width="2.5" stroke-dasharray="7 4" marker-end="url(#mt)"/>
+    <path d="M 780 490 Q 748 475 720 455" fill="none" stroke="#888" stroke-width="2.5" stroke-dasharray="7 4" marker-end="url(#mw)"/>
+
+    <!-- Pillar arrows -->
+    <path d="M 238 730 C 238 690 300 630 344 555" fill="none" stroke="#7e57c2" stroke-width="2.5" marker-end="url(#mp)"/>
+    <path d="M 390 730 L 390 545" fill="none" stroke="#7e57c2" stroke-width="2.5" marker-end="url(#mp)"/>
+    <path d="M 542 730 C 542 690 480 630 436 555" fill="none" stroke="#7e57c2" stroke-width="2.5" marker-end="url(#mp)"/>
+  </svg>
+
+  <!-- PILLARS -->
+  <div class="pillars">
+    <div class="pillar p-r">
+      <div class="p-orig">Knowledge Bases &amp; Graphs</div>
+      <div class="p-name cr">AEM / DA Page Content</div>
+      <div class="p-val">Live page structure and<br>author-written content</div>
+    </div>
+    <div class="pillar p-g">
+      <div class="p-orig">Tools &amp; Protocols · MCP | A2A | APIs | CLIs</div>
+      <div class="p-name cg">Any Model · Any MCP · Any Customer Agent</div>
+      <div class="p-val">Adobe MCPs · AEM · DA · Sites Optimizer · Firefly<br>OpenAI · Google · Claude · Your APIs &amp; Skills</div>
+    </div>
+    <div class="pillar p-b">
+      <div class="p-orig">Skills</div>
+      <div class="p-name cb">System Prompt Constraints</div>
+      <div class="p-val">Brand voice · domain lock<br>IMS auth · guardrails</div>
+    </div>
+  </div>
+  </div><!-- /dcol -->
+
+  <!-- RIGHT -->
+  <div class="side sr">
+    <div class="co" style="margin-top:60px">
+      <div class="co-name ct">Verification Loops</div>
+      <div class="co-sub">Page renders automatically<br>after every change</div>
+    </div>
+    <div class="co">
+      <div class="co-name cb">Tool Calls</div>
+      <div class="co-sub">Read page → Rewrite content<br>→ Publish preview</div>
+    </div>
+    <div class="co">
+      <div class="co-name cw">Control Loops</div>
+      <div class="co-sub">Security layer<br>Identity-verified access only</div>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<div class="ftr">
+  <div class="pills">
+    <span class="pill pg">✓ Full Context at Every Step</span>
+    <span class="pill pg">✓ Edit → Govern → Preview in One Pass</span>
+    <span class="pill pg">✓ Zero Context Loss Across Tool Calls</span>
+    <span class="pill pr">↯ One Reasoning Thread — Zero Agent Handoffs</span>
+  </div>
+  <div class="copy">© 2025 Adobe Inc. · Confidential · AEM XSC Pre-Sales</div>
+</div>
+
+</div>
+</body>
+</html>
