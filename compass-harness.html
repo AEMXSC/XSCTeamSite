@@ -39,8 +39,8 @@ html,body{background:var(--bg);color:var(--w);font-family:var(--font);-webkit-fo
 .main{display:grid;grid-template-columns:210px 1fr 210px;align-items:center;gap:0}
 
 .side{display:flex;flex-direction:column;gap:26px}
-.sl{padding-right:16px}
-.sr{padding-left:16px}
+.sl{padding-right:16px;align-self:flex-start;padding-top:248px}
+.sr{padding-left:16px;align-self:flex-start;padding-top:248px}
 .co{display:flex;flex-direction:column;gap:4px}
 .sl .co{align-items:flex-end;text-align:right}
 .sr .co{align-items:flex-start;text-align:left}
@@ -94,7 +94,7 @@ html,body{background:var(--bg);color:var(--w);font-family:var(--font);-webkit-fo
 
   <!-- LEFT -->
   <div class="side sl">
-    <div class="co" style="margin-top:20px">
+    <div class="co">
       <div class="co-name cr">User Request</div>
       <div class="co-sub">Natural language<br>in Compass UI</div>
     </div>
@@ -281,7 +281,7 @@ html,body{background:var(--bg);color:var(--w);font-family:var(--font);-webkit-fo
 
   <!-- RIGHT -->
   <div class="side sr">
-    <div class="co" style="margin-top:10px">
+    <div class="co">
       <div class="co-name ct">Verification Loops</div>
       <div class="co-sub">Page renders automatically<br>after every change</div>
     </div>
