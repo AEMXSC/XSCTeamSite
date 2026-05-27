@@ -248,6 +248,24 @@ async function loadLazy(doc) {
       getAllMetadata, getMetadata, loadCSS, loadScript, sampleRUM, toCamelCase, toClassName,
     });
   }
+
+  const loadQuickEdit = async (...args) => {
+    const { default: initQuickEdit } = await import('../tools/quick-edit/quick-edit.js');
+    initQuickEdit(...args);
+  };
+
+  const addSidekickListeners = (sk) => {
+    sk.addEventListener('custom:quick-edit', loadQuickEdit);
+  };
+
+  const sk = document.querySelector('aem-sidekick');
+  if (sk) {
+    addSidekickListeners(sk);
+  } else {
+    document.addEventListener('sidekick-ready', () => {
+      addSidekickListeners(document.querySelector('aem-sidekick'));
+    }, { once: true });
+  }
 }
 
 /**
@@ -273,7 +291,7 @@ export async function loadPage() {
     import('../tools/da/da.js').then((mod) => mod.default(loadPage));
   }
   if (searchParams.has('quick-edit')) {
-    import('../tools/quick-edit/quick-edit.js').then((mod) => mod.default(loadPage));
+    import('../tools/quick-edit/quick-edit.js').then((mod) => mod.default());
   }
 }());
 

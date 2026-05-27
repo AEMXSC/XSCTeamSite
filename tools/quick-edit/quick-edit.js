@@ -1,4 +1,4 @@
-let _loadPage;
+import { loadPage } from '../../scripts/scripts.js';
 
 const importMap = {
   imports: {
@@ -16,7 +16,7 @@ function addImportmap() {
 
 async function loadModule(origin, payload) {
   const { default: loadQuickEdit } = await import(`${origin}/nx/public/plugins/quick-edit/quick-edit.js`);
-  loadQuickEdit(payload, _loadPage);
+  loadQuickEdit(payload, loadPage);
 }
 
 function generateSidekickPayload() {
@@ -36,8 +36,7 @@ function generateSidekickPayload() {
   };
 }
 
-export default function init(loadPage, payload) {
-  _loadPage = loadPage;
+export default function init(payload) {
   const { search } = window.location;
   const ref = new URLSearchParams(search).get('quick-edit');
   let origin;
