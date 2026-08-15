@@ -5,9 +5,11 @@ export default function decorate(block) {
     const name = cells[1]?.textContent.trim() || '';
     const role = cells[2]?.textContent.trim() || '';
     const vertical = cells[3]?.textContent.trim() || '';
+    const link = cells[4]?.querySelector('a')?.getAttribute('href') || cells[4]?.textContent.trim() || '';
 
-    const card = document.createElement('div');
+    const card = document.createElement(link ? 'a' : 'div');
     card.className = 'team-card';
+    if (link) card.href = link;
 
     // Check if the first cell contains an image
     const img = avatarCell?.querySelector('img');
