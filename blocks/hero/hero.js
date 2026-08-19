@@ -1,6 +1,27 @@
 export default function decorate(block) {
+  // Optional two-cell layout: [image, content]. Single-cell layout (no image)
+  // stays fully backward compatible with existing hero content.
+  const row = block.querySelector(':scope > div');
+  const cells = row ? [...row.children].filter((el) => el.tagName === 'DIV') : [];
+
+  let imageCell = null;
+  let raw = null;
+
+  if (cells.length >= 2) {
+    const firstImg = cells[0].querySelector('picture, img');
+    if (firstImg) {
+      imageCell = cells[0];
+      raw = cells[1];
+    } else {
+      // Empty/unused leading cell — use whichever cell actually has content.
+      raw = cells.find((el) => el.children.length > 0) || cells[cells.length - 1];
+    }
+  } else if (cells.length === 1) {
+    raw = cells[0];
+  }
+
   // Find content: try xwalk richtext nesting first, then fall back to first cell
-  let raw = block.querySelector(':scope > div > div > div');
+  if (!raw) raw = block.querySelector(':scope > div > div > div');
   if (!raw) raw = block.querySelector(':scope > div > div');
   if (!raw) raw = block.querySelector(':scope > div');
   if (!raw) {
@@ -77,5 +98,20 @@ export default function decorate(block) {
   }
 
   block.innerHTML = '';
+
+  if (imageCell) {
+    const picture = imageCell.querySelector('picture');
+    const bg = document.createElement('div');
+    bg.className = 'hero-bg';
+    if (picture) {
+      bg.appendChild(picture);
+    } else {
+      const img = imageCell.querySelector('img');
+      if (img) bg.appendChild(img);
+    }
+    block.appendChild(bg);
+    block.classList.add('has-image');
+  }
+
   block.appendChild(container);
 }

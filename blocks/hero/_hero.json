@@ -21,6 +21,13 @@
       "id": "hero",
       "fields": [
         {
+          "component": "reference",
+          "valueType": "string",
+          "name": "image",
+          "label": "Background Image",
+          "multi": false
+        },
+        {
           "component": "text",
           "name": "eyebrow",
           "value": "",
